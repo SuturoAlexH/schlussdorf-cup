@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex" xmlns:cx1="http://schemas.microsoft.com/office/drawing/2015/9/8/chartex" xmlns:cx2="http://schemas.microsoft.com/office/drawing/2015/10/21/chartex" xmlns:cx3="http://schemas.microsoft.com/office/drawing/2016/5/9/chartex" xmlns:cx4="http://schemas.microsoft.com/office/drawing/2016/5/10/chartex" xmlns:cx5="http://schemas.microsoft.com/office/drawing/2016/5/11/chartex" xmlns:cx6="http://schemas.microsoft.com/office/drawing/2016/5/12/chartex" xmlns:cx7="http://schemas.microsoft.com/office/drawing/2016/5/13/chartex" xmlns:cx8="http://schemas.microsoft.com/office/drawing/2016/5/14/chartex" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:aink="http://schemas.microsoft.com/office/drawing/2016/ink" xmlns:am3d="http://schemas.microsoft.com/office/drawing/2017/model3d" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid" xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 w16se w16cid wp14">
+	<w:body>
+		<w:p w:rsidR="00FC3995" w:rsidRDefault="00507164">
+			<w:r>
+				<w:rPr>
+					<w:noProof/>
+					<w:lang w:eastAsia="de-DE"/>
+				</w:rPr>
+				<w:drawing>
+					<wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251678720" behindDoc="1" locked="0" layoutInCell="1" allowOverlap="1">
+						<wp:simplePos x="0" y="0"/>
+						<wp:positionH relativeFrom="column">
+							<wp:posOffset>4948555</wp:posOffset>
+						</wp:positionH>
+						<wp:positionV relativeFrom="paragraph">
+							<wp:posOffset>-461645</wp:posOffset>
+						</wp:positionV>
+						<wp:extent cx="619125" cy="628650"/>
+						<wp:effectExtent l="19050" t="0" r="9525" b="0"/>
+						<wp:wrapNone/>
+						<wp:docPr id="1" name="Bild 7" descr="http://tbn0.google.com/images?q=tbn:Uhg1tL47wRcbgM:http://www.wehingen-saar.de/Zeichen.Feuerwehr-%2520Farbe(1).jpg">
+							<a:hlinkClick xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" r:id="rId5"/>
+						</wp:docPr>
+						<wp:cNvGraphicFramePr>
+							<a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+						</wp:cNvGraphicFramePr>
+						<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+							<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+								<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+									<pic:nvPicPr>
+										<pic:cNvPr id="0" name="Picture 7" descr="http://tbn0.google.com/images?q=tbn:Uhg1tL47wRcbgM:http://www.wehingen-saar.de/Zeichen.Feuerwehr-%2520Farbe(1).jpg">
+											<a:hlinkClick r:id="rId5"/>
+										</pic:cNvPr>
+										<pic:cNvPicPr>
+											<a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+										</pic:cNvPicPr>
+									</pic:nvPicPr>
+									<pic:blipFill>
+										<a:blip r:embed="rId6" r:link="rId7" cstate="print"/>
+										<a:srcRect/>
+										<a:stretch>
+											<a:fillRect/>
+										</a:stretch>
+									</pic:blipFill>
+									<pic:spPr bwMode="auto">
+										<a:xfrm>
+											<a:off x="0" y="0"/>
+											<a:ext cx="619125" cy="628650"/>
+										</a:xfrm>
+										<a:prstGeom prst="rect">
+											<a:avLst/>
+										</a:prstGeom>
+										<a:noFill/>
+										<a:ln w="9525">
+											<a:noFill/>
+											<a:miter lim="800000"/>
+											<a:headEnd/>
+											<a:tailEnd/>
+										</a:ln>
+									</pic:spPr>
+								</pic:pic>
+							</a:graphicData>
+						</a:graphic>
+					</wp:anchor>
+				</w:drawing>
+			</w:r>
+			<w:r>
+				<w:rPr>
+					<w:noProof/>
+					<w:lang w:eastAsia="de-DE"/>
+				</w:rPr>
+				<w:drawing>
+					<wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251667456" behindDoc="1" locked="0" layoutInCell="1" allowOverlap="1">
+						<wp:simplePos x="0" y="0"/>
+						<wp:positionH relativeFrom="column">
+							<wp:posOffset>319405</wp:posOffset>
+						</wp:positionH>
+						<wp:positionV relativeFrom="paragraph">
+							<wp:posOffset>-461645</wp:posOffset>
+						</wp:positionV>
+						<wp:extent cx="647700" cy="657225"/>
+						<wp:effectExtent l="19050" t="0" r="0" b="0"/>
+						<wp:wrapNone/>
+						<wp:docPr id="7" name="Bild 7" descr="http://tbn0.google.com/images?q=tbn:Uhg1tL47wRcbgM:http://www.wehingen-saar.de/Zeichen.Feuerwehr-%2520Farbe(1).jpg">
+							<a:hlinkClick xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" r:id="rId5"/>
+						</wp:docPr>
+						<wp:cNvGraphicFramePr>
+							<a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+						</wp:cNvGraphicFramePr>
+						<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+							<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+								<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+									<pic:nvPicPr>
+										<pic:cNvPr id="0" name="Picture 7" descr="http://tbn0.google.com/images?q=tbn:Uhg1tL47wRcbgM:http://www.wehingen-saar.de/Zeichen.Feuerwehr-%2520Farbe(1).jpg">
+											<a:hlinkClick r:id="rId5"/>
+										</pic:cNvPr>
+										<pic:cNvPicPr>
+											<a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+										</pic:cNvPicPr>
+									</pic:nvPicPr>
+									<pic:blipFill>
+										<a:blip r:embed="rId6" r:link="rId7" cstate="print"/>
+										<a:srcRect/>
+										<a:stretch>
+											<a:fillRect/>
+										</a:stretch>
+									</pic:blipFill>
+									<pic:spPr bwMode="auto">
+										<a:xfrm>
+											<a:off x="0" y="0"/>
+											<a:ext cx="647700" cy="657225"/>
+										</a:xfrm>
+										<a:prstGeom prst="rect">
+											<a:avLst/>
+										</a:prstGeom>
+										<a:noFill/>
+										<a:ln w="9525">
+											<a:noFill/>
+											<a:miter lim="800000"/>
+											<a:headEnd/>
+											<a:tailEnd/>
+										</a:ln>
+									</pic:spPr>
+								</pic:pic>
+							</a:graphicData>
+						</a:graphic>
+					</wp:anchor>
+				</w:drawing>
+			</w:r>
+			<w:r w:rsidR="00D82914">
+				<w:rPr>
+					<w:noProof/>
+				</w:rPr>
+				<w:pict>
+					<v:shapetype id="_x0000_t136" coordsize="21600,21600" o:spt="136" adj="10800" path="m@7,l@8,m@5,21600l@6,21600e">
+						<v:formulas>
+							<v:f eqn="sum #0 0 10800"/>
+							<v:f eqn="prod #0 2 1"/>
+							<v:f eqn="sum 21600 0 @1"/>
+							<v:f eqn="sum 0 0 @2"/>
+							<v:f eqn="sum 21600 0 @3"/>
+							<v:f eqn="if @0 @3 0"/>
+							<v:f eqn="if @0 21600 @1"/>
+							<v:f eqn="if @0 0 @2"/>
+							<v:f eqn="if @0 @4 21600"/>
+							<v:f eqn="mid @5 @6"/>
+							<v:f eqn="mid @8 @5"/>
+							<v:f eqn="mid @7 @8"/>
+							<v:f eqn="mid @6 @7"/>
+							<v:f eqn="sum @6 0 @5"/>
+						</v:formulas>
+						<v:path textpathok="t" o:connecttype="custom" o:connectlocs="@9,0;@10,10800;@11,21600;@12,10800" o:connectangles="270,180,90,0"/>
+						<v:textpath on="t" fitshape="t"/>
+						<v:handles>
+							<v:h position="#0,bottomRight" xrange="6629,14971"/>
+						</v:handles>
+						<o:lock v:ext="edit" text="t" shapetype="t"/>
+					</v:shapetype>
+					<v:shape id="_x0000_s1026" type="#_x0000_t136" style="position:absolute;margin-left:-411.95pt;margin-top:318.05pt;width:777.75pt;height:51pt;rotation:90;z-index:-251656192;mso-position-horizontal-relative:text;mso-position-vertical-relative:text" fillcolor="#365f91 [2404]">
+						<v:fill color2="black [3213]" rotate="t" focus="100%" type="gradient"/>
+						<v:shadow color="#868686"/>
+						<v:textpath style="font-family:&quot;Arial Black&quot;;v-rotate-letters:t;v-text-kern:t" trim="t" fitpath="t" string="Schlußdorf-Cup ${year}"/>
+					</v:shape>
+				</w:pict>
+			</w:r>
+			<w:r w:rsidR="00D82914">
+				<w:rPr>
+					<w:noProof/>
+				</w:rPr>
+				<w:pict>
+					<v:shape id="_x0000_s1027" type="#_x0000_t136" style="position:absolute;margin-left:90.8pt;margin-top:318.05pt;width:777.75pt;height:51pt;rotation:90;z-index:-251654144;mso-position-horizontal-relative:text;mso-position-vertical-relative:text" fillcolor="#365f91 [2404]">
+						<v:fill color2="black [3213]" rotate="t" focus="100%" type="gradient"/>
+						<v:shadow color="#868686"/>
+						<v:textpath style="font-family:&quot;Arial Black&quot;;v-rotate-letters:t;v-text-kern:t" trim="t" fitpath="t" string="Ortsfeuerwehr Schlußdorf"/>
+					</v:shape>
+				</w:pict>
+			</w:r>
+		</w:p>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00D82914" w:rsidP="00FC3995">
+			<w:r>
+				<w:rPr>
+					<w:noProof/>
+				</w:rPr>
+				<w:pict>
+					<v:shapetype id="_x0000_t144" coordsize="21600,21600" o:spt="144" adj="11796480" path="al10800,10800,10800,10800@2@14e">
+						<v:formulas>
+							<v:f eqn="val #1"/>
+							<v:f eqn="val #0"/>
+							<v:f eqn="sum 0 0 #0"/>
+							<v:f eqn="sumangle #0 0 180"/>
+							<v:f eqn="sumangle #0 0 90"/>
+							<v:f eqn="prod @4 2 1"/>
+							<v:f eqn="sumangle #0 90 0"/>
+							<v:f eqn="prod @6 2 1"/>
+							<v:f eqn="abs #0"/>
+							<v:f eqn="sumangle @8 0 90"/>
+							<v:f eqn="if @9 @7 @5"/>
+							<v:f eqn="sumangle @10 0 360"/>
+							<v:f eqn="if @10 @11 @10"/>
+							<v:f eqn="sumangle @12 0 360"/>
+							<v:f eqn="if @12 @13 @12"/>
+							<v:f eqn="sum 0 0 @14"/>
+							<v:f eqn="val 10800"/>
+							<v:f eqn="cos 10800 #0"/>
+							<v:f eqn="sin 10800 #0"/>
+							<v:f eqn="sum @17 10800 0"/>
+							<v:f eqn="sum @18 10800 0"/>
+							<v:f eqn="sum 10800 0 @17"/>
+							<v:f eqn="if @9 0 21600"/>
+							<v:f eqn="sum 10800 0 @18"/>
+						</v:formulas>
+						<v:path textpathok="t" o:connecttype="custom" o:connectlocs="10800,@22;@19,@20;@21,@20"/>
+						<v:textpath on="t" style="v-text-kern:t" fitpath="t"/>
+						<v:handles>
+							<v:h position="@16,#0" polar="10800,10800"/>
+						</v:handles>
+						<o:lock v:ext="edit" text="t" shapetype="t"/>
+					</v:shapetype>
+					<v:shape id="_x0000_s1031" type="#_x0000_t144" style="position:absolute;margin-left:46.2pt;margin-top:19.5pt;width:386.95pt;height:76.5pt;z-index:-251639808" fillcolor="#365f91 [2404]">
+						<v:fill color2="black [3213]" rotate="t" focus="100%" type="gradient"/>
+						<v:shadow color="#868686"/>
+						<v:textpath style="font-family:&quot;Arial Black&quot;" fitshape="t" trim="t" string="Urkunde"/>
+					</v:shape>
+				</w:pict>
+			</w:r>
+		</w:p>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00702CCD" w:rsidP="00FC3995">
+			<w:r>
+				<w:rPr>
+					<w:noProof/>
+					<w:lang w:eastAsia="de-DE"/>
+				</w:rPr>
+				<w:drawing>
+					<wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251679744" behindDoc="1" locked="0" layoutInCell="1" allowOverlap="1">
+						<wp:simplePos x="0" y="0"/>
+						<wp:positionH relativeFrom="column">
+							<wp:posOffset>567055</wp:posOffset>
+						</wp:positionH>
+						<wp:positionV relativeFrom="paragraph">
+							<wp:posOffset>281305</wp:posOffset>
+						</wp:positionV>
+						<wp:extent cx="4629150" cy="3086100"/>
+						<wp:effectExtent l="19050" t="0" r="0" b="0"/>
+						<wp:wrapNone/>
+						<wp:docPr id="2" name="Bild 1" descr="C:\Users\Nadine und Johannes\Desktop\Fotos2\IMG_1920.JPG"/>
+						<wp:cNvGraphicFramePr>
+							<a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+						</wp:cNvGraphicFramePr>
+						<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+							<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+								<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+									<pic:nvPicPr>
+										<pic:cNvPr id="0" name="Picture 1" descr="C:\Users\Nadine und Johannes\Desktop\Fotos2\IMG_1920.JPG"/>
+										<pic:cNvPicPr>
+											<a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+										</pic:cNvPicPr>
+									</pic:nvPicPr>
+									<pic:blipFill>
+										<a:blip r:embed="rId8" cstate="print"/>
+										<a:srcRect/>
+										<a:stretch>
+											<a:fillRect/>
+										</a:stretch>
+									</pic:blipFill>
+									<pic:spPr bwMode="auto">
+										<a:xfrm>
+											<a:off x="0" y="0"/>
+											<a:ext cx="4629150" cy="3086100"/>
+										</a:xfrm>
+										<a:prstGeom prst="rect">
+											<a:avLst/>
+										</a:prstGeom>
+										<a:noFill/>
+										<a:ln w="9525">
+											<a:noFill/>
+											<a:miter lim="800000"/>
+											<a:headEnd/>
+											<a:tailEnd/>
+										</a:ln>
+									</pic:spPr>
+								</pic:pic>
+							</a:graphicData>
+						</a:graphic>
+					</wp:anchor>
+				</w:drawing>
+			</w:r>
+		</w:p>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00FC3995"/>
+		<w:p w:rsidR="00333798" w:rsidRPr="00333798" w:rsidRDefault="00333798" w:rsidP="00333798">
+			<w:pPr>
+				<w:tabs>
+					<w:tab w:val="left" w:pos="1140"/>
+				</w:tabs>
+				<w:jc w:val="center"/>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="16"/>
+					<w:szCs w:val="16"/>
+				</w:rPr>
+			</w:pPr>
+		</w:p>
+		<w:p w:rsidR="00333798" w:rsidRDefault="00333798" w:rsidP="00333798">
+			<w:pPr>
+				<w:tabs>
+					<w:tab w:val="left" w:pos="1140"/>
+				</w:tabs>
+				<w:jc w:val="center"/>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+				</w:rPr>
+			</w:pPr>
+		</w:p>
+		<w:p w:rsidR="000F4BF1" w:rsidRPr="00333798" w:rsidRDefault="000F4BF1" w:rsidP="00333798">
+			<w:pPr>
+				<w:tabs>
+					<w:tab w:val="left" w:pos="1140"/>
+				</w:tabs>
+				<w:jc w:val="center"/>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+				</w:rPr>
+			</w:pPr>
+		</w:p>
+		<w:p w:rsidR="00FC3995" w:rsidRPr="000F4BF1" w:rsidRDefault="000F4BF1" w:rsidP="00EA7B1B">
+			<w:pPr>
+				<w:tabs>
+					<w:tab w:val="left" w:pos="1140"/>
+				</w:tabs>
+				<w:jc w:val="center"/>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="16"/>
+					<w:szCs w:val="16"/>
+				</w:rPr>
+			</w:pPr>
+			<w:r>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:noProof/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+					<w:lang w:eastAsia="de-DE"/>
+				</w:rPr>
+				<w:drawing>
+					<wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251674624" behindDoc="1" locked="0" layoutInCell="1" allowOverlap="1">
+						<wp:simplePos x="0" y="0"/>
+						<wp:positionH relativeFrom="column">
+							<wp:posOffset>4662805</wp:posOffset>
+						</wp:positionH>
+						<wp:positionV relativeFrom="paragraph">
+							<wp:posOffset>1826895</wp:posOffset>
+						</wp:positionV>
+						<wp:extent cx="964565" cy="942975"/>
+						<wp:effectExtent l="19050" t="0" r="6985" b="0"/>
+						<wp:wrapNone/>
+						<wp:docPr id="9" name="Bild 8" descr="C:\Dokumente und Einstellungen\Johannes und Nadine\Lokale Einstellungen\Temporary Internet Files\Content.IE5\0X2V0XY3\MCj02000090000[1].wmf"/>
+						<wp:cNvGraphicFramePr>
+							<a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+						</wp:cNvGraphicFramePr>
+						<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+							<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+								<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+									<pic:nvPicPr>
+										<pic:cNvPr id="0" name="Picture 8" descr="C:\Dokumente und Einstellungen\Johannes und Nadine\Lokale Einstellungen\Temporary Internet Files\Content.IE5\0X2V0XY3\MCj02000090000[1].wmf"/>
+										<pic:cNvPicPr>
+											<a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+										</pic:cNvPicPr>
+									</pic:nvPicPr>
+									<pic:blipFill>
+										<a:blip r:embed="rId9" cstate="print"/>
+										<a:srcRect/>
+										<a:stretch>
+											<a:fillRect/>
+										</a:stretch>
+									</pic:blipFill>
+									<pic:spPr bwMode="auto">
+										<a:xfrm>
+											<a:off x="0" y="0"/>
+											<a:ext cx="964565" cy="942975"/>
+										</a:xfrm>
+										<a:prstGeom prst="rect">
+											<a:avLst/>
+										</a:prstGeom>
+										<a:noFill/>
+										<a:ln w="9525">
+											<a:noFill/>
+											<a:miter lim="800000"/>
+											<a:headEnd/>
+											<a:tailEnd/>
+										</a:ln>
+									</pic:spPr>
+								</pic:pic>
+							</a:graphicData>
+						</a:graphic>
+					</wp:anchor>
+				</w:drawing>
+			</w:r>
+			<w:r w:rsidR="00333798">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:noProof/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+					<w:lang w:eastAsia="de-DE"/>
+				</w:rPr>
+				<w:drawing>
+					<wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251672576" behindDoc="1" locked="0" layoutInCell="1" allowOverlap="1">
+						<wp:simplePos x="0" y="0"/>
+						<wp:positionH relativeFrom="column">
+							<wp:posOffset>-42544</wp:posOffset>
+						</wp:positionH>
+						<wp:positionV relativeFrom="paragraph">
+							<wp:posOffset>1741170</wp:posOffset>
+						</wp:positionV>
+						<wp:extent cx="704850" cy="1318977"/>
+						<wp:effectExtent l="19050" t="0" r="0" b="0"/>
+						<wp:wrapNone/>
+						<wp:docPr id="10" name="Bild 7" descr="C:\Dokumente und Einstellungen\Johannes und Nadine\Lokale Einstellungen\Temporary Internet Files\Content.IE5\V9J67J8X\MCj02353870000[1].wmf"/>
+						<wp:cNvGraphicFramePr>
+							<a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+						</wp:cNvGraphicFramePr>
+						<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+							<a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+								<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+									<pic:nvPicPr>
+										<pic:cNvPr id="0" name="Picture 7" descr="C:\Dokumente und Einstellungen\Johannes und Nadine\Lokale Einstellungen\Temporary Internet Files\Content.IE5\V9J67J8X\MCj02353870000[1].wmf"/>
+										<pic:cNvPicPr>
+											<a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+										</pic:cNvPicPr>
+									</pic:nvPicPr>
+									<pic:blipFill>
+										<a:blip r:embed="rId10" cstate="print"/>
+										<a:srcRect/>
+										<a:stretch>
+											<a:fillRect/>
+										</a:stretch>
+									</pic:blipFill>
+									<pic:spPr bwMode="auto">
+										<a:xfrm>
+											<a:off x="0" y="0"/>
+											<a:ext cx="704850" cy="1318977"/>
+										</a:xfrm>
+										<a:prstGeom prst="rect">
+											<a:avLst/>
+										</a:prstGeom>
+										<a:noFill/>
+										<a:ln w="9525">
+											<a:noFill/>
+											<a:miter lim="800000"/>
+											<a:headEnd/>
+											<a:tailEnd/>
+										</a:ln>
+									</pic:spPr>
+								</pic:pic>
+							</a:graphicData>
+						</a:graphic>
+					</wp:anchor>
+				</w:drawing>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t>Die Ortsfeuerwehr</w:t>
+			</w:r>
+			<w:r w:rsidR="00EA7B1B">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve"> ${fire_department}</w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">    </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">         </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                                                                                                                         hat bei den </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                                                     </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">Heimberg-Fuchs Wettbewerben                                                                                                         der </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t>Ortsf</w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">euerwehr </w:t>
+			</w:r>
+			<w:proofErr w:type="spellStart"/>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t>Schlußdorf</w:t>
+			</w:r>
+			<w:proofErr w:type="spellEnd"/>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                                                                                                      mit</w:t>
+			</w:r>
+			<w:r w:rsidR="00EA7B1B">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve"> ${final_score} </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t>Punkten</w:t>
+			</w:r>
+			<w:r w:rsidR="00EA7B1B">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                                </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">  </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">    </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                                                                                                               </w:t>
+			</w:r>
+			<w:r w:rsidR="00702CCD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                               </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">den </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve">                                                         </w:t>
+			</w:r>
+			<w:r w:rsidR="00EA7B1B">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t xml:space="preserve"> ${place}. </w:t>
+			</w:r>
+			<w:r w:rsidR="00870B9A" w:rsidRPr="009070BD">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="48"/>
+					<w:szCs w:val="48"/>
+				</w:rPr>
+				<w:t>Platz erreicht.</w:t>
+			</w:r>
+		</w:p>
+		<w:p w:rsidR="000F4BF1" w:rsidRPr="000F4BF1" w:rsidRDefault="000F4BF1" w:rsidP="000F4BF1">
+			<w:pPr>
+				<w:tabs>
+					<w:tab w:val="left" w:pos="1650"/>
+				</w:tabs>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="2"/>
+					<w:szCs w:val="2"/>
+				</w:rPr>
+			</w:pPr>
+			<w:r>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+				</w:rPr>
+				<w:tab/>
+			</w:r>
+		</w:p>
+		<w:p w:rsidR="00FC3995" w:rsidRDefault="00FC3995" w:rsidP="00333798">
+			<w:pPr>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="24"/>
+					<w:szCs w:val="24"/>
+				</w:rPr>
+			</w:pPr>
+			<w:r>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+				</w:rPr>
+				<w:t xml:space="preserve">         </w:t>
+			</w:r>
+			<w:r w:rsidR="00333798" w:rsidRPr="00333798">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="24"/>
+					<w:szCs w:val="24"/>
+				</w:rPr>
+				<w:t xml:space="preserve">Schlußdorf, den </w:t>
+			</w:r>
+			<w:r w:rsidR="00D82914">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="24"/>
+					<w:szCs w:val="24"/>
+				</w:rPr>
+				<w:t>${date}</w:t>
+			</w:r>
+		</w:p>
+		<w:p w:rsidR="00333798" w:rsidRPr="00333798" w:rsidRDefault="00333798" w:rsidP="00333798">
+			<w:pPr>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="2"/>
+					<w:szCs w:val="2"/>
+				</w:rPr>
+			</w:pPr>
+		</w:p>
+		<w:p w:rsidR="00654AD2" w:rsidRPr="00FC3995" w:rsidRDefault="00333798" w:rsidP="002B2752">
+			<w:r>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="24"/>
+					<w:szCs w:val="24"/>
+				</w:rPr>
+				<w:t xml:space="preserve">          ____________________                                     ____________________            </w:t>
+			</w:r>
+			<w:r w:rsidRPr="000F4BF1">
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:color w:val="FFFFFF" w:themeColor="background1"/>
+					<w:sz w:val="24"/>
+					<w:szCs w:val="24"/>
+				</w:rPr>
+				<w:t xml:space="preserve">‚ </w:t>
+			</w:r>
+			<w:r>
+				<w:rPr>
+					<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+					<w:b/>
+					<w:sz w:val="24"/>
+					<w:szCs w:val="24"/>
+				</w:rPr>
+				<w:t xml:space="preserve">        Wettbewerbsleiter                                               Ortsbrandmeister</w:t>
+			</w:r>
+		</w:p>
+		<w:sectPr w:rsidR="00654AD2" w:rsidRPr="00FC3995" w:rsidSect="00333798">
+			<w:pgSz w:w="11906" w:h="16838"/>
+			<w:pgMar w:top="1417" w:right="1417" w:bottom="0" w:left="1417" w:header="708" w:footer="708" w:gutter="0"/>
+			<w:cols w:space="708"/>
+			<w:docGrid w:linePitch="360"/>
+		</w:sectPr>
+	</w:body>
+</w:document>
