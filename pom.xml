@@ -16,14 +16,13 @@
     </properties>
 
     <modules>
-        <module>../schlussdorf-cup-ui</module>
-        <module>../certificate-service</module>
-        <module>../certificate-summary-service</module>
-        <module>../domain-model</module>
-        <module>../persistence-service</module>
-        <module>../jPdfUnit</module>
+        <module>./schlussdorf-cup-ui</module>
+        <module>./certificate-service</module>
+        <module>./certificate-summary-service</module>
+        <module>./domain-model</module>
+        <module>./persistence-service</module>
+        <module>../pdf-tester/jPdfUnit</module>
         <module>../javafx-mvc</module>
-        <module>../validator</module>
     </modules>
 
     <build>

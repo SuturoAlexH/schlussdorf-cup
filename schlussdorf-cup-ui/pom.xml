@@ -33,13 +33,13 @@
         </dependency>
 
         <dependency>
-            <groupId>com.javafx-mvc</groupId>
+            <groupId>com.javafxMvc</groupId>
             <artifactId>javafx-mvc</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>com.jafafxMvc</groupId>
+            <groupId>com.javafxMvc</groupId>
             <artifactId>validator</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
