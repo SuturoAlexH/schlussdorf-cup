@@ -54,6 +54,7 @@ public class App extends MVCApplication {
         stage.setScene(scene);
 
         stage.show();
+        LOGGER.info("###################################################################");
         LOGGER.info("started application");
     }
 

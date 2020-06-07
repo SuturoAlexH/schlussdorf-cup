@@ -7,6 +7,8 @@ import com.javafxMvc.annotations.MVCController;
 import com.javafxMvc.annotations.PostConstruct;
 import org.openjfx.components.ErrorDialog;
 import org.openjfx.constants.Folders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import service.LoadService;
 
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @MVCController
 public class ResultTableController implements ResultTableActions{
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResultTableController.class);
 
     @Inject
     private ResultTableModel model;
@@ -37,6 +41,7 @@ public class ResultTableController implements ResultTableActions{
             List<Result> loadedResults = loadService.load(Folders.SAVE_FOLDER);
             model.getResultList().addAll(loadedResults);
         } catch (IOException e) {
+            LOGGER.error(e.getMessage());
             loadErrorDialog.show("Die Speicherdatei enthält einen Fehler und konnte nicht geladen werden.");
         }
     }

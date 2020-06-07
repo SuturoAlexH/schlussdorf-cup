@@ -48,7 +48,11 @@ public class ResultBuilder {
     }
 
     public ResultBuilder time(final String time){
-        this.time = Double.valueOf(time);
+        if(time.contains(",")){
+            this.time = Double.valueOf(time.replace(",", "."));
+        }else{
+            this.time = Double.valueOf(time);
+        }
 
         return this;
     }
@@ -60,7 +64,11 @@ public class ResultBuilder {
     }
 
     public ResultBuilder mistakePoints(final String mistakePoints){
-        this.mistakePoints = Integer.valueOf(mistakePoints);
+        if(mistakePoints == null || mistakePoints.isEmpty()){
+            this.mistakePoints = 0;
+        }else{
+            this.mistakePoints = Integer.valueOf(mistakePoints);
+        }
 
         return this;
     }

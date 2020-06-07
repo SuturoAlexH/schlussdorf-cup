@@ -19,6 +19,7 @@ import service.SaveService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.function.Function;
 
 @MVCController
@@ -58,12 +59,19 @@ public class ResultDialogController implements ResultDialogActions {
         view.mistakePointsErrorLabel.visibleProperty().bindBidirectional(model.getMistakePoints().isVisibleProperty());
         view.mistakePointsErrorLabel.textProperty().bindBidirectional(model.getMistakePoints().errorProperty());
 
-        model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> view.imageWrapper.setStyle("-fx-border-color:none"));
+        model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
+            if(newImageFile != null){
+                view.imageWrapper.setStyle("-fx-border-color:none");
+            }else{
+                view.imageWrapper.setStyle("-fx-border-color:black");
+            }
+        });
+
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             try {
                 view.image.setImage(new Image(FileUtils.openInputStream(newImageFile)));
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage());
             }
         });
         view.imageErrorLabel.visibleProperty().bindBidirectional(model.getImage().isVisibleProperty());
@@ -105,6 +113,8 @@ public class ResultDialogController implements ResultDialogActions {
     }
 
     private void addResult() throws IOException {
+        UUID uuid = model.getUuid() != null? model.getUuid(): UUID.randomUUID();
+
         //copy image if necessary
         File selectedImageFile = model.getImage().getValue();
         File resultImageFile = new File(Folders.IMAGE_FOLDER + model.getUuid() +  ".jpeg");
@@ -112,31 +122,30 @@ public class ResultDialogController implements ResultDialogActions {
             FileUtils.copyFile(selectedImageFile, resultImageFile);
         }
 
-        //insert or update result
+        //create result
         ResultBuilder resultBuilder = new ResultBuilder();
-        if(model.getUuid() != null){
-            Result result = resultBuilder.uuid(model.getUuid())
-                    .fireDepartment(model.getFireDepartment().getValue())
-                    .time(model.getTime().getValue())
-                    .mistakePoints(model.getMistakePoints().getValue())
-                    .image(resultImageFile)
-                    .build();
+        Result result = resultBuilder.uuid(uuid)
+                .fireDepartment(model.getFireDepartment().getValue())
+                .time(model.getTime().getValue())
+                .mistakePoints(model.getMistakePoints().getValue())
+                .image(resultImageFile)
+                .build();
 
+        //insert or update result
+        if(model.getUuid() != null){
             int index = resultTableModel.getResultList().indexOf(result);
             resultTableModel.getResultList().set(index, result);
         }else{
-            Result result = resultBuilder.fireDepartment(model.getFireDepartment().getValue())
-                    .time(model.getTime().getValue())
-                    .mistakePoints(model.getMistakePoints().getValue())
-                    .image(resultImageFile)
-                    .build();
-
             resultTableModel.getResultList().add(result);
         }
 
         //update place
         Function<Result, Integer> getPlace = r -> resultTableModel.getResultList().indexOf(r) +1;
-        resultTableModel.getResultList().stream().sorted().forEach(r -> r.setPlace(getPlace.apply(r)));
+        resultTableModel.getResultList().stream().sorted().forEach(r -> {
+                r.setPlace(getPlace.apply(r));
+                System.out.println("res: " + r);
+            }
+        );
 
         //save to csv
         saveService.save(resultTableModel.getResultList(), Folders.SAVE_FOLDER);
