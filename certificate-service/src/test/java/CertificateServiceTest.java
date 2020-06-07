@@ -1,11 +1,14 @@
 import com.jPdfUnit.asserts.PdfAssert;
+import factory.ResultBuilder;
 import model.Result;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import service.CertificateService;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -13,53 +16,202 @@ import java.util.UUID;
 
 public class CertificateServiceTest {
 
-    private String docxFilePath = "./test.docx";
+    private static final String DOCX_FILE_PATH = "./certificate.docx";
 
-    private String pdfFilePath = "./Feuerwehr1_450.66.pdf";
+    private static final String PDF_FILE_PATH = "./certificate.pdf";
 
-    private static Result result;
+    private static final String CURRENT_DATE = "06.06.2020";
 
-    @BeforeClass
-    public static void setUp(){
-        try {
-            URL resource = CertificateServiceTest.class.getResource("/images/test_image.jpeg");
-            File image = Paths.get(resource.toURI()).toFile();
-            result = new Result(UUID.randomUUID(), 1, "Feuerwehr1", 10.1, 5, 450.66, image.getAbsolutePath());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+    private static final String CURRENT_YEAR = "2020";
+
+    private CertificateService classUnderTest;
+
+    private File docxFile;
+
+    private File pdfFile;
+
+    @Before
+    public void setUp(){
+        classUnderTest = new CertificateService();
+
+        docxFile = new File(DOCX_FILE_PATH);
+        pdfFile = new File(PDF_FILE_PATH);
     }
 
     @After
     public void tearDown(){
-        File docxFile = new File(docxFilePath);
         docxFile.delete();
-
-        File pdfFile = new File(pdfFilePath);
         pdfFile.delete();
     }
 
-    @Test
-    public void createDocuments_pageAmount_one(){
+    @Test(expected = NullPointerException.class)
+    public void createDocuments_resultIsNull_nullPointerException() throws IOException {
         //arrange
 
         //act
-        CertificateService.createDocuments(result, docxFilePath, pdfFilePath, "22.05.2020", "2020");
+        classUnderTest.createDocuments(null, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        PdfAssert.assertThat(new File(pdfFilePath)).hasNumberOfPages(1);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void createDocuments_docxFileIsNull_nullPointerException() throws IOException {
+        //arrange
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, null, pdfFile, CURRENT_DATE, CURRENT_YEAR);
+
+        //assert
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void createDocuments_pdfFileIsNull_nullPointerException() throws IOException {
+        //arrange
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, docxFile, null, CURRENT_DATE, CURRENT_YEAR);
+
+        //assert
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void createDocuments_currentDateIsNull_nullPointerException() throws IOException {
+        //arrange
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, docxFile, pdfFile, null, CURRENT_YEAR);
+
+        //assert
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void createDocuments_currentYearIsNull_nullPointerException() throws IOException {
+        //arrange
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, null);
+
+        //assert
     }
 
     @Test
-    public void createDocuments_appearance_equalsReferenceDocument() throws URISyntaxException {
+    public void createDocuments_normal_onePage() throws IOException {
         //arrange
-        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/Feuerwehr1_1_450.66.pdf");
-        File referencePdfFile = Paths.get(resource.toURI()).toFile();
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
 
         //act
-        CertificateService.createDocuments(result, docxFilePath, pdfFilePath, "22.05.2020", "2020");
+        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        PdfAssert.assertThat(new File(pdfFilePath)).hasSameAppearanceAs(referencePdfFile);
+        PdfAssert.assertThat(pdfFile).hasNumberOfPages(1);
+    }
+
+    @Test
+    public void createDocuments_normal_appearanceIsCorrect() throws IOException, URISyntaxException {
+        //createDocuments_normal_appearanceIsCorrect
+        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/Feuerwehr_433.34_1.pdf");
+        File referencePdfFile = Paths.get(resource.toURI()).toFile();
+
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
+
+        //assert
+        PdfAssert.assertThat(pdfFile).hasSameAppearanceAs(referencePdfFile);
+    }
+
+    @Test
+    public void createDocuments_placeHasLengthTwo_appearanceIsCorrect() throws IOException, URISyntaxException {
+        //arrange
+        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/Feuerwehr_433.34_25.pdf");
+        File referencePdfFile = Paths.get(resource.toURI()).toFile();
+
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("Feuerwehr")
+                .place(25)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
+
+        //assert
+        PdfAssert.assertThat(pdfFile).hasSameAppearanceAs(referencePdfFile);
+    }
+
+//    @Test
+//    public void createDocuments_fireDepartmentNameIsVeryLong_appearanceIsCorrect() throws IOException, URISyntaxException {
+//        //arrange
+//        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/verylongnameeeeeeeeeeeeeeeeeeeeeeeeeee_433.34_1.pdf");
+//        File referencePdfFile = Paths.get(resource.toURI()).toFile();
+//
+//        ResultBuilder resultBuilder = new ResultBuilder();
+//        Result result = resultBuilder
+//                .fireDepartment("verylongnameeeeeeeeeeeeeeeeeeeeeeeeeee")
+//                .place(1)
+//                .time(66.66)
+//                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+//
+//        //act
+//        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
+//
+//        //assert
+//        //PdfAssert.assertThat(pdfFile).hasSameAppearanceAs(referencePdfFile);
+//    }s
+
+    @Test
+    public void createDocuments_specialCharacters_appearanceIsCorrect() throws IOException, URISyntaxException {
+        //arrange
+        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/äüöß12345_433.34_1.pdf");
+        File referencePdfFile = Paths.get(resource.toURI()).toFile();
+
+        ResultBuilder resultBuilder = new ResultBuilder();
+        Result result = resultBuilder
+                .fireDepartment("äüöß12345")
+                .place(1)
+                .time(66.66)
+                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
+
+        //act
+        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
+
+        //assert
+        PdfAssert.assertThat(pdfFile).hasSameAppearanceAs(referencePdfFile);
     }
 }

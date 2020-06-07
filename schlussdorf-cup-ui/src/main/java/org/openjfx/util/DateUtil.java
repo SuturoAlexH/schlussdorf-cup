@@ -1,4 +1,4 @@
-package util;
+package org.openjfx.util;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

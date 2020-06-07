@@ -7,9 +7,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import constants.StyleConstants;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class PdfBuilder {
@@ -29,7 +28,12 @@ public class PdfBuilder {
    private boolean alternateTableRowColor;
 
     public PdfBuilder targetFilePath(final String targetFilePath){
-        this.targetFilePath = targetFilePath;
+        if(targetFilePath.endsWith(".pdf")){
+            this.targetFilePath = targetFilePath;
+        }else{
+            this.targetFilePath = targetFilePath + ".pdf";
+        }
+
         return this;
     }
 
@@ -63,8 +67,7 @@ public class PdfBuilder {
         return this;
     }
 
-    public void build(){
-        try{
+    public void build() throws FileNotFoundException, DocumentException {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(targetFilePath));
             document.open();
@@ -73,7 +76,7 @@ public class PdfBuilder {
             final Paragraph header = new Paragraph(title, StyleConstants.TITLE_FONT);
             header.setAlignment(Element.ALIGN_CENTER);
             document.add(header);
-            document.add(Chunk.NEWLINE );
+            document.add(Chunk.NEWLINE);
 
             //table
             PdfPTable table = new PdfPTable(tableHeader.length);
@@ -94,9 +97,6 @@ public class PdfBuilder {
             document.add(table);
 
             document.close();
-            } catch(IOException |DocumentException e){
-
-            }
     }
 
     private static void addTableCell(final PdfPTable table, final String text, final int alignment, final boolean isBackgroundGray){

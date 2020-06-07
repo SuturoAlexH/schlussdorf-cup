@@ -5,13 +5,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ImageAlert {
+public class ImageDialog {
 
-    private final Alert alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
+    private Alert alert;
 
-    private ImageView imageView = new ImageView();
+    private ImageView imageView ;
 
-    public ImageAlert(){
+    public ImageDialog(){
+        alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
+        imageView = new ImageView();
         initialize();
     }
 

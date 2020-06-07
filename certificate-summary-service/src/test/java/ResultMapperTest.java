@@ -1,3 +1,4 @@
+import factory.ResultBuilder;
 import mapper.ResultMapper;
 import model.Result;
 import org.junit.BeforeClass;
@@ -11,16 +12,17 @@ public class ResultMapperTest {
 
     private static final int PLACE = 1;
     private static final String FIRE_DEPARTMENT = "fireDepartment";
-    private static final double FINAL_SCORE = 100.5;
+    private static final double FINAL_SCORE = 100;
 
     private static Result result;
 
     @BeforeClass
     public static void startUp(){
-        result = new Result(UUID.randomUUID(), PLACE, FIRE_DEPARTMENT, 10.1, 5, FINAL_SCORE, "imagePath");
+        ResultBuilder resultBuilder = new ResultBuilder();
+        result = resultBuilder.fireDepartment(FIRE_DEPARTMENT).place(PLACE).mistakePoints(400).build();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void toCertificateSummaryData_null_illegalArgumentException(){
         //arrange
 

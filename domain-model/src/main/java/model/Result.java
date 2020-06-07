@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.UUID;
 
 public class Result implements Comparable<Result>{
@@ -15,16 +16,16 @@ public class Result implements Comparable<Result>{
 
     private double finalScore;
 
-    private String imagePath;
+    private File image;
 
-    public Result(UUID uuid, int place, String fireDepartment, double time, int mistakePoints, double finalScore, String imagePath) {
+    public Result(UUID uuid, int place, String fireDepartment, double time, int mistakePoints, double finalScore, File image) {
         this.uuid = uuid;
         this.place = place;
         this.fireDepartment = fireDepartment;
         this.time = time;
         this.mistakePoints = mistakePoints;
         this.finalScore = finalScore;
-        this.imagePath = imagePath;
+        this.image = image;
     }
 
     public UUID getUuid() {
@@ -71,12 +72,12 @@ public class Result implements Comparable<Result>{
         this.finalScore = finalScore;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public File getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(File image) {
+        this.image = image;
     }
 
     @Override
@@ -100,7 +101,7 @@ public class Result implements Comparable<Result>{
                 .append("mistakePoints: ").append(mistakePoints).append(", ")
                 .append("time: ").append(time).append(", ")
                 .append("finalScore: ").append(finalScore).append(", ")
-                .append("imagePath: ").append(imagePath);
+                .append("imagePath: ").append(image.getAbsoluteFile());
 
         return builder.toString();
     }

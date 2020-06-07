@@ -9,41 +9,33 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 public class SaveService {
 
-    private static final CsvWriter WRITER = new CsvWriter();
+    private final CsvWriter writer = new CsvWriter();
 
-    public static void save(final List<Result> resultList, final String filePath) {
-        if(resultList == null){
-            throw new IllegalArgumentException("resultList is null");
-        }
-
-        if(filePath == null){
-            throw new IllegalArgumentException("filePath is null");
-        }
+    public void save(final List<Result> resultList, final String filePath) throws IOException {
+        Objects.requireNonNull(resultList, "resultList is null");
+        Objects.requireNonNull(filePath, "filePath is null");
 
         File saveFile = new File(filePath);
-        try (CsvAppender csvAppender = WRITER.append(saveFile, StandardCharsets.UTF_8)) {
+        try (CsvAppender csvAppender = writer.append(saveFile, StandardCharsets.UTF_8)) {
             csvAppender.appendLine(Constants.HEADER);
-            resultList.forEach(result -> appendLine(csvAppender, result));
-        } catch (IOException e) {
-            e.printStackTrace();
+            for(Result result: resultList){
+                appendLine(csvAppender, result);
+            }
         }
     }
 
-    private static void appendLine(final CsvAppender csvAppender, final Result entry){
-        try {
+    private void appendLine(final CsvAppender csvAppender, final Result entry) throws IOException {
             csvAppender.appendField(String.valueOf(entry.getUuid()));
             csvAppender.appendField(String.valueOf(entry.getPlace()));
             csvAppender.appendField(entry.getFireDepartment());
             csvAppender.appendField(String.valueOf(entry.getTime()));
             csvAppender.appendField(String.valueOf(entry.getMistakePoints()));
             csvAppender.appendField(String.valueOf(entry.getFinalScore()));
-            csvAppender.appendField(String.valueOf(entry.getImagePath()));
+            csvAppender.appendField(String.valueOf(entry.getImage().getAbsoluteFile()));
             csvAppender.endLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

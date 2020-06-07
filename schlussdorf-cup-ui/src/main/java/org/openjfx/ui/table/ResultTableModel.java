@@ -10,7 +10,7 @@ import com.javafxMvc.annotations.MVCModel;
 
 @MVCModel
 public class ResultTableModel  {
-    private ObjectProperty<ObservableList<Result>> resultList = new SimpleObjectProperty<>(FXCollections.observableArrayList());;
+    private ObjectProperty<ObservableList<Result>> resultList = new SimpleObjectProperty<>(FXCollections.observableArrayList());
 
     private ObjectProperty<Result> selectedResult = new SimpleObjectProperty<>();
 

@@ -1,38 +1,45 @@
 package service;
 
 import constants.PathConstants;
-import logger.CustomLogger;
 import mapper.CertificateReplacementMapper;
 import model.Result;
-import util.DateUtil;
-import util.ZipUtil;
-import util.DocxUtil;
+import org.apache.commons.io.FileUtils;
+import org.zeroturnaround.zip.ZipUtil;
 import util.FileUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 public class CertificateService {
 
-    public static void createDocuments(final Result result, final String docxFilePath, final String pdfFilePath, final String currentDate, final String currentYear){
-        try {
-            String workingFolder = System.getProperty("user.dir");
+    private DocxService docxService;
 
-            FileUtil.copyFolder(workingFolder + PathConstants.TEMPLATE_FOLDER, workingFolder + PathConstants.TEMP_FOLDER);
+    public CertificateService(){
+        this.docxService = new DocxService();
+    }
 
-            Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, currentDate, currentYear);
+    public void createDocuments(final Result result, final File docxFile, final File pdfFile, final String currentDate, final String currentYear) throws IOException {
+        //copy template folder to temp folder
+        File templateFolder = new File(PathConstants.TEMPLATE_FOLDER);
+        File tempFolder = new File(PathConstants.TEMP_FOLDER);
+        FileUtils.copyDirectory(templateFolder, tempFolder);
 
-            FileUtil.replacePlaceHolder(workingFolder + PathConstants.TEMPLATE_DOCUMENT, replacementMap);
-            FileUtil.copyFile(result.getImagePath(), workingFolder + PathConstants.TEMPLATE_IMAGE);
+        //replace placeholders in document.xml
+        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, currentDate, currentYear);
+        FileUtil.replacePlaceHolder(PathConstants.DOCUMENT_XML, replacementMap);
 
-            ZipUtil.zipFolder(workingFolder + PathConstants.TEMP_FOLDER, docxFilePath);
+        //copy image to template
+        File templateImage = new File(PathConstants.TEMPLATE_IMAGE);
+        FileUtils.copyFile(result.getImage(), templateImage);
 
-            DocxUtil.docxFileToPdf(docxFilePath, pdfFilePath);
+        //zip temp folder
+        ZipUtil.pack(tempFolder, docxFile);
 
-            FileUtil.clearFolder(workingFolder + PathConstants.TEMP_FOLDER);
-        }catch(IOException e){
-            e.printStackTrace();
-            CustomLogger.LOGGER.info(e.getMessage());
-        }
+        //convert doccx file to pdf
+        docxService.toPdf(docxFile, pdfFile);
+
+        //clear temp folder
+        FileUtils.cleanDirectory(tempFolder);
     }
 }

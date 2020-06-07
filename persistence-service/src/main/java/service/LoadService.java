@@ -11,38 +11,37 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class LoadService {
 
-    private static final CsvReader READER = new CsvReader();
+    private final CsvReader reader = new CsvReader();
 
-    static {
-        READER.setContainsHeader(true);
+    public LoadService(){
+        initialize();
     }
 
-    public static List<Result> load(final String filePath) {
-        if(filePath == null){
-            throw new IllegalArgumentException("filePath is null");
-        }
+    private void initialize(){
+        reader.setContainsHeader(true);
+    }
+
+    public List<Result> load(final String filePath) throws IOException {
+        Objects.requireNonNull(filePath, "filePath is null");
 
         List<Result> result = new ArrayList<>();
         File saveFile = new File(filePath);
 
-        try {
-            CsvContainer csv = READER.read(saveFile, StandardCharsets.UTF_8);
-            if (csv != null) {
-                result.addAll(csv.getRows().stream().map(LoadService::rowToResult).collect(Collectors.toList()));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        CsvContainer csv = reader.read(saveFile, StandardCharsets.UTF_8);
+        if (csv != null) {
+            result.addAll(csv.getRows().stream().map(this::rowToResult).collect(Collectors.toList()));
         }
 
         return result;
     }
 
-    private static Result rowToResult(final CsvRow row){
+    private Result rowToResult(final CsvRow row){
         UUID uuid = UUID.fromString(row.getField(Constants.UUID));
         int place = Integer.parseInt(row.getField(Constants.PLACE));
         String fireDepartment = row.getField(Constants.FIRE_DEPARTMENT);
@@ -51,7 +50,6 @@ public class LoadService {
         double finalScore = Double.parseDouble(row.getField(Constants.FINAL_SCORE));
         String imagePath = row.getField(Constants.IMAGE_PATH);
 
-       return new Result(uuid, place, fireDepartment, time, mistakePoints, finalScore, imagePath) ;
+       return new Result(uuid, place, fireDepartment, time, mistakePoints, finalScore, new File(imagePath));
     }
-
 }

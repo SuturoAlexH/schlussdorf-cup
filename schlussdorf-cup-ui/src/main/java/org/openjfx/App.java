@@ -1,32 +1,29 @@
 package org.openjfx;
 
 import com.javafxMvc.application.MVCApplication;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.VBox;
 import com.javafxMvc.annotations.*;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import org.openjfx.components.YesOrNoDialog;
+import org.openjfx.constants.ApplicationConstants;
+import org.openjfx.ui.table.ResultTableView;
+import org.openjfx.ui.toolbar.ToolbarView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is the entry point of this application.
  */
-@MVCApp("/fxml/main.fxml")
+@MVCApp
 public class App extends MVCApplication {
 
-    /**
-     * The title of this application.
-     */
-    private static final String TITLE = "SchlußdorfCup";
+    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-    /**
-     * The initial main window width.
-     */
-    private static final int WINDOW_WIDTH = 750;
-
-    /**
-     * The initial main window height.
-     */
-    private static final int WINDOW_HEIGHT = 450;
+    private YesOrNoDialog closeAppDialog = new YesOrNoDialog();
 
     /**
      * The entry point method.
@@ -43,41 +40,32 @@ public class App extends MVCApplication {
      * @param stage The main stage.
      *
      */
-
     @Override
     public void initialize(Stage stage) {
+        super.initialize(stage);
         //stage.getIcons().add(new Image(ui.App.class.getResourceAsStream("/images/logo.png")));
         stage.setResizable(false);
 
         VBox root = new VBox();
-        root.getChildren().addAll(mvcMap.getNodeByName("Toolbar"), mvcMap.getNodeByName("ResultTable"));
-        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+        root.getChildren().addAll(mvcMap.getNodeByClass(ToolbarView.class), mvcMap.getNodeByClass(ResultTableView.class));
+        Scene scene = new Scene(root, ApplicationConstants.WINDOW_WIDTH, ApplicationConstants.WINDOW_HEIGHT);
 
-        Platform.setImplicitExit(false);
-        setupMainWindowCloseListener(stage);
-        stage.setTitle(TITLE);
+        stage.setTitle(ApplicationConstants.TITLE);
         stage.setScene(scene);
 
         stage.show();
+        LOGGER.info("started application");
     }
 
-    /**
-     * Adds a listener to the cross button in the upper right corner of the main window.
-     * If the listener is triggered a yes or no dialog appear and asks the user if the
-     * application should be terminated.
-     *
-     * @param stage The main stage.
-     */
-    private void setupMainWindowCloseListener(final Stage stage){
-//        stage.setOnCloseRequest(e -> {
-//            Alert alert = YesOrNoDialog.getAlert("Soll das Programm wirklich beendet werden?");
-//            alert.showAndWait();
-//
-//            if (alert.getResult() == ButtonType.NO) {
-//                e.consume();
-//            }else{
-//                System.exit(0);
-//            }
-//        });
+    @Override
+    public void onClose(WindowEvent e) {
+        ButtonType closeAppResult = closeAppDialog.show("Soll das Programm wirklich beendet werden?");
+
+        if (closeAppResult == ButtonType.YES) {
+            LOGGER.info("closed application");
+            System.exit(0);
+        }else{
+            e.consume();
+        }
     }
 }

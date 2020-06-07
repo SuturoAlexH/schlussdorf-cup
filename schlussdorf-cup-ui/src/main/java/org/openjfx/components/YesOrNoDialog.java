@@ -6,20 +6,27 @@ import javafx.scene.control.ButtonType;
 
 public class YesOrNoDialog {
 
-    private static final Alert alert;
+    private Alert alert;
 
-    static{
+    public YesOrNoDialog(){
         alert = new Alert(Alert.AlertType.NONE, "", ButtonType.YES, ButtonType.NO);
+        initialize();
+    }
 
+    private void initialize(){
         alert.getDialogPane().getStylesheets().add(YesOrNoDialog.class.getResource("/css/bootstrap3.css").toExternalForm());
+
         Button yesButton = (Button)alert.getDialogPane().lookupButton(ButtonType.YES);
         Button noButton = (Button)alert.getDialogPane().lookupButton(ButtonType.NO);
+
         yesButton.getStyleClass().add("success");
         noButton.getStyleClass().add("danger");
     }
 
-    public static Alert getAlert(final String contentText){
+    public ButtonType show(final String contentText){
         alert.setContentText(contentText);
-        return alert;
+        alert.showAndWait();
+
+        return alert.getResult();
     }
 }

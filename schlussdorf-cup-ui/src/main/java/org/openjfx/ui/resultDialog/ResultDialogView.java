@@ -1,5 +1,6 @@
 package org.openjfx.ui.resultDialog;
 
+import com.javafxMvc.dialog.AbstractDialogView;
 import javafx.scene.layout.Pane;
 import com.javafxMvc.annotations.Inject;
 import com.javafxMvc.annotations.MVCView;
@@ -7,16 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 
 @MVCView("/fxml/result.fxml")
-public class ResultDialogView implements ResultDialogActions {
+public class ResultDialogView extends AbstractDialogView implements ResultDialogActions {
 
     @Inject
     private ResultDialogController controller;
-
-    @FXML
-    VBox rootPane;
 
     @FXML
     TextField fireDepartmentTextField;
@@ -58,5 +55,20 @@ public class ResultDialogView implements ResultDialogActions {
     @Override
     public void cancel() {
         controller.cancel();
+    }
+
+    @Override
+    public void clear() {
+        fireDepartmentTextField.textProperty().setValue("");
+        fireDepartmentErrorLabel.visibleProperty().set(false);
+
+        timeTextField.textProperty().setValue("");
+        timeErrorLabel.visibleProperty().set(false);
+
+        mistakePointsTextField.textProperty().setValue("");
+        mistakePointsErrorLabel.visibleProperty().set(false);
+
+        image.imageProperty().set(null);
+        imageErrorLabel.visibleProperty().set(false);
     }
 }

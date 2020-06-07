@@ -1,23 +1,32 @@
 package org.openjfx.ui.toolbar;
 
-import com.javafxMvc.annotations.ProgressDialog;
+import com.javafxMvc.dialog.ProgressDialogView;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import com.javafxMvc.annotations.Bind;
 import com.javafxMvc.annotations.Inject;
 import com.javafxMvc.annotations.MVCController;
 import javafx.stage.DirectoryChooser;
-import org.openjfx.components.ImageAlert;
+import model.Result;
+import org.apache.commons.io.FileUtils;
+import org.openjfx.components.ImageDialog;
 import org.openjfx.components.YesOrNoDialog;
+import org.openjfx.constants.Folders;
 import org.openjfx.ui.resultDialog.ResultDialogController;
 import org.openjfx.ui.table.ResultTableModel;
+import org.openjfx.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import service.CertificateService;
 
 import java.io.File;
+import java.io.IOException;
 
 @MVCController
 public class ToolbarController implements ToolbarActions {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ToolbarController.class);
 
     @Inject
     private ResultTableModel resultTableModel;
@@ -28,7 +37,21 @@ public class ToolbarController implements ToolbarActions {
     @Inject
     private ResultDialogController resultDialogController;
 
-    private ImageAlert imageAlert = new ImageAlert();
+    private CertificateService certificateService;
+
+    private ImageDialog imageDialog;
+
+    private ProgressDialogView progressDialog;
+
+    private YesOrNoDialog deleteDialog;
+
+    public ToolbarController(){
+        certificateService = new CertificateService();
+
+        imageDialog = new ImageDialog();
+        progressDialog = new ProgressDialogView("Urkunden erzeugen");
+        deleteDialog = new YesOrNoDialog();
+    }
 
     @Bind
     public void bindModelAndView() {
@@ -38,61 +61,75 @@ public class ToolbarController implements ToolbarActions {
     }
 
     public void addNewResult(){
-        resultDialogController.show();
+        LOGGER.info("show result dialog for new result");
+        resultDialogController.show(null);
     }
 
     public void editResult(){
+        LOGGER.info("show result dialog for existing result " + resultTableModel.getSelectedResult());
         resultDialogController.show(resultTableModel.getSelectedResult());
     }
 
     public void deleteResult(){
-        Alert alert = YesOrNoDialog.getAlert("Soll das Ergebnis für die Ortsfeuerwehr " + resultTableModel.getSelectedResult().getFireDepartment() +" wirklich gelöscht werden?");
-        alert.showAndWait();
+        ButtonType deleteResult = deleteDialog.show("Soll das Ergebnis für die Ortsfeuerwehr " + resultTableModel.getSelectedResult().getFireDepartment() +" wirklich gelöscht werden?");
 
-        if (alert.getResult() == ButtonType.YES) {
+        if (deleteResult == ButtonType.YES) {
+            resultTableModel.getSelectedResult().getImage().delete();
             resultTableModel.getResultList().remove(resultTableModel.getSelectedResult());
+            resultTableModel.selectedResultProperty().set(null);
         }
     }
 
     public void showImage(){
-        File imageFile = new File(resultTableModel.getSelectedResult().getImagePath());
-        Image image = new Image(imageFile.toURI().toString());
-
-        imageAlert.setImageAndShow(image);
+        try {
+            Image image = new Image(FileUtils.openInputStream(resultTableModel.getSelectedResult().getImage()));
+            imageDialog.setImageAndShow(image);
+        } catch (IOException e) {
+           LOGGER.error(e.getMessage());
+        }
     }
-
 
     public void createCertificates(){
-      //  createCertificatesTask();
+        DirectoryChooser chooser = new DirectoryChooser();
+        File folder = chooser.showDialog(view.root.getScene().getWindow());
+
+        Task certificateTask = createCertificatesTask(folder);
+        progressDialog.show(certificateTask);
     }
 
-//    @ProgressDialog
-//    private Task createCertificatesTask(){
-//        DirectoryChooser chooser = new DirectoryChooser();
-//        File folder = chooser.showDialog(view.root.getScene().getWindow());
-//
-//        return new Task() {
-//            @Override
-//            protected Object call() {
-//                String certificateFolderPath = folderPath + Folders.CERTIFICATE_FOLDER;
-//                FileUtil.createFolder(certificateFolderPath);
-//
-//                for (int i = 0; i < resultList.get().size(); i++) {
-//                    Result currentResult = resultList.get().get(i);
-//                    CustomLogger.LOGGER.info("create certificates for: " + currentResult);
-//                    updateMessage("Erzeuge Urkunde für " + currentResult.getFireDepartment());
-//
-//                    String currentResultFolderPath = certificateFolderPath + currentResult.getPlace() + "_" + currentResult.getFireDepartment() + File.separator;
-//                    FileUtil.createFolder(currentResultFolderPath);
-//
-//                    CertificateService.createDocuments(currentResult, currentResultFolderPath + currentResult.getFireDepartment() + ".docx",
-//                            currentResultFolderPath + currentResult.getFireDepartment() + ".pdf",
-//                            DateUtil.getCurrentDateAsString(),
-//                            DateUtil.getCurrentYearAsString());
-//                    updateProgress(i + 1, resultList.get().size());
-//                }
-//                return true;
-//            }
-//        };
-//    }
+    private Task createCertificatesTask(final File folder){
+        return new Task() {
+            @Override
+            protected Object call() {
+                try {
+                    //create certificate folder
+                    String certificateFolderPath = folder.getAbsolutePath() + Folders.CERTIFICATE_FOLDER;
+                    FileUtils.forceMkdir(new File(certificateFolderPath));
+
+                    for (int i = 0; i < resultTableModel.getResultList().size(); i++) {
+                        Result currentResult = resultTableModel.getResultList().get(i);
+
+                        //update message
+                        updateMessage("Erzeuge Urkunde für " + currentResult.getFireDepartment());
+
+                        //create result folder
+                        String currentResultFolderPath = certificateFolderPath + currentResult.getPlace() + "_" + currentResult.getFireDepartment() + File.separator;
+                        FileUtils.forceMkdir(new File(currentResultFolderPath));
+
+                        //create documents
+                        File doxcFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".docx");
+                        File pdfFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".docx");
+                        certificateService.createDocuments(currentResult, doxcFile, pdfFile, DateUtil.getCurrentDateAsString(), DateUtil.getCurrentYearAsString());
+
+                        //update progress
+                        updateProgress(i + 1, resultTableModel.getResultList().size());
+                    }
+                }catch (IOException e){
+                    LOGGER.error(e.getMessage());
+                }
+
+                return true;
+            }
+        };
+    }
 }

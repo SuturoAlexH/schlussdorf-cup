@@ -47,6 +47,6 @@ public class ToolbarView implements ToolbarActions {
     }
 
     public void createCertificates(){
-        //controller.createCertificates();
+        controller.createCertificates();
     }
 }
