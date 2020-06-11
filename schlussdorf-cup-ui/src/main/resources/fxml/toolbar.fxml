@@ -19,7 +19,7 @@
         <Button fx:id="deleteButton" styleClass="danger" onAction="#deleteResult" text="löschen" >
             <graphic>
                 <ImageView>
-                    <Image url="@/icons/cross.png" backgroundLoading="true"/>
+                    <Image url="@/icons/delete.png" backgroundLoading="true"/>
                 </ImageView>
             </graphic>
         </Button>
