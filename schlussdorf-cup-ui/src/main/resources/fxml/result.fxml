@@ -69,11 +69,21 @@
                   <HBox.margin>
                       <Insets left="10.0" right="10.0" />
                   </HBox.margin>
+                  <graphic>
+                      <ImageView>
+                          <Image url="@/icons/check.png" backgroundLoading="true"/>
+                      </ImageView>
+                  </graphic>
               </Button>
               <Button mnemonicParsing="false" onAction="#cancel" styleClass="danger" text="abbrechen">
                   <HBox.margin>
                       <Insets left="10.0" right="10.0" />
                   </HBox.margin>
+                  <graphic>
+                      <ImageView>
+                          <Image url="@/icons/cross.png" backgroundLoading="true"/>
+                      </ImageView>
+                  </graphic>
               </Button>
       </children>
        </HBox>

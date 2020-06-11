@@ -2,6 +2,7 @@ package org.openjfx;
 
 import com.javafxMvc.application.MVCApplication;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import com.javafxMvc.annotations.*;
 import javafx.application.Platform;
@@ -43,8 +44,7 @@ public class App extends MVCApplication {
     @Override
     public void initialize(Stage stage) {
         super.initialize(stage);
-        //stage.getIcons().add(new Image(ui.App.class.getResourceAsStream("/images/logo.png")));
-        stage.setResizable(false);
+        stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/logo.png")));
 
         VBox root = new VBox();
         root.getChildren().addAll(mvcMap.getNodeByClass(ToolbarView.class), mvcMap.getNodeByClass(ResultTableView.class));

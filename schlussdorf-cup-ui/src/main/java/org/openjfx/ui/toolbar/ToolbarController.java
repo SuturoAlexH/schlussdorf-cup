@@ -115,7 +115,6 @@ public class ToolbarController implements ToolbarActions {
                     //estimate max progress steps
                     final int maxProgressSteps = resultTableModel.getResultList().size() +2;
 
-
                     List<File> certificatePdfFileList = new ArrayList<>();
 
                     //create certificate folder

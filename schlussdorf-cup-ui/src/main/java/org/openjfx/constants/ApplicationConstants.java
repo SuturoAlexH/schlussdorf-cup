@@ -9,7 +9,7 @@ public class ApplicationConstants {
     /**
      * The initial main window width.
      */
-    public static final int WINDOW_WIDTH = 750;
+    public static final int WINDOW_WIDTH = 850;
 
     /**
      * The initial main window height.

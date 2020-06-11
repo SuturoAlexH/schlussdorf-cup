@@ -3,6 +3,8 @@ package org.openjfx.components;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class YesOrNoDialog {
 
@@ -20,7 +22,9 @@ public class YesOrNoDialog {
         Button noButton = (Button)alert.getDialogPane().lookupButton(ButtonType.NO);
 
         yesButton.getStyleClass().add("success");
+        yesButton.setGraphic(new ImageView(new Image(YesOrNoDialog.class.getResourceAsStream("/icons/check.png"))));
         noButton.getStyleClass().add("danger");
+        noButton.setGraphic(new ImageView(new Image(YesOrNoDialog.class.getResourceAsStream("/icons/cross.png"))));
     }
 
     public ButtonType show(final String contentText){
