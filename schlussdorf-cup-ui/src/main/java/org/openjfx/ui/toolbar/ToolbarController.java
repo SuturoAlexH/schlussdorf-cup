@@ -1,5 +1,6 @@
 package org.openjfx.ui.toolbar;
 
+import com.itextpdf.text.DocumentException;
 import com.javafxMvc.dialog.ProgressDialogView;
 import javafx.concurrent.Task;
 import javafx.scene.control.ButtonType;
@@ -10,6 +11,8 @@ import com.javafxMvc.annotations.MVCController;
 import javafx.stage.DirectoryChooser;
 import model.Result;
 import org.apache.commons.io.FileUtils;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.openjfx.components.ImageDialog;
 import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.Folders;
@@ -19,9 +22,13 @@ import org.openjfx.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.CertificateService;
+import service.CertificateSummaryService;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @MVCController
 public class ToolbarController implements ToolbarActions {
@@ -39,6 +46,8 @@ public class ToolbarController implements ToolbarActions {
 
     private CertificateService certificateService;
 
+    private CertificateSummaryService certificateSummaryService;
+
     private ImageDialog imageDialog;
 
     private ProgressDialogView progressDialog;
@@ -47,6 +56,7 @@ public class ToolbarController implements ToolbarActions {
 
     public ToolbarController(){
         certificateService = new CertificateService();
+        certificateSummaryService = new CertificateSummaryService();
 
         imageDialog = new ImageDialog();
         progressDialog = new ProgressDialogView("Urkunden erzeugen");
@@ -102,10 +112,17 @@ public class ToolbarController implements ToolbarActions {
             @Override
             protected Object call() {
                 try {
+                    //estimate max progress steps
+                    final int maxProgressSteps = resultTableModel.getResultList().size() +2;
+
+
+                    List<File> certificatePdfFileList = new ArrayList<>();
+
                     //create certificate folder
                     String certificateFolderPath = folder.getAbsolutePath() + Folders.CERTIFICATE_FOLDER;
                     FileUtils.forceMkdir(new File(certificateFolderPath));
 
+                    updateProgress(1, maxProgressSteps);
                     for (int i = 0; i < resultTableModel.getResultList().size(); i++) {
                         Result currentResult = resultTableModel.getResultList().get(i);
 
@@ -118,13 +135,35 @@ public class ToolbarController implements ToolbarActions {
 
                         //create documents
                         File doxcFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".docx");
-                        File pdfFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".docx");
+                        File pdfFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".pdf");
                         certificateService.createDocuments(currentResult, doxcFile, pdfFile, DateUtil.getCurrentDateAsString(), DateUtil.getCurrentYearAsString());
+                        certificatePdfFileList.add(pdfFile);
 
                         //update progress
-                        updateProgress(i + 1, resultTableModel.getResultList().size());
+                        updateProgress(i + 2, maxProgressSteps);
                     }
-                }catch (IOException e){
+
+                    //create certificate PDF
+                    updateMessage("Erzeuge Urkunden PDF");
+                    PDFMergerUtility pdfMerger = new PDFMergerUtility();
+                    pdfMerger.setDestinationFileName(certificateFolderPath + "/urkunden.pdf");
+                    certificatePdfFileList.forEach(certificatePdfFile -> {
+                        try {
+                            pdfMerger.addSource(certificatePdfFile);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    pdfMerger.mergeDocuments(MemoryUsageSetting.setupTempFileOnly());
+                    updateProgress(resultTableModel.getResultList().size()+1, maxProgressSteps);
+
+                    //create summary PDF
+                    updateMessage("Erzeuge Zusammenfassung");
+                    String certificateSummaryFilePath = certificateFolderPath + "/zusammenfassung.pdf";
+                    certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
+                    updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);
+
+                }catch (IOException | DocumentException e){
                     LOGGER.error(e.getMessage());
                 }
 

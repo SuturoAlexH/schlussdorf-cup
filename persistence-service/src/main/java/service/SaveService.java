@@ -20,6 +20,11 @@ public class SaveService {
         Objects.requireNonNull(filePath, "filePath is null");
 
         File saveFile = new File(filePath);
+        if(!saveFile.exists()){
+            saveFile.getParentFile().mkdirs();
+            saveFile.createNewFile();
+        }
+
         try (CsvAppender csvAppender = writer.append(saveFile, StandardCharsets.UTF_8)) {
             csvAppender.appendLine(Constants.HEADER);
             for(Result result: resultList){
