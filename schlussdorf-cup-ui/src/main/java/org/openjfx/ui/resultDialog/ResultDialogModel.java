@@ -43,6 +43,14 @@ public class ResultDialogModel {
         }
     }
 
+    public void clear(){
+        uuid = null;
+        fireDepartment.reset();
+        time.reset();
+        mistakePoints.reset();
+        image.reset();
+    }
+
     public UUID getUuid() {
         return uuid;
     }

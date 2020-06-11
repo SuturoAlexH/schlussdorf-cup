@@ -1,15 +1,13 @@
 package org.openjfx.ui.resultDialog;
 
-import com.javafxMvc.annotations.Validator;
+import com.javafxMvc.annotations.*;
 import com.javafxMvc.validator.CombinedValidator;
 import factory.ResultBuilder;
+import javafx.collections.FXCollections;
 import javafx.scene.image.Image;
-import javafx.stage.Window;
 import model.Result;
-import com.javafxMvc.annotations.Bind;
-import com.javafxMvc.annotations.Inject;
-import com.javafxMvc.annotations.MVCController;
 import org.apache.commons.io.FileUtils;
+import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.RetentionFileChooser;
 import org.openjfx.constants.Folders;
 import org.openjfx.ui.table.ResultTableModel;
@@ -19,8 +17,9 @@ import service.SaveService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @MVCController
 public class ResultDialogController implements ResultDialogActions {
@@ -39,11 +38,11 @@ public class ResultDialogController implements ResultDialogActions {
     @Inject
     private ResultTableModel resultTableModel;
 
-    private ResultBuilder resultFactory = new ResultBuilder();
-
     private SaveService saveService = new SaveService();
 
     private RetentionFileChooser retentionFileChooser = new RetentionFileChooser();
+
+    private ErrorDialog errorDialog = new ErrorDialog();
 
     @Bind
     public void bindModelAndView() {
@@ -60,22 +59,27 @@ public class ResultDialogController implements ResultDialogActions {
         view.mistakePointsErrorLabel.textProperty().bindBidirectional(model.getMistakePoints().errorProperty());
 
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
-            if(newImageFile != null){
-                view.imageWrapper.setStyle("-fx-border-color:none");
-            }else{
-                view.imageWrapper.setStyle("-fx-border-color:black");
-            }
-        });
-
-        model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             try {
-                view.image.setImage(new Image(FileUtils.openInputStream(newImageFile)));
+                if(newImageFile != null) {
+                    view.image.setImage(new Image(FileUtils.openInputStream(newImageFile)));
+                    view.imageWrapper.setStyle("-fx-border-color:none");
+                }else{
+                    view.image.setImage(null);
+                    view.imageWrapper.setStyle("-fx-border-color:black");
+                }
             } catch (IOException e) {
                 LOGGER.error(e.getMessage());
+
+                errorDialog.show("Das Bild für die Ortsfeuerwehr " + model.getFireDepartment().valueProperty().get() + " konnte leider nicht geladen werden!");
             }
         });
         view.imageErrorLabel.visibleProperty().bindBidirectional(model.getImage().isVisibleProperty());
         view.imageErrorLabel.textProperty().bindBidirectional(model.getImage().errorProperty());
+    }
+
+    @PostConstruct
+    public void initialize() {
+        view.addCloseListener((e) -> model.clear());
     }
 
     @Override
@@ -86,8 +90,6 @@ public class ResultDialogController implements ResultDialogActions {
             LOGGER.info("choosen image is located at " + imageFile.getAbsolutePath());
             model.getImage().valueProperty().set(imageFile);
         }
-
-        LOGGER.info("no image is chosen");
     }
 
     @Override
@@ -95,16 +97,19 @@ public class ResultDialogController implements ResultDialogActions {
         if(validator.validate()) {
             try {
                 addResult();
+                view.hide();
+                model.clear();
             } catch (IOException e) {
+                //TODO: dialog
                 LOGGER.error(e.getMessage());
             }
-            view.hide();
         }
     }
 
     @Override
     public void cancel() {
         view.hide();
+        model.clear();
     }
 
     public void show(final Result result){
@@ -117,7 +122,7 @@ public class ResultDialogController implements ResultDialogActions {
 
         //copy image if necessary
         File selectedImageFile = model.getImage().getValue();
-        File resultImageFile = new File(Folders.IMAGE_FOLDER + model.getUuid() +  ".jpeg");
+        File resultImageFile = new File(Folders.IMAGE_FOLDER + uuid +  ".jpeg");
         if(!selectedImageFile.equals(resultImageFile)){
             FileUtils.copyFile(selectedImageFile, resultImageFile);
         }
@@ -140,12 +145,9 @@ public class ResultDialogController implements ResultDialogActions {
         }
 
         //update place
-        Function<Result, Integer> getPlace = r -> resultTableModel.getResultList().indexOf(r) +1;
-        resultTableModel.getResultList().stream().sorted().forEach(r -> {
-                r.setPlace(getPlace.apply(r));
-                System.out.println("res: " + r);
-            }
-        );
+        List<Result> sortedResultList = resultTableModel.getResultList().stream().sorted().collect(Collectors.toList());
+        sortedResultList.forEach(currentResult -> currentResult.setPlace(sortedResultList.indexOf(currentResult)+1));
+        resultTableModel.resultListProperty().set(FXCollections.observableList(sortedResultList));
 
         //save to csv
         saveService.save(resultTableModel.getResultList(), Folders.SAVE_FOLDER);

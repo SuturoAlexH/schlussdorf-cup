@@ -56,19 +56,4 @@ public class ResultDialogView extends AbstractDialogView implements ResultDialog
     public void cancel() {
         controller.cancel();
     }
-
-    @Override
-    public void clear() {
-        fireDepartmentTextField.textProperty().setValue("");
-        fireDepartmentErrorLabel.visibleProperty().set(false);
-
-        timeTextField.textProperty().setValue("");
-        timeErrorLabel.visibleProperty().set(false);
-
-        mistakePointsTextField.textProperty().setValue("");
-        mistakePointsErrorLabel.visibleProperty().set(false);
-
-        image.imageProperty().set(null);
-        imageErrorLabel.visibleProperty().set(false);
-    }
 }
