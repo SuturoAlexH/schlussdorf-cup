@@ -33,7 +33,18 @@ public class ResultTableController implements ResultTableActions{
     @Bind
     public void bindModelAndView() {
         view.table.itemsProperty().bindBidirectional(model.resultListProperty());
-        model.selectedResultProperty().bind(view.table.getSelectionModel().selectedItemProperty());
+
+        model.selectedResultProperty().addListener((observable, oldValue, newValue) -> {
+            if(view.table.getSelectionModel().getSelectedItem() != newValue) {
+                view.table.getSelectionModel().select(newValue);
+            }
+        });
+
+        view.table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)  -> {
+            if(model.getSelectedResult() != newValue) {
+                model.selectedResultProperty().set(newValue);
+            }
+        });
     }
 
     @PostConstruct

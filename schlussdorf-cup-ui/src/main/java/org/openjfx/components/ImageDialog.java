@@ -19,8 +19,10 @@ public class ImageDialog {
 
     private void initialize(){
         alert.getDialogPane().setMaxSize(300, 300);
-        imageView.setFitHeight(400);
-        imageView.setFitWidth(400);
+        imageView.setFitHeight(300);
+        imageView.setFitHeight(300);
+        imageView.preserveRatioProperty().set(true);
+
         alert.setGraphic(imageView);
     }
 

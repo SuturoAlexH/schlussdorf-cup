@@ -2,6 +2,7 @@ package org.openjfx.ui.toolbar;
 
 import com.itextpdf.text.DocumentException;
 import com.javafxMvc.dialog.ProgressDialogView;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -23,12 +24,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.CertificateService;
 import service.CertificateSummaryService;
+import service.SaveService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @MVCController
 public class ToolbarController implements ToolbarActions {
@@ -48,15 +51,20 @@ public class ToolbarController implements ToolbarActions {
 
     private CertificateSummaryService certificateSummaryService;
 
+    private SaveService saveService;
+
     private ImageDialog imageDialog;
 
     private ProgressDialogView progressDialog;
 
     private YesOrNoDialog deleteDialog;
 
+
+
     public ToolbarController(){
         certificateService = new CertificateService();
         certificateSummaryService = new CertificateSummaryService();
+        saveService = new SaveService();
 
         imageDialog = new ImageDialog();
         progressDialog = new ProgressDialogView("Urkunden erzeugen");
@@ -86,6 +94,19 @@ public class ToolbarController implements ToolbarActions {
         if (deleteResult == ButtonType.YES) {
             resultTableModel.getSelectedResult().getImage().delete();
             resultTableModel.getResultList().remove(resultTableModel.getSelectedResult());
+
+            //update place
+            List<Result> sortedResultList = resultTableModel.getResultList().stream().sorted().collect(Collectors.toList());
+            sortedResultList.forEach(currentResult -> currentResult.setPlace(sortedResultList.indexOf(currentResult)+1));
+            resultTableModel.resultListProperty().set(FXCollections.observableList(sortedResultList));
+
+            //save to csv
+            try {
+                saveService.save(resultTableModel.getResultList(), Folders.SAVE_FOLDER);
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage());
+            }
+
             resultTableModel.selectedResultProperty().set(null);
         }
     }
