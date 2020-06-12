@@ -56,6 +56,7 @@ public class ResultTableView implements ResultTableActions{
                     event.consume();
                 }
             });
+
             return row;
         });
     }
