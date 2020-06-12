@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 /**
  * This class is the entry point of this application.
  */
-@MVCApp
 public class App extends MVCApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
