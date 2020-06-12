@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TableView fx:id="table" prefHeight="365.0" prefWidth="816.0" style="-fx-border-color: black;-fx-selection-bar-non-focused: -fx-selection-bar ;" BorderPane.alignment="CENTER"
-           stylesheets="@../css/bootstrap3.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-           fx:controller="org.openjfx.ui.table.ResultTableView">
+<VBox fx:controller="org.openjfx.ui.table.ResultTableView"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minWidth="850">
+<TableView fx:id="table" prefHeight="365.0" style="-fx-max-width:720px;-fx-border-color: black;-fx-selection-bar-non-focused: -fx-selection-bar ;" stylesheets="@../css/bootstrap3.css"  >
     <columns>
         <TableColumn fx:id="placeColumn" prefWidth="75.0" text="Platz" />
-        <TableColumn fx:id="fireDepartmentColumn" prefWidth="278.0" text="Feuerwehr" />
-        <TableColumn fx:id="timeColumn" prefWidth="106.0" text="Zeit" />
-          <TableColumn fx:id="mistakePointsColumn" prefWidth="104.0" text="Fehler" />
-        <TableColumn fx:id="finalScoreColumn" prefWidth="145.0" text="Gesamtpunkte" />
+        <TableColumn fx:id="fireDepartmentColumn" prefWidth="275.0" text="Feuerwehr" />
+        <TableColumn fx:id="timeColumn" prefWidth="105.0" text="Zeit" />
+          <TableColumn fx:id="mistakePointsColumn" prefWidth="105.0" text="Fehler" />
+        <TableColumn fx:id="finalScoreColumn" prefWidth="155.0" text="Gesamtpunkte" />
     </columns>
-    <BorderPane.margin>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </BorderPane.margin>
 </TableView>
-
-
+</VBox>
