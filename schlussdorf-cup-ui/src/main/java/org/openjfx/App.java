@@ -4,8 +4,6 @@ import com.javafxMvc.application.MVCApplication;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import com.javafxMvc.annotations.*;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -16,12 +14,17 @@ import org.openjfx.ui.toolbar.ToolbarView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 /**
  * This class is the entry point of this application.
  */
 public class App extends MVCApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+
+    private Scene scene;
 
     private YesOrNoDialog closeAppDialog = new YesOrNoDialog();
 
@@ -44,15 +47,15 @@ public class App extends MVCApplication {
     public void initialize(Stage stage) {
         super.initialize(stage);
         stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/logo.png")));
+        stage.setTitle(ApplicationConstants.TITLE);
 
         VBox root = new VBox();
         root.getChildren().addAll(mvcMap.getNodeByClass(ToolbarView.class), mvcMap.getNodeByClass(ResultTableView.class));
-        Scene scene = new Scene(root, ApplicationConstants.WINDOW_WIDTH, ApplicationConstants.WINDOW_HEIGHT);
+        scene = new Scene(root, ApplicationConstants.WINDOW_WIDTH, ApplicationConstants.WINDOW_HEIGHT);
 
-        stage.setTitle(ApplicationConstants.TITLE);
         stage.setScene(scene);
-
         stage.show();
+
         LOGGER.info("###################################################################");
         LOGGER.info("started application");
     }
@@ -68,4 +71,11 @@ public class App extends MVCApplication {
             e.consume();
         }
     }
+
+    @Override
+    public ResourceBundle loadResourceBundle() {
+        return ResourceBundle.getBundle("language", Locale.GERMANY);
+    }
+
+    //public Scene
 }

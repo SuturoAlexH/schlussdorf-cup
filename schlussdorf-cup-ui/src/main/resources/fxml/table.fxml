@@ -6,11 +6,11 @@
 <VBox fx:controller="org.openjfx.ui.table.ResultTableView"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minWidth="850">
 <TableView fx:id="table" prefHeight="365.0" style="-fx-max-width:720px; -fx-focus-color: transparent; -fx-border-color:black; -fx-selection-bar-non-focused: -fx-selection-bar ;" stylesheets="@../css/bootstrap3.css"  >
     <columns>
-        <TableColumn fx:id="placeColumn" prefWidth="75.0" text="Platz" sortable="false"/>
-        <TableColumn fx:id="fireDepartmentColumn" prefWidth="275.0" text="Feuerwehr" sortable="false"/>
-        <TableColumn fx:id="timeColumn" prefWidth="105.0" text="Zeit" sortable="false" />
-          <TableColumn fx:id="mistakePointsColumn" prefWidth="105.0" text="Fehler" sortable="false"/>
-        <TableColumn fx:id="finalScoreColumn" prefWidth="155.0" text="Gesamtpunkte" sortable="false"/>
+        <TableColumn fx:id="placeColumn" prefWidth="75.0" text="%table.place" sortable="false"/>
+        <TableColumn fx:id="fireDepartmentColumn" prefWidth="275.0" text="%table.fire_department" sortable="false"/>
+        <TableColumn fx:id="timeColumn" prefWidth="105.0" text="%table.time" sortable="false" />
+          <TableColumn fx:id="mistakePointsColumn" prefWidth="105.0" text="%table.mistake_points" sortable="false"/>
+        <TableColumn fx:id="finalScoreColumn" prefWidth="155.0" text="%table.final_score" sortable="false"/>
     </columns>
 </TableView>
 </VBox>

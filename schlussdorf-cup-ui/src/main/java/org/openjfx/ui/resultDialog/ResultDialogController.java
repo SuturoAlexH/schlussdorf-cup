@@ -48,15 +48,12 @@ public class ResultDialogController implements ResultDialogActions {
     public void bindModelAndView() {
         view.fireDepartmentTextField.textProperty().bindBidirectional(model.getFireDepartment().valueProperty());
         view.fireDepartmentErrorLabel.visibleProperty().bindBidirectional(model.getFireDepartment().isVisibleProperty());
-        view.fireDepartmentErrorLabel.textProperty().bindBidirectional(model.getFireDepartment().errorProperty());
 
         view.timeTextField.textProperty().bindBidirectional(model.getTime().valueProperty());
         view.timeErrorLabel.visibleProperty().bindBidirectional(model.getTime().isVisibleProperty());
-        view.timeErrorLabel.textProperty().bindBidirectional(model.getTime().errorProperty());
 
         view.mistakePointsTextField.textProperty().bindBidirectional(model.getMistakePoints().valueProperty());
         view.mistakePointsErrorLabel.visibleProperty().bindBidirectional(model.getMistakePoints().isVisibleProperty());
-        view.mistakePointsErrorLabel.textProperty().bindBidirectional(model.getMistakePoints().errorProperty());
 
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             try {
@@ -74,7 +71,6 @@ public class ResultDialogController implements ResultDialogActions {
             }
         });
         view.imageErrorLabel.visibleProperty().bindBidirectional(model.getImage().isVisibleProperty());
-        view.imageErrorLabel.textProperty().bindBidirectional(model.getImage().errorProperty());
     }
 
     @PostConstruct

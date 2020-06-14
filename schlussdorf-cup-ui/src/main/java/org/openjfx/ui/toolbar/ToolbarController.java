@@ -1,6 +1,8 @@
 package org.openjfx.ui.toolbar;
 
 import com.itextpdf.text.DocumentException;
+import com.javafxMvc.l10n.L10n;
+import com.javafxMvc.annotations.InjectL10n;
 import com.javafxMvc.dialog.ProgressDialogView;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
@@ -47,6 +49,9 @@ public class ToolbarController implements ToolbarActions {
     @Inject
     private ResultDialogController resultDialogController;
 
+    @InjectL10n
+    private L10n l10n;
+
     private CertificateService certificateService;
 
     private CertificateSummaryService certificateSummaryService;
@@ -89,7 +94,7 @@ public class ToolbarController implements ToolbarActions {
     }
 
     public void deleteResult(){
-        ButtonType deleteResult = deleteDialog.show("Soll das Ergebnis für die Ortsfeuerwehr " + resultTableModel.getSelectedResult().getFireDepartment() +" wirklich gelöscht werden?");
+        ButtonType deleteResult = deleteDialog.show(l10n.get("toolbar.delete_fire_department", resultTableModel.getSelectedResult().getFireDepartment()));
 
         if (deleteResult == ButtonType.YES) {
             resultTableModel.getSelectedResult().getImage().delete();
@@ -147,7 +152,7 @@ public class ToolbarController implements ToolbarActions {
                         Result currentResult = resultTableModel.getResultList().get(i);
 
                         //update message
-                        updateMessage("Erzeuge Urkunde für " + currentResult.getFireDepartment());
+                        updateMessage(l10n.get("progress.create_certificate_for", currentResult.getFireDepartment()));
 
                         //create result folder
                         String currentResultFolderPath = certificateFolderPath + currentResult.getPlace() + "_" + currentResult.getFireDepartment() + File.separator;
@@ -164,7 +169,7 @@ public class ToolbarController implements ToolbarActions {
                     }
 
                     //create certificate PDF
-                    updateMessage("Erzeuge Urkunden PDF");
+                    updateMessage(l10n.get("progress.create_certificate_pdf"));
                     PDFMergerUtility pdfMerger = new PDFMergerUtility();
                     pdfMerger.setDestinationFileName(certificateFolderPath + "/urkunden.pdf");
                     certificatePdfFileList.forEach(certificatePdfFile -> {
@@ -178,7 +183,7 @@ public class ToolbarController implements ToolbarActions {
                     updateProgress(resultTableModel.getResultList().size()+1, maxProgressSteps);
 
                     //create summary PDF
-                    updateMessage("Erzeuge Zusammenfassung");
+                    updateMessage(l10n.get("progress.create_certificate_summary"));
                     String certificateSummaryFilePath = certificateFolderPath + "/zusammenfassung.pdf";
                     certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
                     updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);

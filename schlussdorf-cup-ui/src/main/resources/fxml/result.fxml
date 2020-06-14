@@ -1,43 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox fx:id="rootPane" prefHeight="452.0" prefWidth="829.0" stylesheets="@../css/bootstrap3.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.ui.resultDialog.ResultDialogView">
-   <children>
        <SplitPane dividerPositions="0.3143350604490501" prefHeight="400.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-          <items>
               <!-- left -->
               <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8">
                   <padding>
                       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
-                 <children>
                      <VBox prefHeight="200.0" prefWidth="100.0">
-                        <children>
-                            <Label text="Feuerwehr:" />
+                            <Label text="%dialog.fire_department" />
                             <TextField fx:id="fireDepartmentTextField" />
-                            <Label fx:id="fireDepartmentErrorLabel" text="Label" textFill="RED" visible="false" />
-                        </children>
+                            <Label fx:id="fireDepartmentErrorLabel" text="%dialog.empty_error" textFill="RED" visible="false" />
                      </VBox>
                      <VBox prefHeight="200.0" prefWidth="100.0">
-                        <children>
-                            <Label text="Zeit:" />
+                            <Label text="%dialog.time" />
                             <TextField fx:id="timeTextField" maxWidth="75.0" />
-                            <Label fx:id="timeErrorLabel" text="Label" textFill="RED" visible="false" />
-                        </children>
+                            <Label fx:id="timeErrorLabel" text="%dialog.number_error" textFill="RED" visible="false" />
                      </VBox>
                      <VBox prefHeight="200.0" prefWidth="100.0">
-                        <children>
-                            <Label text="Fehler:" />
+                            <Label text="%dialog.mistake_points" />
                             <TextField fx:id="mistakePointsTextField" maxWidth="50.0" />
-                            <Label fx:id="mistakePointsErrorLabel" text="Label" textFill="RED" visible="false" />
-                        </children>
+                            <Label fx:id="mistakePointsErrorLabel" text="%dialog.number_error" textFill="RED" visible="false" />
                      </VBox>
-                 </children>
               </VBox>
       
               <!-- right -->
@@ -45,18 +34,13 @@
                   <padding>
                       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
-         <children>
-                     <Label text="Bild:" />
+                     <Label text="%dialog.image" />
                      <Pane fx:id="imageWrapper" maxHeight="378.0" maxWidth="890.0" prefHeight="292.0" prefWidth="890.0" style="-fx-border-color: black; -fx-max-height: 300px; -fx-max-width: 500px;">
-                        <children>
                             <ImageView fx:id="image" fitHeight="291.0" fitWidth="600.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-                        </children>
                      </Pane>
-                     <Label fx:id="imageErrorLabel" text="Label" textFill="RED" visible="false" />
-                     <Button onAction="#chooseImage" text="Bild auswählen" />
-         </children>
+                     <Label fx:id="imageErrorLabel" text="%dialog.image_error" textFill="RED" visible="false" />
+                     <Button fx:id="imageButton" onAction="#chooseImage" text="%dialog.select_image" />
               </VBox>
-          </items>
        </SplitPane>
    
        <!-- buttons -->
@@ -64,28 +48,29 @@
            <padding>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
            </padding>
-      <children>
-              <Button mnemonicParsing="false" onAction="#apply" styleClass="success" text="übernehmen">
-                  <HBox.margin>
-                      <Insets left="10.0" right="10.0" />
-                  </HBox.margin>
-                  <graphic>
-                      <ImageView>
-                          <Image url="@/icons/check.png" backgroundLoading="true"/>
-                      </ImageView>
-                  </graphic>
-              </Button>
-              <Button mnemonicParsing="false" onAction="#cancel" styleClass="danger" text="abbrechen">
-                  <HBox.margin>
-                      <Insets left="10.0" right="10.0" />
-                  </HBox.margin>
-                  <graphic>
-                      <ImageView>
-                          <Image url="@/icons/cross.png" backgroundLoading="true"/>
-                      </ImageView>
-                  </graphic>
-              </Button>
-      </children>
+
+           <!-- accept button -->
+           <Button fx:id="applyButton" onAction="#apply" styleClass="success" text="%accept">
+               <HBox.margin>
+                   <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <graphic>
+                   <ImageView>
+                       <Image url="@/icons/check.png" backgroundLoading="true"/>
+                   </ImageView>
+               </graphic>
+           </Button>
+
+           <!-- cancel button -->
+           <Button fx:id="cancelButton" onAction="#cancel" styleClass="danger" text="%cancel">
+               <HBox.margin>
+                   <Insets left="10.0" right="10.0" />
+               </HBox.margin>
+               <graphic>
+                   <ImageView>
+                       <Image url="@/icons/cross.png" backgroundLoading="true"/>
+                   </ImageView>
+               </graphic>
+           </Button>
        </HBox>
-   </children>
 </VBox>
