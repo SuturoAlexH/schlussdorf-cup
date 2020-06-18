@@ -1,4 +1,3 @@
-import com.google.common.collect.Lists;
 import factory.ResultBuilder;
 import model.Result;
 import org.junit.After;
@@ -11,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
@@ -79,7 +80,7 @@ public class LoadServiceTest {
         ResultBuilder resultBuilder1 = new ResultBuilder();
         Result result = resultBuilder1.fireDepartment("firedepartment1").time(10.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
 
-        saveService.save(Lists.newArrayList(result), SAVE_FILE_PATH);
+        saveService.save(Collections.singletonList(result), SAVE_FILE_PATH);
 
         //act
         List<Result> loadedResultList = classUnderTest.load(SAVE_FILE_PATH);
@@ -98,7 +99,7 @@ public class LoadServiceTest {
         ResultBuilder resultBuilder2 = new ResultBuilder();
         Result result2 = resultBuilder2.fireDepartment("firedepartment2").time(22.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
 
-        saveService.save( Lists.newArrayList(result1, result2), SAVE_FILE_PATH);
+        saveService.save(Arrays.asList(result1, result2), SAVE_FILE_PATH);
 
         //act
         List<Result> loadedResultList = classUnderTest.load(SAVE_FILE_PATH);
@@ -115,7 +116,7 @@ public class LoadServiceTest {
         ResultBuilder resultBuilder1 = new ResultBuilder();
         Result result = resultBuilder1.fireDepartment("äüöß§$%&/()=?``#*+").time(10.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
 
-        saveService.save(Lists.newArrayList(result), SAVE_FILE_PATH);
+        saveService.save(Collections.singletonList(result), SAVE_FILE_PATH);
 
         //act
         List<Result> loadedResultList = classUnderTest.load(SAVE_FILE_PATH);

@@ -8,7 +8,6 @@ import model.Result;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.InvalidPathException;
 import java.util.List;
 import java.util.Objects;
 
