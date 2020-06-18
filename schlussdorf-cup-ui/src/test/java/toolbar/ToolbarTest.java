@@ -1,16 +1,18 @@
+package toolbar;
+
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Result;
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.openjfx.App;
 import org.openjfx.constants.Folders;
 import org.testfx.framework.junit.ApplicationTest;
 import service.LoadService;
+import util.TestUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,10 +34,17 @@ public class ToolbarTest extends ApplicationTest {
 
     private TableView<Result> resultTable;
 
+    private TableRow<Result> firstRow;
+
     private LoadService loadService = new LoadService();
 
     @Before
     public void setUp() throws Exception {
+        TestUtil.deleteSaveFile();
+        TestUtil.deleteImageFolder();
+
+        TestUtil.loadTestSetup1();
+
         launch(App.class);
 
         addButton = lookup("#addButton").query();
@@ -45,6 +54,7 @@ public class ToolbarTest extends ApplicationTest {
         certificateButton = lookup("#certificateButton").query();
 
         resultTable = lookup("#table").query();
+        firstRow = lookup(".table-row-cell").nth(0).query();
     }
 
     private Stage getTopModalStage() {
@@ -105,15 +115,8 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void deleteButton_normal_correctText() throws IOException {
+    public void deleteButton_normal_correctText() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 
         //act
         clickOn(firstRow).clickOn(deleteButton);
@@ -127,15 +130,8 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void deleteButton_normal_confirmDialogIsVisible() throws IOException {
+    public void deleteButton_normal_confirmDialogIsVisible() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 
         //act
         clickOn(firstRow).clickOn(deleteButton);
@@ -145,15 +141,8 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void deleteButton_no_confirmDialogIsInvisible() throws IOException {
+    public void deleteButton_no_confirmDialogIsInvisible() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 
         //act
         clickOn(firstRow).clickOn(deleteButton);
@@ -167,17 +156,9 @@ public class ToolbarTest extends ApplicationTest {
         assertEquals(1, listWindows().size());
     }
 
-    //hereasd
     @Test
-    public void deleteButton_yes_confirmDialogIsInvisible() throws IOException {
+    public void deleteButton_yes_confirmDialogIsInvisible() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 
         //act
         clickOn(firstRow).clickOn(deleteButton);
@@ -192,17 +173,10 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void deleteButton_yes_imageIsDeleted() throws IOException {
+    public void deleteButton_yes_imageIsDeleted() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        File testImageFile = new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg");
-        FileUtils.copyFile(testSetupImageFile, testImageFile);
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
 
         //act
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
         clickOn(firstRow).clickOn(deleteButton);
 
         final Stage actualAlertDialog = getTopModalStage();
@@ -211,20 +185,15 @@ public class ToolbarTest extends ApplicationTest {
         clickOn(yesButton);
 
         //assert
+        File testImageFile = new File(Folders.IMAGE_FOLDER + "8990cd5b-78e4-414c-b12c-8fa2879388fe.jpeg");
         assertFalse(testImageFile.exists());
     }
 
     @Test
-    public void deleteButton_yes_rowIsRemovedFromTable() throws IOException {
+    public void deleteButton_yes_rowIsRemovedFromTable() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
 
         //act
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
         clickOn(firstRow).clickOn(deleteButton);
 
         final Stage actualAlertDialog = getTopModalStage();
@@ -236,19 +205,18 @@ public class ToolbarTest extends ApplicationTest {
         assertTrue(resultTable.getItems().isEmpty());
     }
 
-    //TODO: two entries
+    //TODO: implement
 //    @Test
 //    public void deleteButton_yes_placeIsUpdated() throws IOException {
 //        //arrange
-//        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-//        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-//
-//        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-//        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-//
-//        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 //
 //        //act
+//        clickOn(fireDepartmentTextField).write("Feuerwehr1")
+//                .clickOn(timeTextField).write("10")
+//                .clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
+//                .clickOn(applyButton)
+//
+//                .clickOn(addButton)
 //        clickOn(firstRow).clickOn(deleteButton);
 //
 //        final Stage actualAlertDialog = getTopModalStage();
@@ -263,13 +231,6 @@ public class ToolbarTest extends ApplicationTest {
     @Test
     public void deleteButton_yes_saveFileIsUpdated() throws IOException {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 
         //act
         clickOn(firstRow).clickOn(deleteButton);
@@ -284,15 +245,8 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void imageButton_normal_dialogIsVisible() throws IOException {
+    public void imageButton_normal_dialogIsVisible() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
-
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
 
         //act
         clickOn(firstRow).clickOn(imageButton);
@@ -302,16 +256,10 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void imageButton_normal_imageIsShown() throws IOException {
+    public void imageButton_normal_imageIsShown() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
 
         //act
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
         clickOn(firstRow).clickOn(imageButton);
 
         //assert
@@ -323,16 +271,10 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void imageButton_pressCloseButton_dialogIsInvisible() throws IOException {
+    public void imageButton_pressCloseButton_dialogIsInvisible() {
         //arrange
-        File testSetupImageFile = new File(ResultDialogTest.class.getResource("/testSetup/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
-        File testSetupSaveFile = new File(ResultDialogTest.class.getResource("/testSetup/save.csv").getFile());
-
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
-        FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
 
         //act
-        TableRow firstRow = lookup(".table-row-cell").nth(0).query();
         clickOn(firstRow).clickOn(imageButton);
 
         //assert

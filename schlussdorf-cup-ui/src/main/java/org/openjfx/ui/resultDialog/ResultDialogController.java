@@ -3,7 +3,6 @@ package org.openjfx.ui.resultDialog;
 import com.javafxMvc.annotations.*;
 import com.javafxMvc.validator.CombinedValidator;
 import factory.ResultBuilder;
-import javafx.collections.FXCollections;
 import javafx.scene.image.Image;
 import model.Result;
 import org.apache.commons.io.FileUtils;
@@ -119,7 +118,7 @@ public class ResultDialogController implements ResultDialogActions {
         //copy image if necessary
         File selectedImageFile = model.getImage().getValue();
         File resultImageFile = new File(Folders.IMAGE_FOLDER + uuid +  ".jpeg");
-        if(!selectedImageFile.equals(resultImageFile)){
+        if(!selectedImageFile.getCanonicalPath().equals(resultImageFile.getCanonicalPath())){
             FileUtils.copyFile(selectedImageFile, resultImageFile);
         }
 
@@ -143,7 +142,8 @@ public class ResultDialogController implements ResultDialogActions {
         //update place
         List<Result> sortedResultList = resultTableModel.getResultList().stream().sorted().collect(Collectors.toList());
         sortedResultList.forEach(currentResult -> currentResult.setPlace(sortedResultList.indexOf(currentResult)+1));
-        resultTableModel.resultListProperty().set(FXCollections.observableList(sortedResultList));
+        resultTableModel.resultListProperty().get().removeAll(sortedResultList);
+        resultTableModel.resultListProperty().get().addAll(sortedResultList);
 
         //save to csv
         saveService.save(resultTableModel.getResultList(), Folders.SAVE_FOLDER);
