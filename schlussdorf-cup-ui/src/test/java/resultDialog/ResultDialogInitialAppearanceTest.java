@@ -5,11 +5,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import org.assertj.core.api.Assertions;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
 import util.TestUtil;
+
+import java.io.IOException;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
@@ -31,11 +35,13 @@ public class ResultDialogInitialAppearanceTest extends ApplicationTest {
 
     private ImageView imageView;
 
+    @BeforeClass
+    public static void initialize() throws IOException {
+        TestUtil.clearFolders();
+    }
+
     @Before
     public void setUp() throws Exception {
-        TestUtil.deleteSaveFile();
-        //TestUtil.deleteImageFolder();
-
         launch(App.class);
 
         Button addButton = lookup("#addButton").query();
@@ -51,6 +57,11 @@ public class ResultDialogInitialAppearanceTest extends ApplicationTest {
         imageErrorText = lookup("#imageErrorLabel").query();
 
         imageView = lookup("#image").query();
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        TestUtil.clearFolders();
     }
 
     @Test
@@ -142,6 +153,4 @@ public class ResultDialogInitialAppearanceTest extends ApplicationTest {
         //assert
         assertThat(imageErrorText).isInvisible();
     }
-
-    //TODO: reopen
 }

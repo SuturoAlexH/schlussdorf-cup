@@ -24,8 +24,6 @@ public class App extends MVCApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-    private Scene scene;
-
     private YesOrNoDialog closeAppDialog = new YesOrNoDialog();
 
     /**
@@ -51,7 +49,7 @@ public class App extends MVCApplication {
 
         VBox root = new VBox();
         root.getChildren().addAll(mvcMap.getNodeByClass(ToolbarView.class), mvcMap.getNodeByClass(ResultTableView.class));
-        scene = new Scene(root, ApplicationConstants.WINDOW_WIDTH, ApplicationConstants.WINDOW_HEIGHT);
+        Scene scene = new Scene(root, ApplicationConstants.WINDOW_WIDTH, ApplicationConstants.WINDOW_HEIGHT);
 
         stage.setScene(scene);
         stage.show();
@@ -76,6 +74,4 @@ public class App extends MVCApplication {
     public ResourceBundle loadResourceBundle() {
         return ResourceBundle.getBundle("language", Locale.GERMANY);
     }
-
-    //public Scene
 }

@@ -4,11 +4,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import model.Result;
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
@@ -21,15 +22,11 @@ import static org.junit.Assert.*;
 
 public class ResultDialogEditTest extends ApplicationTest {
 
-    private Button editButton;
-
     private TextField fireDepartmentTextField;
 
     private TextField timeTextField;
 
     private TextField mistakePointsTextField;
-
-    private ImageView imageView;
 
     private Button imageButton;
 
@@ -37,34 +34,35 @@ public class ResultDialogEditTest extends ApplicationTest {
 
     private TableView<Result> resultTable;
 
-    private TableRow<Result> firstRow;
-
-    private TableRow<Result> secondRow;
+    @BeforeClass
+    public static void initialize() throws IOException {
+        TestUtil.clearFolders();
+    }
 
     @Before
     public void setUp() throws Exception {
-        TestUtil.deleteSaveFile();
-        //TestUtil.deleteImageFolder();
-
         TestUtil.loadTestSetup2();
 
         launch(App.class);
 
         resultTable = lookup("#table").query();
-        firstRow = lookup(".table-row-cell").nth(0).query();
-        secondRow = lookup(".table-row-cell").nth(1).query();
+        TableRow<Result> firstRow = lookup(".table-row-cell").nth(0).query();
 
-        editButton = lookup("#editButton").query();
+        Button editButton = lookup("#editButton").query();
         clickOn(firstRow).clickOn(editButton);
 
         fireDepartmentTextField = lookup("#fireDepartmentTextField").query();
         timeTextField = lookup("#timeTextField").query();
         mistakePointsTextField = lookup("#mistakePointsTextField").query();
 
-        imageView = lookup("#image").query();
         imageButton = lookup("#customImageButton").query();
 
         applyButton = lookup("#applyButton").query();
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        TestUtil.clearFolders();
     }
 
     @Test
@@ -149,7 +147,6 @@ public class ResultDialogEditTest extends ApplicationTest {
         assertEquals(490, resultTable.getItems().get(0).getFinalScore(), 0);
     }
 
-    //TODO: fix
     @Test
     public void edit_image_imageIsUpdated() throws IOException {
         //arrange
@@ -157,12 +154,11 @@ public class ResultDialogEditTest extends ApplicationTest {
         TestUtil.setClipBoardContent(testImage.getAbsolutePath());
 
         //act
-//        clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
-//                .clickOn(applyButton);
-//
-//        //arrange
-//        assertNotNull(imageView.getImage());
-//        assertTrue(FileUtils.contentEquals(testImage, resultTable.getItems().get(0).getImage()));
+        clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
+                .clickOn(applyButton);
+
+        //arrange
+        assertTrue(FileUtils.contentEquals(testImage, resultTable.getItems().get(0).getImage()));
     }
 
     @Test

@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import service.SaveService;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -57,13 +59,13 @@ public class ResultDialogController implements ResultDialogActions {
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             try {
                 if(newImageFile != null) {
-                    view.image.setImage(new Image(FileUtils.openInputStream(newImageFile)));
+                    view.image.setImage(new Image(new FileInputStream(newImageFile)));
                     view.imageWrapper.setStyle("-fx-border-color:none");
                 }else{
                     view.image.setImage(null);
                     view.imageWrapper.setStyle("-fx-border-color:black");
                 }
-            } catch (IOException e) {
+            } catch (FileNotFoundException e) {
                 LOGGER.error(e.getMessage());
 
                 errorDialog.show("Das Bild für die Ortsfeuerwehr " + model.getFireDepartment().valueProperty().get() + " konnte leider nicht geladen werden!");
@@ -95,7 +97,6 @@ public class ResultDialogController implements ResultDialogActions {
                 view.hide();
                 model.clear();
             } catch (IOException e) {
-                //TODO: dialog
                 LOGGER.error(e.getMessage());
             }
         }

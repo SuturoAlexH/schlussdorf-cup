@@ -5,13 +5,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Window;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
 import util.TestUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.testfx.assertions.api.Assertions.assertThat;
 
@@ -37,11 +40,13 @@ public class ResultDialogValidationTest extends ApplicationTest {
 
     private Button applyButton;
 
+    @BeforeClass
+    public static void initialize() throws IOException {
+        TestUtil.clearFolders();
+    }
+
     @Before
     public void setUp() throws Exception {
-        TestUtil.deleteSaveFile();
-        //TestUtil.deleteImageFolder();
-
         launch(App.class);
 
         Button addButton = lookup("#addButton").query();
@@ -64,7 +69,11 @@ public class ResultDialogValidationTest extends ApplicationTest {
 
     }
 
-    // validation
+    @After
+    public void tearDown() throws IOException {
+        TestUtil.clearFolders();
+    }
+
     @Test
     public void fireDepartment_initialToInvalid_errorTextIsVisible() {
         //arrange

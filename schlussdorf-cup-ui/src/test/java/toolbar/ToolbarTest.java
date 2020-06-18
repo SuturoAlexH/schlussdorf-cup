@@ -8,7 +8,9 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Result;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
 import org.openjfx.constants.Folders;
@@ -45,18 +47,16 @@ public class ToolbarTest extends ApplicationTest {
 
     private LoadService loadService = new LoadService();
 
+    @BeforeClass
+    public static void initialize() throws IOException {
+        TestUtil.clearFolders();
+    }
+    
     @Before
     public void setUp() throws Exception {
-        TestUtil.deleteSaveFile();
-
-        File certificateFolder = new File(CERTIFICATE_FOLDER);
-        certificateFolder.delete();
-
-        //TestUtil.deleteImageFolder();
-
         TestUtil.loadTestSetup2();
 
-        certificateFolder = new File(CERTIFICATE_FOLDER);
+        File certificateFolder = new File(CERTIFICATE_FOLDER);
         certificateFolder.mkdir();
 
         TestUtil.setClipBoardContent(certificateFolder.getAbsolutePath());
@@ -71,6 +71,14 @@ public class ToolbarTest extends ApplicationTest {
 
         resultTable = lookup("#table").query();
         firstRow = lookup(".table-row-cell").nth(0).query();
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        TestUtil.clearFolders();
+
+        File certificateFolder = new File(CERTIFICATE_FOLDER);
+        certificateFolder.delete();
     }
 
     private Stage getTopModalStage() {
@@ -188,7 +196,6 @@ public class ToolbarTest extends ApplicationTest {
         assertEquals(1, listWindows().size());
     }
 
-    //TODO: fix
     @Test
     public void deleteButton_yes_imageIsDeleted() {
         //arrange
@@ -223,7 +230,7 @@ public class ToolbarTest extends ApplicationTest {
     }
 
     @Test
-    public void deleteButton_yes_placeIsUpdated() throws IOException {
+    public void deleteButton_yes_placeIsUpdated() {
         //arrange
 
         //act

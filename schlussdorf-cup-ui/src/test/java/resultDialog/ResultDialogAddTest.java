@@ -5,13 +5,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import model.Result;
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
 import util.TestUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,10 +32,15 @@ public class ResultDialogAddTest extends ApplicationTest {
 
     private TableView<Result> resultTable;
 
+    @BeforeClass
+    public static void initialize() throws IOException {
+        TestUtil.clearFolders();
+    }
+
     @Before
     public void setUp() throws Exception {
-        TestUtil.deleteSaveFile();
-        //TestUtil.deleteImageFolder();
+        File testImage = new File(ResultDialogAddTest.class.getResource("/images/test_image_2.jpg").getFile());
+        TestUtil.setClipBoardContent(testImage.getAbsolutePath());
 
         launch(App.class);
 
@@ -48,8 +56,12 @@ public class ResultDialogAddTest extends ApplicationTest {
 
         resultTable = lookup("#table").query();
 
-        File testImage = new File(ResultDialogAddTest.class.getResource("/images/test_image_2.jpg").getFile());
-        TestUtil.setClipBoardContent(testImage.getAbsolutePath());
+
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        TestUtil.clearFolders();
     }
 
     @Test

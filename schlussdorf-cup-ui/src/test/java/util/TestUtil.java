@@ -11,6 +11,11 @@ import java.io.IOException;
 
 public class TestUtil {
 
+    public static void clearFolders() throws IOException {
+        deleteSaveFile();
+        deleteImageFolder();
+    }
+
     public static void deleteSaveFile(){
         File saveFile = new File(Folders.SAVE_FOLDER);
         saveFile.delete();

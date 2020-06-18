@@ -2,11 +2,14 @@ package resultTable;
 
 import javafx.scene.control.*;
 import model.Result;
-import org.junit.Before;
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
 import util.TestUtil;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -14,10 +17,14 @@ public class ResultTableTest extends ApplicationTest {
 
     private TableView<Result> resultTable;
 
-    @Before
-    public void setUp() {
-        //TestUtil.deleteImageFolder();
-        TestUtil.deleteSaveFile();
+    @BeforeClass
+    public static void initialize() throws IOException {
+        TestUtil.clearFolders();
+    }
+
+    @After
+    public void tearDown() throws IOException {
+        TestUtil.clearFolders();
     }
 
     @Test
