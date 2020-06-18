@@ -175,26 +175,6 @@ public class CertificateServiceTest {
         PdfAssert.assertThat(pdfFile).hasSameAppearanceAs(referencePdfFile);
     }
 
-//    @Test
-//    public void createDocuments_fireDepartmentNameIsVeryLong_appearanceIsCorrect() throws IOException, URISyntaxException {
-//        //arrange
-//        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/verylongnameeeeeeeeeeeeeeeeeeeeeeeeeee_433.34_1.pdf");
-//        File referencePdfFile = Paths.get(resource.toURI()).toFile();
-//
-//        ResultBuilder resultBuilder = new ResultBuilder();
-//        Result result = resultBuilder
-//                .fireDepartment("verylongnameeeeeeeeeeeeeeeeeeeeeeeeeee")
-//                .place(1)
-//                .time(66.66)
-//                .image(new File(CertificateServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
-//
-//        //act
-//        classUnderTest.createDocuments(result, docxFile, pdfFile, CURRENT_DATE, CURRENT_YEAR);
-//
-//        //assert
-//        //PdfAssert.assertThat(pdfFile).hasSameAppearanceAs(referencePdfFile);
-//    }s
-
     @Test
     public void createDocuments_specialCharacters_appearanceIsCorrect() throws IOException, URISyntaxException {
         //arrange

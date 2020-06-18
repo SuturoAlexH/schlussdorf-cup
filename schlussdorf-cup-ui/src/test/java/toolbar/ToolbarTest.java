@@ -188,6 +188,7 @@ public class ToolbarTest extends ApplicationTest {
         assertEquals(1, listWindows().size());
     }
 
+    //TODO: fix
     @Test
     public void deleteButton_yes_imageIsDeleted() {
         //arrange

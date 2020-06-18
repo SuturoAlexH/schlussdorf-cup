@@ -27,21 +27,38 @@ public class CertificateReplacementMapperTest {
 
     @Test(expected = NullPointerException.class)
     public void toReplacementMap_resultIsNull_nullPointerException(){
+        //arrange
+
+        //act
         CertificateReplacementMapper.toReplacementMap(null, CURRENT_DATE, CURRENT_YEAR);
+
+        //assert
     }
 
     @Test(expected = NullPointerException.class)
     public void toReplacementMap_currentDateIsNull_nullPointerException(){
+        //arrange
+
+        //act
         CertificateReplacementMapper.toReplacementMap(result, null, CURRENT_YEAR);
+
+        //assert
     }
 
     @Test(expected = NullPointerException.class)
     public void toReplacementMap_currentYearIsNull_nullPointerException(){
+        //arrange
+
+        //act
         CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, null);
+
+        //assert
     }
 
     @Test
     public void toReplacementMap_normal_sizeIs5(){
+        //arrange
+
         //act
         Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
@@ -51,6 +68,8 @@ public class CertificateReplacementMapperTest {
 
     @Test
     public void toReplacementMap_normal_fireDepartmentContainsReplacementMap(){
+        //arrange
+
         //act
         Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
@@ -60,6 +79,8 @@ public class CertificateReplacementMapperTest {
 
     @Test
     public void toReplacementMap_normal_finalScoreContainsReplacementMap(){
+        //arrange
+
         //act
         Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
@@ -69,6 +90,8 @@ public class CertificateReplacementMapperTest {
 
     @Test
     public void toReplacementMap_normal_placeContainsReplacementMap(){
+        //arrange
+
         //act
         Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
@@ -78,6 +101,8 @@ public class CertificateReplacementMapperTest {
 
     @Test
     public void toReplacementMap_normal_currentDateContainsReplacementMap(){
+        //arrange
+
         //act
         Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
@@ -87,6 +112,8 @@ public class CertificateReplacementMapperTest {
 
     @Test
     public void toReplacementMap_normal_currentYearContainsReplacementMap(){
+        //arrange
+
         //act
         Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 

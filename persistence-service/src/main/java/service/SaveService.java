@@ -8,6 +8,7 @@ import model.Result;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.InvalidPathException;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,12 +20,18 @@ public class SaveService {
         Objects.requireNonNull(resultList, "resultList is null");
         Objects.requireNonNull(filePath, "filePath is null");
 
+        //create save file if it not exists
         File saveFile = new File(filePath);
         if(!saveFile.exists()){
-            saveFile.getParentFile().mkdirs();
+
+            //create folders if they doesn't exist
+            if(saveFile.getParentFile() != null) {
+                saveFile.getParentFile().mkdirs();
+            }
             saveFile.createNewFile();
         }
 
+        //set csv content
         try (CsvAppender csvAppender = writer.append(saveFile, StandardCharsets.UTF_8)) {
             csvAppender.appendLine(Constants.HEADER);
             for(Result result: resultList){
