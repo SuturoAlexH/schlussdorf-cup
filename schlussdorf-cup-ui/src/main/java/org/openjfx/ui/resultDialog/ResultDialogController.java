@@ -63,6 +63,7 @@ public class ResultDialogController implements ResultDialogActions {
                     view.imageWrapper.setStyle("-fx-border-color:none");
                 }else{
                     view.image.setImage(null);
+                    System.gc();
                     view.imageWrapper.setStyle("-fx-border-color:black");
                 }
             } catch (FileNotFoundException e) {

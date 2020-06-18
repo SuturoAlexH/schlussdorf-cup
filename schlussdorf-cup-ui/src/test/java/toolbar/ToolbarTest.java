@@ -51,7 +51,7 @@ public class ToolbarTest extends ApplicationTest {
     public static void initialize() throws IOException {
         TestUtil.clearFolders();
     }
-    
+
     @Before
     public void setUp() throws Exception {
         TestUtil.loadTestSetup2();
@@ -75,7 +75,7 @@ public class ToolbarTest extends ApplicationTest {
 
     @After
     public void tearDown() throws IOException {
-        TestUtil.clearFolders();
+        //TestUtil.clearFolders();
 
         File certificateFolder = new File(CERTIFICATE_FOLDER);
         certificateFolder.delete();
