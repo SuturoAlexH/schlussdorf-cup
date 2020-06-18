@@ -40,7 +40,7 @@ public class ResultDialogValidationTest extends ApplicationTest {
     @Before
     public void setUp() throws Exception {
         TestUtil.deleteSaveFile();
-        TestUtil.deleteImageFolder();
+        //TestUtil.deleteImageFolder();
 
         launch(App.class);
 
@@ -302,20 +302,6 @@ public class ResultDialogValidationTest extends ApplicationTest {
 
         //arrange
         assertThat(mistakePointsErrorText).isInvisible();
-    }
-
-    @Test
-    public void mistakePoints_fromValidToInvalidEmpty_errorTextIsVisible() {
-        //arrange
-        clickOn(mistakePointsTextField).write("1")
-                .clickOn(applyButton);
-
-        //act
-        clickOn(mistakePointsTextField).press(KeyCode.BACK_SPACE)
-                .clickOn(applyButton);
-
-        //arrange
-        assertThat(mistakePointsErrorText).isVisible();
     }
 
     @Test

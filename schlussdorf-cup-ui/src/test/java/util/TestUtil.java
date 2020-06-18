@@ -39,7 +39,7 @@ public class TestUtil {
         File testSetupImageFile = new File(TestUtil.class.getResource("/test_setup_1/746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg").getFile());
         File testSetupSaveFile = new File(TestUtil.class.getResource("/test_setup_1/save.csv").getFile());
 
-        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "8990cd5b-78e4-414c-b12c-8fa2879388fe.jpeg"));
+        FileUtils.copyFile(testSetupImageFile, new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg"));
         FileUtils.copyFile(testSetupSaveFile, new File(Folders.SAVE_FOLDER));
     }
 

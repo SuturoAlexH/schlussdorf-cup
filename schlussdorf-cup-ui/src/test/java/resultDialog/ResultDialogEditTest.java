@@ -44,7 +44,7 @@ public class ResultDialogEditTest extends ApplicationTest {
     @Before
     public void setUp() throws Exception {
         TestUtil.deleteSaveFile();
-        TestUtil.deleteImageFolder();
+        //TestUtil.deleteImageFolder();
 
         TestUtil.loadTestSetup2();
 
@@ -84,11 +84,16 @@ public class ResultDialogEditTest extends ApplicationTest {
         //arrange
 
         //act
-        clickOn(timeTextField).write("0")
+        clickOn(timeTextField)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .write("10")
                 .clickOn(applyButton);
 
         //arrange
-        assertEquals(100, resultTable.getItems().get(0).getTime(), 0);
+        assertEquals(10, resultTable.getItems().get(0).getTime(), 0);
     }
 
     @Test
@@ -132,7 +137,12 @@ public class ResultDialogEditTest extends ApplicationTest {
         //arrange
 
         //act
-        clickOn(timeTextField).press(KeyCode.BACK_SPACE, KeyCode.BACK_SPACE).write("10")
+        clickOn(timeTextField)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .press(KeyCode.BACK_SPACE).release(KeyCode.BACK_SPACE)
+                .write("10")
                 .clickOn(applyButton);
 
         //arrange
@@ -142,16 +152,31 @@ public class ResultDialogEditTest extends ApplicationTest {
     @Test
     public void edit_image_imageIsUpdated() throws IOException {
         //arrange
-//        File testImage = new File(ResultDialogReopenTest.class.getResource("/images/test_image_1.jpeg").getFile());
-//        TestUtil.setClipBoardContent(testImage.getAbsolutePath());
-//        System.out.println(testImage.getAbsolutePath());
-//
-//        //act
-//        clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
-//                .clickOn(applyButton);
-//
-//        //arrange
-//        assertNotNull(imageView.getImage());
-//        assertTrue(FileUtils.contentEquals(testImage, resultTable.getItems().get(0).getImage()));
+        File testImage = new File(ResultDialogReopenTest.class.getResource("/images/test_image_1.jpeg").getFile());
+        TestUtil.setClipBoardContent(testImage.getAbsolutePath());
+
+        //act
+        clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
+                .clickOn(applyButton);
+
+        //arrange
+        assertNotNull(imageView.getImage());
+        assertTrue(FileUtils.contentEquals(testImage, resultTable.getItems().get(0).getImage()));
+    }
+
+    @Test
+    public void edit_finalScore_placeIsUpdated() {
+        //arrange
+
+        //act
+        clickOn(mistakePointsTextField).press(KeyCode.BACK_SPACE).write("100")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals(1, resultTable.getItems().get(0).getPlace());
+        assertEquals("Feuerwehr2", resultTable.getItems().get(0).getFireDepartment());
+
+        assertEquals(2, resultTable.getItems().get(1).getPlace());
+        assertEquals("Feuerwehr1", resultTable.getItems().get(1).getFireDepartment());
     }
 }

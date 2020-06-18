@@ -1,8 +1,10 @@
 package toolbar;
 
+import com.jPdfUnit.asserts.PdfAssert;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Result;
@@ -11,16 +13,21 @@ import org.junit.Test;
 import org.openjfx.App;
 import org.openjfx.constants.Folders;
 import org.testfx.framework.junit.ApplicationTest;
+import resultDialog.ResultDialogAddTest;
 import service.LoadService;
 import util.TestUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.*;
 
 public class ToolbarTest extends ApplicationTest {
+
+    private static final String CERTIFICATE_FOLDER = "./urkunden";
 
     private Button addButton;
 
@@ -41,9 +48,18 @@ public class ToolbarTest extends ApplicationTest {
     @Before
     public void setUp() throws Exception {
         TestUtil.deleteSaveFile();
-        TestUtil.deleteImageFolder();
 
-        TestUtil.loadTestSetup1();
+        File certificateFolder = new File(CERTIFICATE_FOLDER);
+        certificateFolder.delete();
+
+        //TestUtil.deleteImageFolder();
+
+        TestUtil.loadTestSetup2();
+
+        certificateFolder = new File(CERTIFICATE_FOLDER);
+        certificateFolder.mkdir();
+
+        TestUtil.setClipBoardContent(certificateFolder.getAbsolutePath());
 
         launch(App.class);
 
@@ -126,7 +142,7 @@ public class ToolbarTest extends ApplicationTest {
         String contentText = dialogPane.getContentText();
 
         //assert
-        assertEquals("Soll das Ergebnis der Feuerwehr Feuerwehr wirklich gelöscht werden?", contentText);
+        assertEquals("Soll das Ergebnis der Feuerwehr Feuerwehr1 wirklich gelöscht werden?", contentText);
     }
 
     @Test
@@ -185,7 +201,7 @@ public class ToolbarTest extends ApplicationTest {
         clickOn(yesButton);
 
         //assert
-        File testImageFile = new File(Folders.IMAGE_FOLDER + "8990cd5b-78e4-414c-b12c-8fa2879388fe.jpeg");
+        File testImageFile = new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg");
         assertFalse(testImageFile.exists());
     }
 
@@ -202,31 +218,25 @@ public class ToolbarTest extends ApplicationTest {
         clickOn(yesButton);
 
         //assert
-        assertTrue(resultTable.getItems().isEmpty());
+        assertEquals(1, resultTable.getItems().size());
     }
 
-    //TODO: implement
-//    @Test
-//    public void deleteButton_yes_placeIsUpdated() throws IOException {
-//        //arrange
-//
-//        //act
-//        clickOn(fireDepartmentTextField).write("Feuerwehr1")
-//                .clickOn(timeTextField).write("10")
-//                .clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
-//                .clickOn(applyButton)
-//
-//                .clickOn(addButton)
-//        clickOn(firstRow).clickOn(deleteButton);
-//
-//        final Stage actualAlertDialog = getTopModalStage();
-//        final DialogPane dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
-//        Button yesButton = (Button)dialogPane.lookupButton(ButtonType.YES);
-//        clickOn(yesButton);
-//
-//        //assert
-//        assertEquals(1, listWindows().size());
-//    }
+    @Test
+    public void deleteButton_yes_placeIsUpdated() throws IOException {
+        //arrange
+
+        //act
+        clickOn(firstRow).clickOn(deleteButton);
+
+        final Stage actualAlertDialog = getTopModalStage();
+        final DialogPane dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
+        Button yesButton = (Button)dialogPane.lookupButton(ButtonType.YES);
+        clickOn(yesButton);
+
+        //assert
+        assertEquals(1, resultTable.getItems().get(0).getPlace());
+        assertEquals("Feuerwehr2", resultTable.getItems().get(0).getFireDepartment());
+    }
 
     @Test
     public void deleteButton_yes_saveFileIsUpdated() throws IOException {
@@ -241,7 +251,7 @@ public class ToolbarTest extends ApplicationTest {
         clickOn(yesButton);
 
         //assert
-        assertTrue(loadService.load(Folders.SAVE_FOLDER).isEmpty());
+        assertEquals(1, loadService.load(Folders.SAVE_FOLDER).size());
     }
 
     @Test
@@ -287,5 +297,94 @@ public class ToolbarTest extends ApplicationTest {
         assertEquals(1, listWindows().size());
     }
 
-    //TODO: test certificate progress
+    @Test
+    public void createCertificateButton_normal_certificateFolderIsCreated(){
+        //arrange
+
+        //act
+        clickOn(certificateButton)
+                .press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL)
+                .press(KeyCode.ENTER).release(KeyCode.ENTER)
+                .press(KeyCode.ENTER);
+
+        await().atMost(60, TimeUnit.SECONDS).until(() -> getTopModalStage() != null);
+
+        //assert
+        File innerCertificateFolder = new File(CERTIFICATE_FOLDER + "/urkunden");
+        assertTrue(innerCertificateFolder.exists());
+    }
+
+    @Test
+    public void createCertificateButton_normal_fireDepartmentFoldersAreCreated(){
+        //arrange
+
+        //act
+        clickOn(certificateButton)
+                .press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL)
+                .press(KeyCode.ENTER).release(KeyCode.ENTER)
+                .press(KeyCode.ENTER);
+
+        await().atMost(60, TimeUnit.SECONDS).until(() -> listWindows().size() == 1);
+
+        //assert
+        File fireDepartment1Folder1 = new File(CERTIFICATE_FOLDER + "/urkunden/1_Feuerwehr1");
+        File fireDepartment1Folder2 = new File(CERTIFICATE_FOLDER + "/urkunden/2_Feuerwehr2");
+
+        assertTrue(fireDepartment1Folder1.exists());
+        assertTrue(fireDepartment1Folder2.exists());
+    }
+
+    @Test
+    public void createCertificateButton_normal_certificatePdfsAreCorrect(){
+        //arrange
+
+        //act
+        clickOn(certificateButton)
+                .press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL)
+                .press(KeyCode.ENTER).release(KeyCode.ENTER)
+                .press(KeyCode.ENTER);
+
+        await().atMost(60, TimeUnit.SECONDS).until(() -> listWindows().size() == 1);
+
+        //assert
+        File certificate1 = new File(ResultDialogAddTest.class.getResource("/referencePdfs/Feuerwehr1.pdf").getFile());
+        File certificate2 = new File(ResultDialogAddTest.class.getResource("/referencePdfs/Feuerwehr2.pdf").getFile());
+
+        PdfAssert.assertThat(new File(CERTIFICATE_FOLDER + "/urkunden/1_Feuerwehr1/Feuerwehr1.pdf")).hasSameAppearanceAs(certificate1);
+        PdfAssert.assertThat(new File(CERTIFICATE_FOLDER + "/urkunden/2_Feuerwehr2/Feuerwehr2.pdf")).hasSameAppearanceAs(certificate2);
+    }
+
+    @Test
+    public void createCertificateButton_normal_summaryPdfIsCorrect(){
+        //arrange
+
+        //act
+        clickOn(certificateButton)
+                .press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL)
+                .press(KeyCode.ENTER).release(KeyCode.ENTER)
+                .press(KeyCode.ENTER);
+
+        await().atMost(60, TimeUnit.SECONDS).until(() -> listWindows().size() == 1);
+
+        //assert
+        File summary = new File(ResultDialogAddTest.class.getResource("/referencePdfs/zusammenfassung.pdf").getFile());
+        PdfAssert.assertThat(new File(CERTIFICATE_FOLDER + "/urkunden/zusammenfassung.pdf")).hasSameAppearanceAs(summary);
+    }
+
+    @Test
+    public void createCertificateButton_normal_mergedCertificatesAreCorrect(){
+        //arrange
+
+        //act
+        clickOn(certificateButton)
+                .press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL)
+                .press(KeyCode.ENTER).release(KeyCode.ENTER)
+                .press(KeyCode.ENTER);
+
+        await().atMost(60, TimeUnit.SECONDS).until(() -> listWindows().size() == 1);
+
+        //assert
+        File summary = new File(ResultDialogAddTest.class.getResource("/referencePdfs/urkunden.pdf").getFile());
+        PdfAssert.assertThat(new File(CERTIFICATE_FOLDER + "/urkunden/urkunden.pdf")).hasSameAppearanceAs(summary);
+    }
 }

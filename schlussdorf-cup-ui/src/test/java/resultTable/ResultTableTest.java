@@ -8,17 +8,15 @@ import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
 import util.TestUtil;
 
-import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ResultTableTest extends ApplicationTest {
 
     private TableView<Result> resultTable;
 
     @Before
-    public void setUp() throws IOException {
-        TestUtil.deleteImageFolder();
+    public void setUp() {
+        //TestUtil.deleteImageFolder();
         TestUtil.deleteSaveFile();
     }
 
@@ -71,5 +69,59 @@ public class ResultTableTest extends ApplicationTest {
         //assert
         resultTable = lookup("#table").query();
         assertEquals(2, resultTable.getItems().size());
+    }
+
+    @Test
+    public void table_select_resultIsSelected() throws Exception {
+        //arrange
+        TestUtil.loadTestSetup1();
+
+        launch(App.class);
+
+        TableRow<Result> firstRow = lookup(".table-row-cell").nth(0).query();
+
+        //act
+        clickOn(firstRow);
+
+        //assert
+        assertTrue(firstRow.isSelected());
+    }
+
+    @Test
+    public void table_deselect_resultIsDeselected() throws Exception {
+        //arrange
+        TestUtil.loadTestSetup1();
+
+        launch(App.class);
+
+        TableRow<Result> firstRow = lookup(".table-row-cell").nth(0).query();
+
+        clickOn(firstRow);
+
+        //act
+        clickOn(firstRow);
+
+        //assert
+        assertFalse(firstRow.isSelected());
+    }
+
+    @Test
+    public void table_selectOtherResult_otherResultIsSelected() throws Exception {
+        //arrange
+        TestUtil.loadTestSetup2();
+
+        launch(App.class);
+
+        TableRow<Result> firstRow = lookup(".table-row-cell").nth(0).query();
+        TableRow<Result> secondRow = lookup(".table-row-cell").nth(1).query();
+
+        clickOn(firstRow);
+
+        //act
+        clickOn(secondRow);
+
+        //assert
+        assertFalse(firstRow.isSelected());
+        assertTrue(secondRow.isSelected());
     }
 }

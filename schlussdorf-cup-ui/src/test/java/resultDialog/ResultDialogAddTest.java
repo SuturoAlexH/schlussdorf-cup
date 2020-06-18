@@ -32,7 +32,7 @@ public class ResultDialogAddTest extends ApplicationTest {
     @Before
     public void setUp() throws Exception {
         TestUtil.deleteSaveFile();
-        TestUtil.deleteImageFolder();
+        //TestUtil.deleteImageFolder();
 
         launch(App.class);
 
