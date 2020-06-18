@@ -1,3 +1,5 @@
+package resultTable;
+
 import javafx.scene.control.*;
 import model.Result;
 import org.junit.Before;

@@ -1,4 +1,147 @@
 package resultDialog;
 
-public class ResultDialogInitialApperanceTest {
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
+import org.openjfx.App;
+import org.testfx.framework.junit.ApplicationTest;
+import util.TestUtil;
+
+import static org.testfx.assertions.api.Assertions.assertThat;
+
+public class ResultDialogInitialAppearanceTest extends ApplicationTest {
+
+    private TextField fireDepartmentTextField;
+
+    private TextField mistakePointsTextField;
+
+    private TextField timeTextField;
+
+    private Label fireDepartmentErrorText;
+
+    private Label timeErrorText;
+
+    private Label mistakePointsErrorText;
+
+    private Label imageErrorText;
+
+    private ImageView imageView;
+
+    @Before
+    public void setUp() throws Exception {
+        TestUtil.deleteSaveFile();
+        TestUtil.deleteImageFolder();
+
+        launch(App.class);
+
+        Button addButton = lookup("#addButton").query();
+        clickOn(addButton);
+
+        fireDepartmentTextField = lookup("#fireDepartmentTextField").query();
+        mistakePointsTextField = lookup("#mistakePointsTextField").query();
+        timeTextField = lookup("#timeTextField").query();
+
+        fireDepartmentErrorText = lookup("#fireDepartmentErrorLabel").query();
+        timeErrorText = lookup("#timeErrorLabel").query();
+        mistakePointsErrorText = lookup("#mistakePointsErrorLabel").query();
+        imageErrorText = lookup("#imageErrorLabel").query();
+
+        imageView = lookup("#image").query();
+    }
+
+    @Test
+    public void fireDepartment_initialState_textFieldIsFocused() {
+        //arrange
+
+        //act
+
+        //assert
+        assertThat(fireDepartmentTextField).isFocused();
+    }
+
+    @Test
+    public void fireDepartment_initialState_textFieldIsEmpty() {
+        //arrange
+
+        //act
+
+        //assert
+        Assertions.assertThat(fireDepartmentTextField.getText()).isNull();
+    }
+
+    @Test
+    public void fireDepartment_initialState_errorTextIsInvisible() {
+        //arrange
+
+        //act
+
+        //assert
+        assertThat(fireDepartmentErrorText).isInvisible();
+    }
+
+    @Test
+    public void mistakePoints_initialState_textFieldIsEmpty() {
+        //arrange
+
+        //act
+
+        //assert
+        Assertions.assertThat(mistakePointsTextField.getText()).isNull();
+    }
+
+    @Test
+    public void mistakePoints_initialState_errorTextIsInvisible() {
+        //arrange
+
+        //act
+
+        //assert
+        assertThat(mistakePointsErrorText).isInvisible();
+    }
+
+    @Test
+    public void time_initialState_textFieldIsEmpty() {
+        //arrange
+
+        //act
+
+        //assert
+        Assertions.assertThat(timeTextField.getText()).isNull();
+    }
+
+    @Test
+    public void time_initialState_errorTextIsInvisible() {
+        //arrange
+
+        //act
+
+        //assert
+        assertThat(timeErrorText).isInvisible();
+    }
+
+    @Test
+    public void image_initialState_imageIsEmpty() {
+        //arrange
+
+        //act
+
+        //assert
+        Assertions.assertThat(imageView.getImage()).isNull();
+    }
+
+    @Test
+    public void image_initialState_errorTextIsInvisible() {
+        //arrange
+
+        //act
+
+        //assert
+        assertThat(imageErrorText).isInvisible();
+    }
+
+    //TODO: reopen
 }

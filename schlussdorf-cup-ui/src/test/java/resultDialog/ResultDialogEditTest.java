@@ -1,4 +1,157 @@
 package resultDialog;
 
-public class ResultDialogEditTest {
+import javafx.scene.control.Button;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import model.Result;
+import org.apache.commons.io.FileUtils;
+import org.junit.Before;
+import org.junit.Test;
+import org.openjfx.App;
+import org.testfx.framework.junit.ApplicationTest;
+import util.TestUtil;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
+
+public class ResultDialogEditTest extends ApplicationTest {
+
+    private Button editButton;
+
+    private TextField fireDepartmentTextField;
+
+    private TextField timeTextField;
+
+    private TextField mistakePointsTextField;
+
+    private ImageView imageView;
+
+    private Button imageButton;
+
+    private Button applyButton;
+
+    private TableView<Result> resultTable;
+
+    private TableRow<Result> firstRow;
+
+    private TableRow<Result> secondRow;
+
+    @Before
+    public void setUp() throws Exception {
+        TestUtil.deleteSaveFile();
+        TestUtil.deleteImageFolder();
+
+        TestUtil.loadTestSetup2();
+
+        launch(App.class);
+
+        resultTable = lookup("#table").query();
+        firstRow = lookup(".table-row-cell").nth(0).query();
+        secondRow = lookup(".table-row-cell").nth(1).query();
+
+        editButton = lookup("#editButton").query();
+        clickOn(firstRow).clickOn(editButton);
+
+        fireDepartmentTextField = lookup("#fireDepartmentTextField").query();
+        timeTextField = lookup("#timeTextField").query();
+        mistakePointsTextField = lookup("#mistakePointsTextField").query();
+
+        imageView = lookup("#image").query();
+        imageButton = lookup("#customImageButton").query();
+
+        applyButton = lookup("#applyButton").query();
+    }
+
+    @Test
+    public void edit_fireDepartment_tableIsCorrect() {
+        //arrange
+
+        //act
+        clickOn(fireDepartmentTextField).write(" edit")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals("Feuerwehr1 edit", resultTable.getItems().get(0).getFireDepartment());
+    }
+
+    @Test
+    public void edit_time_tableIsCorrect() {
+        //arrange
+
+        //act
+        clickOn(timeTextField).write("0")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals(100, resultTable.getItems().get(0).getTime(), 0);
+    }
+
+    @Test
+    public void edit_mistakePoints_tableIsCorrect() {
+        //arrange
+
+        //act
+        clickOn(mistakePointsTextField).press(KeyCode.BACK_SPACE).write("10")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals(10, resultTable.getItems().get(0).getMistakePoints());
+    }
+
+    @Test
+    public void edit_image_tableIsCorrect() {
+        //arrange
+
+        //act
+        clickOn(fireDepartmentTextField).write(" edit")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals("Feuerwehr1 edit", resultTable.getItems().get(0).getFireDepartment());
+    }
+
+    @Test
+    public void edit_mistakePoints_finalScoreIsCorrect() {
+        //arrange
+
+        //act
+        clickOn(mistakePointsTextField).press(KeyCode.BACK_SPACE).write("10")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals(430, resultTable.getItems().get(0).getFinalScore(), 0);
+    }
+
+    @Test
+    public void edit_time_finalScoreIsCorrect() {
+        //arrange
+
+        //act
+        clickOn(timeTextField).press(KeyCode.BACK_SPACE, KeyCode.BACK_SPACE).write("10")
+                .clickOn(applyButton);
+
+        //arrange
+        assertEquals(490, resultTable.getItems().get(0).getFinalScore(), 0);
+    }
+
+    @Test
+    public void edit_image_imageIsUpdated() throws IOException {
+        //arrange
+//        File testImage = new File(ResultDialogReopenTest.class.getResource("/images/test_image_1.jpeg").getFile());
+//        TestUtil.setClipBoardContent(testImage.getAbsolutePath());
+//        System.out.println(testImage.getAbsolutePath());
+//
+//        //act
+//        clickOn(imageButton).press(KeyCode.CONTROL, KeyCode.V).release(KeyCode.V, KeyCode.CONTROL).push(KeyCode.ENTER)
+//                .clickOn(applyButton);
+//
+//        //arrange
+//        assertNotNull(imageView.getImage());
+//        assertTrue(FileUtils.contentEquals(testImage, resultTable.getItems().get(0).getImage()));
+    }
 }
