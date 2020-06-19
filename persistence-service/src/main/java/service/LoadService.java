@@ -1,6 +1,6 @@
 package service;
 
-import constants.Constants;
+import constants.CsvConstants;
 import de.siegmar.fastcsv.reader.CsvContainer;
 import de.siegmar.fastcsv.reader.CsvReader;
 import de.siegmar.fastcsv.reader.CsvRow;
@@ -15,18 +15,30 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * This is a service that reads a file path to a csv file and return a list of results.
+ */
 public class LoadService {
 
+    /**
+     * The csv reader.
+     */
     private final CsvReader reader = new CsvReader();
 
+    /**
+     * Default constructor set contains header to true.
+     */
     public LoadService(){
-        initialize();
-    }
-
-    private void initialize(){
         reader.setContainsHeader(true);
     }
 
+    /**
+     * Takes a file path to a csv file and converts reads the content and converts it to a list of results.
+     *
+     * @param filePath the file path to the csv file
+     * @return the list of results
+     * @throws IOException if the csv file is broken
+     */
     public List<Result> load(final String filePath) throws IOException {
         Objects.requireNonNull(filePath, "filePath is null");
 
@@ -42,13 +54,13 @@ public class LoadService {
     }
 
     private Result rowToResult(final CsvRow row){
-        UUID uuid = UUID.fromString(row.getField(Constants.UUID));
-        int place = Integer.parseInt(row.getField(Constants.PLACE));
-        String fireDepartment = row.getField(Constants.FIRE_DEPARTMENT);
-        double time = Double.parseDouble(row.getField(Constants.TIME));
-        int mistakePoints = Integer.parseInt(row.getField(Constants.MISTAKE_POINTS));
-        double finalScore = Double.parseDouble(row.getField(Constants.FINAL_SCORE));
-        String imagePath = row.getField(Constants.IMAGE_PATH);
+        UUID uuid = UUID.fromString(row.getField(CsvConstants.UUID));
+        int place = Integer.parseInt(row.getField(CsvConstants.PLACE));
+        String fireDepartment = row.getField(CsvConstants.FIRE_DEPARTMENT);
+        double time = Double.parseDouble(row.getField(CsvConstants.TIME));
+        int mistakePoints = Integer.parseInt(row.getField(CsvConstants.MISTAKE_POINTS));
+        double finalScore = Double.parseDouble(row.getField(CsvConstants.FINAL_SCORE));
+        String imagePath = row.getField(CsvConstants.IMAGE_PATH);
 
        return new Result(uuid, place, fireDepartment, time, mistakePoints, finalScore, new File(imagePath));
     }

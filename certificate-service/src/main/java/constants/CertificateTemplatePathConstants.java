@@ -2,7 +2,10 @@ package constants;
 
 import java.io.File;
 
-public class PathConstants {
+/**
+ * Constants for the certificate template.
+ */
+public class CertificateTemplatePathConstants {
 
     public static final String TEMPLATE_FOLDER = "./template";
 

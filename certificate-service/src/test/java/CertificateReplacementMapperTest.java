@@ -1,12 +1,11 @@
-import constants.ReplacementConstants;
+import constants.PlaceHolderConstants;
+import factory.ResultBuilder;
 import mapper.CertificateReplacementMapper;
 import model.Result;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,11 +17,19 @@ public class CertificateReplacementMapperTest {
     private static final String CURRENT_DATE = "06.06.2020";
     private static final String CURRENT_YEAR = "2020";
 
-    private static Result result;
+    private CertificateReplacementMapper classUnderTest;
 
-    @BeforeClass
-    public static void startUp(){
-        result = new Result(UUID.randomUUID(), PLACE, FIRE_DEPARTMENT, 10.1, 5, FINAL_SCORE, new File(CertificateReplacementMapperTest.class.getResource("/images/test_image.jpeg").getFile()));
+    private Result result;
+
+    @Before
+    public void setUp(){
+        classUnderTest = new CertificateReplacementMapper();
+
+        ResultBuilder resultBuilder = new ResultBuilder();
+        result = resultBuilder.place(PLACE)
+                .fireDepartment(FIRE_DEPARTMENT)
+                .finalScore(FINAL_SCORE)
+                .build();
     }
 
     @Test(expected = NullPointerException.class)
@@ -30,7 +37,7 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        CertificateReplacementMapper.toReplacementMap(null, CURRENT_DATE, CURRENT_YEAR);
+        classUnderTest.toReplacementMap(null, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
     }
@@ -40,7 +47,7 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        CertificateReplacementMapper.toReplacementMap(result, null, CURRENT_YEAR);
+        classUnderTest.toReplacementMap(result, null, CURRENT_YEAR);
 
         //assert
     }
@@ -50,7 +57,7 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, null);
+        classUnderTest.toReplacementMap(result, CURRENT_DATE, null);
 
         //assert
     }
@@ -60,7 +67,7 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
+        Map<String, String> replacementMap = classUnderTest.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
         assertEquals(5, replacementMap.size());
@@ -71,10 +78,10 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
+        Map<String, String> replacementMap = classUnderTest.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        assertEquals(FIRE_DEPARTMENT, replacementMap.get(ReplacementConstants.FIRE_DEPARTMENT));
+        assertEquals(FIRE_DEPARTMENT, replacementMap.get(PlaceHolderConstants.FIRE_DEPARTMENT));
     }
 
     @Test
@@ -82,10 +89,10 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
+        Map<String, String> replacementMap = classUnderTest.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        assertEquals(String.valueOf(FINAL_SCORE), replacementMap.get(ReplacementConstants.FINAL_SCORE));
+        assertEquals(String.valueOf(FINAL_SCORE), replacementMap.get(PlaceHolderConstants.FINAL_SCORE));
     }
 
     @Test
@@ -93,10 +100,10 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
+        Map<String, String> replacementMap = classUnderTest.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        assertEquals(String.valueOf(PLACE), replacementMap.get(ReplacementConstants.PLACE));
+        assertEquals(String.valueOf(PLACE), replacementMap.get(PlaceHolderConstants.PLACE));
     }
 
     @Test
@@ -104,10 +111,10 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
+        Map<String, String> replacementMap = classUnderTest.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        assertEquals(CURRENT_DATE, replacementMap.get(ReplacementConstants.DATE));
+        assertEquals(CURRENT_DATE, replacementMap.get(PlaceHolderConstants.DATE));
     }
 
     @Test
@@ -115,9 +122,9 @@ public class CertificateReplacementMapperTest {
         //arrange
 
         //act
-        Map<String, String> replacementMap = CertificateReplacementMapper.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
+        Map<String, String> replacementMap = classUnderTest.toReplacementMap(result, CURRENT_DATE, CURRENT_YEAR);
 
         //assert
-        assertEquals(CURRENT_YEAR, replacementMap.get(ReplacementConstants.YEAR));
+        assertEquals(CURRENT_YEAR, replacementMap.get(PlaceHolderConstants.YEAR));
     }
 }

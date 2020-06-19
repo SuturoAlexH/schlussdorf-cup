@@ -21,6 +21,8 @@ public class ResultBuilder {
 
     private File image;
 
+    private Double finalScore;
+
     private FinalScoreCalculatorService finalScoreCalculatorService = new FinalScoreCalculatorService();
 
     public ResultBuilder uuid(final UUID uuid){
@@ -73,6 +75,12 @@ public class ResultBuilder {
         return this;
     }
 
+    public ResultBuilder finalScore(final double finalScore){
+        this.finalScore = finalScore;
+
+        return this;
+    }
+
     public ResultBuilder image(final File image){
         this.image = image;
 
@@ -80,7 +88,7 @@ public class ResultBuilder {
     }
 
     public Result build(){
-        double finalScore = finalScoreCalculatorService.calculate(time, mistakePoints);
-        return new Result(uuid, place, fireDepartment, time, mistakePoints, finalScore, image);
+        double score = finalScore != null? finalScore: finalScoreCalculatorService.calculate(time, mistakePoints);
+        return new Result(uuid, place, fireDepartment, time, mistakePoints, score, image);
     }
 }

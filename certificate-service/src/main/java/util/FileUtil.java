@@ -10,15 +10,16 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 /**
- *
+ * This class provides util method for files.
  */
 public class FileUtil {
 
     /**
-     * 
-     * @param filePath
-     * @param replacementMap
-     * @throws IOException
+     * Replace all occurrences of the keys with the values of the replacementMap at the file corresponding with the given file path.
+     *
+     * @param filePath the file path to the file that should be modified
+     * @param replacementMap a map that contains place holders as key and the corresponding values
+     * @throws IOException if something went wrong while replacing the place holders
      */
     public static void replacePlaceHolder(final String filePath, final Map<String, String> replacementMap) throws IOException {
         String fileContent = Files.readString(Paths.get(filePath), StandardCharsets.UTF_8);

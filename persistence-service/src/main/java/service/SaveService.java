@@ -1,6 +1,6 @@
 package service;
 
-import constants.Constants;
+import constants.CsvConstants;
 import de.siegmar.fastcsv.writer.CsvAppender;
 import de.siegmar.fastcsv.writer.CsvWriter;
 import model.Result;
@@ -11,10 +11,25 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This is a service that writes to a csv file a list of results.
+ */
 public class SaveService {
 
+    /**
+     * The csv writer.
+     */
     private final CsvWriter writer = new CsvWriter();
 
+    /**
+     * Takes a file path to a csv file and a list of results and writes the list of result
+     * to the csv file. If the csv does not exists or folders inside the path not exists then
+     * they are created.
+     *
+     * @param resultList the list of results
+     * @param filePath the file path to the csv file
+     * @throws IOException if the csv file is broken
+     */
     public void save(final List<Result> resultList, final String filePath) throws IOException {
         Objects.requireNonNull(resultList, "resultList is null");
         Objects.requireNonNull(filePath, "filePath is null");
@@ -32,7 +47,7 @@ public class SaveService {
 
         //set csv content
         try (CsvAppender csvAppender = writer.append(saveFile, StandardCharsets.UTF_8)) {
-            csvAppender.appendLine(Constants.HEADER);
+            csvAppender.appendLine(CsvConstants.HEADER);
             for(Result result: resultList){
                 appendLine(csvAppender, result);
             }

@@ -64,8 +64,6 @@ public class ToolbarController implements ToolbarActions {
 
     private YesOrNoDialog deleteDialog;
 
-
-
     public ToolbarController(){
         certificateService = new CertificateService();
         certificateSummaryService = new CertificateSummaryService();

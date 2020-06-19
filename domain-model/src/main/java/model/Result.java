@@ -3,6 +3,9 @@ package model;
 import java.io.File;
 import java.util.UUID;
 
+/**
+ *
+ */
 public class Result implements Comparable<Result>{
     private final UUID uuid;
 
@@ -18,6 +21,16 @@ public class Result implements Comparable<Result>{
 
     private File image;
 
+    /**
+     *
+     * @param uuid
+     * @param place
+     * @param fireDepartment
+     * @param time
+     * @param mistakePoints
+     * @param finalScore
+     * @param image
+     */
     public Result(UUID uuid, int place, String fireDepartment, double time, int mistakePoints, double finalScore, File image) {
         this.uuid = uuid;
         this.place = place;
@@ -68,10 +81,6 @@ public class Result implements Comparable<Result>{
         return finalScore;
     }
 
-    public void setFinalScore(double finalScore) {
-        this.finalScore = finalScore;
-    }
-
     public File getImage() {
         return image;
     }
@@ -80,6 +89,11 @@ public class Result implements Comparable<Result>{
         this.image = image;
     }
 
+    /**
+     *
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(final Object other){
         if(other instanceof Result){
@@ -90,6 +104,10 @@ public class Result implements Comparable<Result>{
         return false;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
@@ -106,6 +124,11 @@ public class Result implements Comparable<Result>{
         return builder.toString();
     }
 
+    /**
+     *
+     * @param other
+     * @return
+     */
     public int compareTo(Result other) {
         return -1 * Double.compare(finalScore, other.finalScore);
     }
