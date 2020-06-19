@@ -1,6 +1,6 @@
-import com.google.common.collect.Lists;
 import factory.ResultBuilder;
 import model.Result;
+import org.assertj.core.util.Lists;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +9,9 @@ import service.SaveService;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.InvalidPathException;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -89,7 +90,7 @@ public class SaveServiceTest {
         ResultBuilder resultBuilder1 = new ResultBuilder();
         Result result = resultBuilder1.fireDepartment("firedepartment1").time(10.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
 
-        List<Result> resultList = Lists.newArrayList(result);
+        List<Result> resultList = Collections.singletonList(result);
 
         //act
         classUnderTest.save(resultList, SAVE_FILE_PATH);
