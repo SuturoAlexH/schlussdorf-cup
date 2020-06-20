@@ -22,6 +22,12 @@
     <dependencies>
         <dependency>
             <groupId>de.ff-worpswede</groupId>
+            <artifactId>domain-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>de.ff-worpswede</groupId>
             <artifactId>persistence-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

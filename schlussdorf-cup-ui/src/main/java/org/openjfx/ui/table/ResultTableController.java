@@ -1,5 +1,6 @@
 package org.openjfx.ui.table;
 
+import com.google.common.io.Files;
 import factory.ResultBuilder;
 import model.Result;
 import com.javafxMvc.annotations.Bind;
@@ -85,7 +86,12 @@ public class ResultTableController {
         //copy image if necessary
         File resultImageFile = new File(FolderConstants.IMAGE_FOLDER + uuid +  ".jpeg");
         if(!selectedImageFile.getCanonicalPath().equals(resultImageFile.getCanonicalPath())){
-            FileUtils.copyFile(selectedImageFile, resultImageFile);
+            //create image folder if not exists
+            File imageFolder = new File(FolderConstants.IMAGE_FOLDER);
+            if(!imageFolder.exists()){
+                imageFolder.mkdir();
+            }
+            Files.copy(selectedImageFile, resultImageFile);
         }
 
         //create result
