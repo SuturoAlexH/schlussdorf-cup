@@ -10,10 +10,7 @@ import org.openjfx.ui.table.ResultTableController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * The controller for the result dialog.
@@ -51,24 +48,25 @@ public class ResultDialogController {
         view.mistakePointsErrorLabel.visibleProperty().bindBidirectional(model.getMistakePoints().isVisibleProperty());
 
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
-            try {
-                if(newImageFile != null) {
-                    Image image = new Image(new FileInputStream(newImageFile));
+            if(newImageFile != null) {
+                try(InputStream imageInputStream = new FileInputStream(newImageFile)){
+                    Image image = new Image(imageInputStream);
                     if(image.isError()){
                         LOGGER.error(image.getException().getMessage());
                     }
 
                     view.image.setImage(image);
                     view.imageWrapper.setStyle("-fx-border-color:none");
+                    } catch (IOException e) {
+                        LOGGER.error(e.getMessage());
+                        errorDialog.show("Das Bild für die Ortsfeuerwehr " + model.getFireDepartment().valueProperty().get() + " konnte leider nicht geladen werden!");
+                    }
                 }else{
                     view.image.setImage(null);
                     System.gc();
                     view.imageWrapper.setStyle("-fx-border-color:black");
                 }
-            } catch (FileNotFoundException e) {
-                LOGGER.error(e.getMessage());
-                errorDialog.show("Das Bild für die Ortsfeuerwehr " + model.getFireDepartment().valueProperty().get() + " konnte leider nicht geladen werden!");
-            }
+
         });
         view.imageErrorLabel.visibleProperty().bindBidirectional(model.getImage().isVisibleProperty());
 
