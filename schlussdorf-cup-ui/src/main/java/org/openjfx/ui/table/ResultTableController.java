@@ -43,12 +43,14 @@ public class ResultTableController {
 
         model.selectedResultProperty().addListener((observable, oldValue, newValue) -> {
             if(view.table.getSelectionModel().getSelectedItem() != newValue) {
+                LOGGER.info("model changes selection to result: {}", newValue);
                 view.table.getSelectionModel().select(newValue);
             }
         });
 
         view.table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)  -> {
             if(model.getSelectedResult() != newValue) {
+                LOGGER.info("view changes selection to result: {}", newValue);
                 model.selectedResultProperty().set(newValue);
             }
         });
@@ -75,6 +77,8 @@ public class ResultTableController {
      * @throws IOException if the image cant be copied
      */
     public void addResult(final UUID id, final String fireDepartment, final String time, final String mistakePoints, final File selectedImageFile) throws IOException {
+        LOGGER.info("tries to add result with data: id: {}, fire department:{}, time: {}, mistake points{}, image path{}", id, fireDepartment, time, mistakePoints, selectedImageFile.getAbsolutePath());
+
         UUID uuid = id != null? id: UUID.randomUUID();
 
         //copy image if necessary

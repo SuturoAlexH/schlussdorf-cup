@@ -18,6 +18,7 @@ import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.openjfx.components.ImageDialog;
 import org.openjfx.components.YesOrNoDialog;
+import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.Folders;
 import org.openjfx.ui.resultDialog.ResultDialogController;
 import org.openjfx.ui.table.ResultTableModel;
@@ -83,14 +84,19 @@ public class ToolbarController {
     }
 
     void editResult(){
-        LOGGER.info("show result dialog for existing result " + resultTableModel.getSelectedResult());
+        LOGGER.info("show result dialog for existing result: {}", resultTableModel.getSelectedResult());
         resultDialogController.show(resultTableModel.getSelectedResult());
     }
 
     void deleteResult(){
-        ButtonType deleteResult = deleteDialog.show(l10n.get("toolbar.delete_fire_department", resultTableModel.getSelectedResult().getFireDepartment()));
+        LOGGER.info("tries to delete result: {}", resultTableModel.getSelectedResult());
+
+        String deleteDialogText = l10n.get("toolbar.delete_fire_department", resultTableModel.getSelectedResult().getFireDepartment());
+        ButtonType deleteResult = deleteDialog.show(deleteDialogText);
 
         if (deleteResult == ButtonType.YES) {
+            LOGGER.info("delete result: {}", resultTableModel.getSelectedResult());
+
             resultTableModel.getSelectedResult().getImage().delete();
             resultTableModel.getResultList().remove(resultTableModel.getSelectedResult());
 
@@ -111,6 +117,8 @@ public class ToolbarController {
     }
 
     void showImage(){
+        LOGGER.info("show image for result: {}", resultTableModel.getSelectedResult());
+
         try {
             Image image = new Image(FileUtils.openInputStream(resultTableModel.getSelectedResult().getImage()));
             imageDialog.show(image);
@@ -120,6 +128,8 @@ public class ToolbarController {
     }
 
     void createCertificates(){
+        LOGGER.info("create certificates");
+
         DirectoryChooser chooser = new DirectoryChooser();
         File folder = chooser.showDialog(view.root.getScene().getWindow());
 
@@ -165,7 +175,7 @@ public class ToolbarController {
                     //create certificate PDF
                     updateMessage(l10n.get("progress.create_certificate_pdf"));
                     PDFMergerUtility pdfMerger = new PDFMergerUtility();
-                    pdfMerger.setDestinationFileName(certificateFolderPath + "/urkunden.pdf");
+                    pdfMerger.setDestinationFileName(certificateFolderPath + "/" + FileConstants.CERTIFICATE_PDF);
                     certificatePdfFileList.forEach(certificatePdfFile -> {
                         try {
                             pdfMerger.addSource(certificatePdfFile);
@@ -178,10 +188,9 @@ public class ToolbarController {
 
                     //create summary PDF
                     updateMessage(l10n.get("progress.create_certificate_summary"));
-                    String certificateSummaryFilePath = certificateFolderPath + "/zusammenfassung.pdf";
+                    String certificateSummaryFilePath = certificateFolderPath + "/" + FileConstants.CERTIFICATE_SUMMARY_PDF;
                     certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
                     updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);
-
                 }catch (IOException | DocumentException e){
                     LOGGER.error(e.getMessage());
                 }

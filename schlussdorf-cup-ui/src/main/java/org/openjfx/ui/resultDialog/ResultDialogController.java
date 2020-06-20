@@ -53,7 +53,12 @@ public class ResultDialogController {
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             try {
                 if(newImageFile != null) {
-                    view.image.setImage(new Image(new FileInputStream(newImageFile)));
+                    Image image = new Image(new FileInputStream(newImageFile));
+                    if(image.isError()){
+                        LOGGER.error(image.getException().getMessage());
+                    }
+
+                    view.image.setImage(image);
                     view.imageWrapper.setStyle("-fx-border-color:none");
                 }else{
                     view.image.setImage(null);
@@ -71,15 +76,18 @@ public class ResultDialogController {
     }
 
      void chooseImage() {
-        LOGGER.info("choose image");
+        LOGGER.info("open file chooser for image");
+
         File imageFile = retentionFileChooser.showOpenDialog(view.getRoot().getScene().getWindow());
         if (imageFile != null) {
-            LOGGER.info("choosen image is located at " + imageFile.getAbsolutePath());
+            LOGGER.info("chosen image is located at " + imageFile.getAbsolutePath());
             model.getImage().valueProperty().set(imageFile);
         }
     }
 
      void apply(){
+         LOGGER.info("tries to apply data");
+
         if(validator.validate()) {
             try {
                 resultTableController.addResult(model.getUuid(), model.getFireDepartment().getValue(), model.getTime().getValue(), model.getMistakePoints().getValue(), model.getImage().getValue());
@@ -92,6 +100,8 @@ public class ResultDialogController {
     }
 
     void cancel() {
+        LOGGER.info("canceled result dialog");
+
         view.hide();
         model.clear();
     }
@@ -103,6 +113,8 @@ public class ResultDialogController {
      * @param result the result that should be shown.
      */
     public void show(final Result result){
+        LOGGER.info("opens result dialog with result: {}", result);
+
         model.setData(result);
         view.show();
     }
