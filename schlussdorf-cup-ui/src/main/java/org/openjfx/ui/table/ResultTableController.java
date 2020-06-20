@@ -1,6 +1,8 @@
 package org.openjfx.ui.table;
 
 import factory.ResultBuilder;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ButtonType;
 import model.Result;
 import com.javafxMvc.annotations.Bind;
 import com.javafxMvc.annotations.Inject;
@@ -77,7 +79,7 @@ public class ResultTableController {
      * @throws IOException if the image cant be copied
      */
     public void addResult(final UUID id, final String fireDepartment, final String time, final String mistakePoints, final File selectedImageFile) throws IOException {
-        LOGGER.info("tries to add result with data: id: {}, fire department:{}, time: {}, mistake points{}, image path{}", id, fireDepartment, time, mistakePoints, selectedImageFile.getAbsolutePath());
+        LOGGER.info("tries to add result with data: id: {}, fire department:{}, time: {}, mistake points: {}, image path: {}", id, fireDepartment, time, mistakePoints, selectedImageFile.getAbsolutePath());
 
         UUID uuid = id != null? id: UUID.randomUUID();
 
@@ -115,6 +117,33 @@ public class ResultTableController {
 
         //select and scroll to table row
         model.selectedResultProperty().set(result);
+        view.table.refresh();
         view.table.scrollTo(result);
+    }
+
+    public void deleteResult() {
+        LOGGER.info("delete result: {}", model.getSelectedResult());
+
+        //remove result image
+        model.getSelectedResult().getImage().delete();
+
+        //remove result form model
+        List<Result> filteredResultList = model.getResultList().stream().filter(r -> !r.equals(model.getSelectedResult())).collect(Collectors.toList());
+
+        //update place
+        filteredResultList.forEach(currentResult -> currentResult.setPlace(filteredResultList.indexOf(currentResult) + 1));
+        model.resultListProperty().get().remove(model.getSelectedResult());
+        model.resultListProperty().get().addAll(filteredResultList);
+
+        //save to csv
+        try {
+            saveService.save(model.getResultList(), Folders.SAVE_FOLDER);
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        //remove selected result from model
+        model.selectedResultProperty().set(null);
+        view.table.refresh();
     }
 }

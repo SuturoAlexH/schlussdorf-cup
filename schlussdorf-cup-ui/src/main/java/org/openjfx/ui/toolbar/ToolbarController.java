@@ -21,6 +21,7 @@ import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.Folders;
 import org.openjfx.ui.resultDialog.ResultDialogController;
+import org.openjfx.ui.table.ResultTableController;
 import org.openjfx.ui.table.ResultTableModel;
 import org.openjfx.util.DateUtil;
 import org.slf4j.Logger;
@@ -56,14 +57,15 @@ public class ToolbarController {
     @Inject
     private ResultDialogController resultDialogController;
 
+    @Inject
+    private ResultTableController resultTableController;
+
     @InjectL10n
     private L10n l10n;
 
     private CertificateService certificateService = new CertificateService();
 
     private CertificateSummaryService certificateSummaryService = new CertificateSummaryService();
-
-    private SaveService saveService = new SaveService();
 
     private ImageDialog imageDialog = new ImageDialog();
 
@@ -93,26 +95,8 @@ public class ToolbarController {
 
         String deleteDialogText = l10n.get("toolbar.delete_fire_department", resultTableModel.getSelectedResult().getFireDepartment());
         ButtonType deleteResult = deleteDialog.show(deleteDialogText);
-
         if (deleteResult == ButtonType.YES) {
-            LOGGER.info("delete result: {}", resultTableModel.getSelectedResult());
-
-            resultTableModel.getSelectedResult().getImage().delete();
-            resultTableModel.getResultList().remove(resultTableModel.getSelectedResult());
-
-            //update place
-            List<Result> sortedResultList = resultTableModel.getResultList().stream().sorted().collect(Collectors.toList());
-            sortedResultList.forEach(currentResult -> currentResult.setPlace(sortedResultList.indexOf(currentResult)+1));
-            resultTableModel.resultListProperty().set(FXCollections.observableList(sortedResultList));
-
-            //save to csv
-            try {
-                saveService.save(resultTableModel.getResultList(), Folders.SAVE_FOLDER);
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage());
-            }
-
-            resultTableModel.selectedResultProperty().set(null);
+            resultTableController.deleteResult();
         }
     }
 

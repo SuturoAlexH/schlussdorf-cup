@@ -71,6 +71,7 @@ public class ToolbarTest extends ApplicationTest {
 
         resultTable = lookup("#table").query();
         firstRow = lookup(".table-row-cell").nth(0).query();
+
     }
 
     @After
@@ -260,6 +261,30 @@ public class ToolbarTest extends ApplicationTest {
 
         //assert
         assertEquals(1, loadService.load(Folders.SAVE_FOLDER).size());
+    }
+
+    @Test
+    public void deleteButton_deleteTwice_tableIsEmpty() {
+        //arrange
+
+        //act
+        clickOn(firstRow).clickOn(deleteButton);
+
+        Stage actualAlertDialog = getTopModalStage();
+        DialogPane dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
+        Button yesButton = (Button)dialogPane.lookupButton(ButtonType.YES);
+        clickOn(yesButton);
+
+        TableRow<Result> newFirstRow = lookup(".table-row-cell").nth(0).query();
+        clickOn(newFirstRow).clickOn(deleteButton);
+
+        actualAlertDialog = getTopModalStage();
+        dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
+        yesButton = (Button)dialogPane.lookupButton(ButtonType.YES);
+        clickOn(yesButton);
+
+        //assert
+        assertEquals(0, resultTable.getItems().size());
     }
 
     @Test
