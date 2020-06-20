@@ -132,7 +132,7 @@ public class ResultTableController {
 
         //update place
         filteredResultList.forEach(currentResult -> currentResult.setPlace(filteredResultList.indexOf(currentResult) + 1));
-        model.resultListProperty().get().remove(model.getSelectedResult());
+        model.resultListProperty().get().removeAll(model.getResultList());
         model.resultListProperty().get().addAll(filteredResultList);
 
         //save to csv

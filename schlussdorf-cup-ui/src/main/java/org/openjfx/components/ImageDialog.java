@@ -1,9 +1,11 @@
 package org.openjfx.components;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  * A dialog with an image as content and a close button.
@@ -28,6 +30,8 @@ public class ImageDialog {
         imageView.setFitHeight(300);
         imageView.setFitHeight(300);
         imageView.preserveRatioProperty().set(true);
+
+        alert.setOnHidden(e -> imageView.setImage(null));
 
         alert.setGraphic(imageView);
     }

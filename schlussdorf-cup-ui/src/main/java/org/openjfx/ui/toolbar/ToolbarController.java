@@ -4,7 +4,6 @@ import com.itextpdf.text.DocumentException;
 import com.javafxMvc.l10n.L10n;
 import com.javafxMvc.annotations.InjectL10n;
 import com.javafxMvc.dialog.ProgressDialogView;
-import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -28,14 +27,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.CertificateService;
 import service.CertificateSummaryService;
-import service.SaveService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * The controller for the toolbar.
@@ -106,6 +103,9 @@ public class ToolbarController {
         try {
             Image image = new Image(FileUtils.openInputStream(resultTableModel.getSelectedResult().getImage()));
             imageDialog.show(image);
+
+            image = null;
+            System.gc();
         } catch (IOException e) {
            LOGGER.error(e.getMessage());
         }
