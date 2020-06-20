@@ -18,7 +18,7 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.openjfx.components.ImageDialog;
 import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.FileConstants;
-import org.openjfx.constants.Folders;
+import org.openjfx.constants.FolderConstants;
 import org.openjfx.ui.resultDialog.ResultDialogController;
 import org.openjfx.ui.table.ResultTableController;
 import org.openjfx.ui.table.ResultTableModel;
@@ -28,9 +28,7 @@ import org.slf4j.LoggerFactory;
 import service.CertificateService;
 import service.CertificateSummaryService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,12 +98,9 @@ public class ToolbarController {
     void showImage(){
         LOGGER.info("show image for result: {}", resultTableModel.getSelectedResult());
 
-        try {
-            Image image = new Image(FileUtils.openInputStream(resultTableModel.getSelectedResult().getImage()));
+        try (InputStream imageInputStream = new FileInputStream(resultTableModel.getSelectedResult().getImage())){
+            Image image = new Image(imageInputStream);
             imageDialog.show(image);
-
-            image = null;
-            System.gc();
         } catch (IOException e) {
            LOGGER.error(e.getMessage());
         }
@@ -132,7 +127,7 @@ public class ToolbarController {
                     List<File> certificatePdfFileList = new ArrayList<>();
 
                     //create certificate folder
-                    String certificateFolderPath = folder.getAbsolutePath() + Folders.CERTIFICATE_FOLDER;
+                    String certificateFolderPath = folder.getAbsolutePath() + FolderConstants.CERTIFICATE_FOLDER;
                     FileUtils.forceMkdir(new File(certificateFolderPath));
 
                     updateProgress(1, maxProgressSteps);

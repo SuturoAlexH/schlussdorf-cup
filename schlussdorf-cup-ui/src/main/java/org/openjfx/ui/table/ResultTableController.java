@@ -1,15 +1,14 @@
 package org.openjfx.ui.table;
 
 import factory.ResultBuilder;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ButtonType;
 import model.Result;
 import com.javafxMvc.annotations.Bind;
 import com.javafxMvc.annotations.Inject;
 import com.javafxMvc.annotations.MVCController;
 import com.javafxMvc.annotations.PostConstruct;
 import org.apache.commons.io.FileUtils;
-import org.openjfx.constants.Folders;
+import org.openjfx.constants.FileConstants;
+import org.openjfx.constants.FolderConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.LoadService;
@@ -61,7 +60,7 @@ public class ResultTableController {
     @PostConstruct
     private void initialize() {
         try {
-            List<Result> loadedResults = loadService.load(Folders.SAVE_FOLDER);
+            List<Result> loadedResults = loadService.load(FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE);
             model.getResultList().addAll(loadedResults);
         }catch (IOException e) {
             LOGGER.error(e.getMessage());
@@ -84,7 +83,7 @@ public class ResultTableController {
         UUID uuid = id != null? id: UUID.randomUUID();
 
         //copy image if necessary
-        File resultImageFile = new File(Folders.IMAGE_FOLDER + uuid +  ".jpeg");
+        File resultImageFile = new File(FolderConstants.IMAGE_FOLDER + uuid +  ".jpeg");
         if(!selectedImageFile.getCanonicalPath().equals(resultImageFile.getCanonicalPath())){
             FileUtils.copyFile(selectedImageFile, resultImageFile);
         }
@@ -113,7 +112,7 @@ public class ResultTableController {
         model.resultListProperty().get().addAll(sortedResultList);
 
         //save to csv
-        saveService.save(model.getResultList(), Folders.SAVE_FOLDER);
+        saveService.save(model.getResultList(), FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE);
 
         //select and scroll to table row
         model.selectedResultProperty().set(result);
@@ -137,7 +136,7 @@ public class ResultTableController {
 
         //save to csv
         try {
-            saveService.save(model.getResultList(), Folders.SAVE_FOLDER);
+            saveService.save(model.getResultList(), FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }

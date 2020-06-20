@@ -13,7 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openjfx.App;
-import org.openjfx.constants.Folders;
+import org.openjfx.constants.FileConstants;
+import org.openjfx.constants.FolderConstants;
 import org.testfx.framework.junit.ApplicationTest;
 import resultDialog.ResultDialogAddTest;
 import service.LoadService;
@@ -48,7 +49,7 @@ public class ToolbarTest extends ApplicationTest {
     private LoadService loadService = new LoadService();
 
     @BeforeClass
-    public static void initialize() throws IOException {
+    public static void initialize() {
         TestUtil.clearFolders();
     }
 
@@ -71,11 +72,10 @@ public class ToolbarTest extends ApplicationTest {
 
         resultTable = lookup("#table").query();
         firstRow = lookup(".table-row-cell").nth(0).query();
-
     }
 
     @After
-    public void tearDown() throws IOException {
+    public void tearDown() {
         TestUtil.clearFolders();
 
         File certificateFolder = new File(CERTIFICATE_FOLDER);
@@ -210,7 +210,7 @@ public class ToolbarTest extends ApplicationTest {
         clickOn(yesButton);
 
         //assert
-        File testImageFile = new File(Folders.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg");
+        File testImageFile = new File(FolderConstants.IMAGE_FOLDER + "746d5498-e21d-4fd3-a4a9-3221d80610ce.jpeg");
         assertFalse(testImageFile.exists());
     }
 
@@ -260,7 +260,7 @@ public class ToolbarTest extends ApplicationTest {
         clickOn(yesButton);
 
         //assert
-        assertEquals(1, loadService.load(Folders.SAVE_FOLDER).size());
+        assertEquals(1, loadService.load(FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE).size());
     }
 
     @Test

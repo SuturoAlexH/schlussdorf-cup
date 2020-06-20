@@ -5,6 +5,8 @@ package org.openjfx.constants;
  */
 public class FileConstants {
 
+    public static final String SAVE_FILE = "save.csv";
+
     public static final String CERTIFICATE_PDF = "urkunden.pdf";
     public static final String CERTIFICATE_SUMMARY_PDF = "zusammenfassug.pdf";
 }

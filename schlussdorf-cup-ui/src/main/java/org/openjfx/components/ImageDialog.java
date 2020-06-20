@@ -31,7 +31,10 @@ public class ImageDialog {
         imageView.setFitHeight(300);
         imageView.preserveRatioProperty().set(true);
 
-        alert.setOnHidden(e -> imageView.setImage(null));
+        alert.setOnHidden(e -> {
+            imageView.setImage(null);
+            System.gc();
+        });
 
         alert.setGraphic(imageView);
     }
