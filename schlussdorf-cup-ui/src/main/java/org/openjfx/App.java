@@ -39,7 +39,6 @@ public class App extends MVCApplication {
      * Sets up the main window and initialize all necessary things.
      *
      * @param stage The main stage.
-     *
      */
     @Override
     public void initialize(Stage stage) {
@@ -54,10 +53,14 @@ public class App extends MVCApplication {
         stage.setScene(scene);
         stage.show();
 
-        LOGGER.info("###################################################################");
-        LOGGER.info("started application");
+        LOGGER.info("started application ######################################################");
     }
 
+    /**
+     * Opens a yes or no dialog before the application is closed.
+     *
+     * @param e the close window event
+     */
     @Override
     public void onClose(WindowEvent e) {
         ButtonType closeAppResult = closeAppDialog.show("Soll das Programm wirklich beendet werden?");
@@ -70,6 +73,11 @@ public class App extends MVCApplication {
         }
     }
 
+    /**
+     * Loads the resource bundle to specify the current language.
+     *
+     * @return the resource bundle
+     */
     @Override
     public ResourceBundle loadResourceBundle() {
         return ResourceBundle.getBundle("language", Locale.GERMANY);

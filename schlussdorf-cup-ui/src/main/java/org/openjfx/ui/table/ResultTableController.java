@@ -19,8 +19,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * The controller for the result table.
+ */
 @MVCController
-public class ResultTableController implements ResultTableActions{
+public class ResultTableController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResultTableController.class);
 
@@ -35,7 +38,7 @@ public class ResultTableController implements ResultTableActions{
     private SaveService saveService = new SaveService();
 
     @Bind
-    public void bindModelAndView() {
+    private void bindModelAndView() {
         view.table.itemsProperty().bindBidirectional(model.resultListProperty());
 
         model.selectedResultProperty().addListener((observable, oldValue, newValue) -> {
@@ -52,7 +55,7 @@ public class ResultTableController implements ResultTableActions{
     }
 
     @PostConstruct
-    public void initialize() {
+    private void initialize() {
         try {
             List<Result> loadedResults = loadService.load(Folders.SAVE_FOLDER);
             model.getResultList().addAll(loadedResults);
@@ -61,6 +64,16 @@ public class ResultTableController implements ResultTableActions{
         }
     }
 
+    /**
+     * Adds a new result to the table if id is null or edits an existing result if id is not null.
+     *
+     * @param id the uuid of the result
+     * @param fireDepartment the fire department of the result
+     * @param time the time of the result
+     * @param mistakePoints the mistake points of the result
+     * @param selectedImageFile the image of the result
+     * @throws IOException if the image cant be copied
+     */
     public void addResult(final UUID id, final String fireDepartment, final String time, final String mistakePoints, final File selectedImageFile) throws IOException {
         UUID uuid = id != null? id: UUID.randomUUID();
 

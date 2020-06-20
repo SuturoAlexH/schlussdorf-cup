@@ -5,12 +5,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * A dialog with an image as content and a close button.
+ */
 public class ImageDialog {
 
     private Alert alert;
 
     private ImageView imageView ;
 
+    /**
+     * Default constructor.
+     */
     public ImageDialog(){
         alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
         imageView = new ImageView();
@@ -26,7 +32,12 @@ public class ImageDialog {
         alert.setGraphic(imageView);
     }
 
-    public void setImageAndShow(final Image image){
+    /**
+     * Shows the dialog with the given image as content.
+     *
+     * @param image the image that should be shown
+     */
+    public void show(final Image image){
         imageView.setImage(image);
         alert.showAndWait();
     }

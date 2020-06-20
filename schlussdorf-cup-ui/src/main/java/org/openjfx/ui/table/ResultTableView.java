@@ -8,8 +8,11 @@ import model.Result;
 import com.javafxMvc.annotations.Inject;
 import com.javafxMvc.annotations.MVCView;
 
+/**
+ * The view for the result table.
+ */
 @MVCView("/fxml/table.fxml")
-public class ResultTableView implements ResultTableActions{
+public class ResultTableView{
 
     @Inject
     private ResultTableController controller;

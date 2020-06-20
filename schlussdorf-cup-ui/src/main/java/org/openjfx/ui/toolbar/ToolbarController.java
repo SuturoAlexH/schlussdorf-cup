@@ -35,16 +35,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The controller for the toolbar.
+ */
 @MVCController
-public class ToolbarController implements ToolbarActions {
+public class ToolbarController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ToolbarController.class);
 
     @Inject
-    private ResultTableModel resultTableModel;
+    private ToolbarModel model;
 
     @Inject
     private ToolbarView view;
+
+    @Inject
+    private ResultTableModel resultTableModel;
 
     @Inject
     private ResultDialogController resultDialogController;
@@ -52,27 +58,17 @@ public class ToolbarController implements ToolbarActions {
     @InjectL10n
     private L10n l10n;
 
-    private CertificateService certificateService;
+    private CertificateService certificateService = new CertificateService();
 
-    private CertificateSummaryService certificateSummaryService;
+    private CertificateSummaryService certificateSummaryService = new CertificateSummaryService();
 
-    private SaveService saveService;
+    private SaveService saveService = new SaveService();
 
-    private ImageDialog imageDialog;
+    private ImageDialog imageDialog = new ImageDialog();
 
-    private ProgressDialogView progressDialog;
+    private ProgressDialogView progressDialog = new ProgressDialogView("Urkunden erzeugen");
 
-    private YesOrNoDialog deleteDialog;
-
-    public ToolbarController(){
-        certificateService = new CertificateService();
-        certificateSummaryService = new CertificateSummaryService();
-        saveService = new SaveService();
-
-        imageDialog = new ImageDialog();
-        progressDialog = new ProgressDialogView("Urkunden erzeugen");
-        deleteDialog = new YesOrNoDialog();
-    }
+    private YesOrNoDialog deleteDialog = new YesOrNoDialog();
 
     @Bind
     public void bindModelAndView() {
@@ -81,17 +77,17 @@ public class ToolbarController implements ToolbarActions {
         view.imageButton.disableProperty().bind(resultTableModel.selectedResultProperty().isNull());
     }
 
-    public void addNewResult(){
+    void addNewResult(){
         LOGGER.info("show result dialog for new result");
         resultDialogController.show(null);
     }
 
-    public void editResult(){
+    void editResult(){
         LOGGER.info("show result dialog for existing result " + resultTableModel.getSelectedResult());
         resultDialogController.show(resultTableModel.getSelectedResult());
     }
 
-    public void deleteResult(){
+    void deleteResult(){
         ButtonType deleteResult = deleteDialog.show(l10n.get("toolbar.delete_fire_department", resultTableModel.getSelectedResult().getFireDepartment()));
 
         if (deleteResult == ButtonType.YES) {
@@ -114,16 +110,16 @@ public class ToolbarController implements ToolbarActions {
         }
     }
 
-    public void showImage(){
+    void showImage(){
         try {
             Image image = new Image(FileUtils.openInputStream(resultTableModel.getSelectedResult().getImage()));
-            imageDialog.setImageAndShow(image);
+            imageDialog.show(image);
         } catch (IOException e) {
            LOGGER.error(e.getMessage());
         }
     }
 
-    public void createCertificates(){
+    void createCertificates(){
         DirectoryChooser chooser = new DirectoryChooser();
         File folder = chooser.showDialog(view.root.getScene().getWindow());
 

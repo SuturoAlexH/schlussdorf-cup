@@ -15,8 +15,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+/**
+ * The controller for the result dialog.
+ */
 @MVCController
-public class ResultDialogController implements ResultDialogActions {
+public class ResultDialogController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResultDialogController.class);
 
@@ -37,7 +40,7 @@ public class ResultDialogController implements ResultDialogActions {
     private ErrorDialog errorDialog = new ErrorDialog();
 
     @Bind
-    public void bindModelAndView() {
+    private void bindModelAndView() {
         view.fireDepartmentTextField.textProperty().bindBidirectional(model.getFireDepartment().valueProperty());
         view.fireDepartmentErrorLabel.visibleProperty().bindBidirectional(model.getFireDepartment().isVisibleProperty());
 
@@ -67,8 +70,7 @@ public class ResultDialogController implements ResultDialogActions {
         view.addCloseListener((e) -> model.clear());
     }
 
-    @Override
-    public void chooseImage() {
+     void chooseImage() {
         LOGGER.info("choose image");
         File imageFile = retentionFileChooser.showOpenDialog(view.getRoot().getScene().getWindow());
         if (imageFile != null) {
@@ -77,8 +79,7 @@ public class ResultDialogController implements ResultDialogActions {
         }
     }
 
-    @Override
-    public void apply(){
+     void apply(){
         if(validator.validate()) {
             try {
                 resultTableController.addResult(model.getUuid(), model.getFireDepartment().getValue(), model.getTime().getValue(), model.getMistakePoints().getValue(), model.getImage().getValue());
@@ -90,12 +91,17 @@ public class ResultDialogController implements ResultDialogActions {
         }
     }
 
-    @Override
-    public void cancel() {
+    void cancel() {
         view.hide();
         model.clear();
     }
 
+    /**
+     * Opens the dialog and shows the data of the result if its not null. If its null a blank/empty
+     * dialog is shown.
+     *
+     * @param result the result that should be shown.
+     */
     public void show(final Result result){
         model.setData(result);
         view.show();

@@ -8,6 +8,9 @@ import model.Result;
 import com.javafxMvc.annotations.MVCController;
 import com.javafxMvc.annotations.MVCModel;
 
+/**
+ * The model for the result table.
+ */
 @MVCModel
 public class ResultTableModel  {
     private ObjectProperty<ObservableList<Result>> resultList = new SimpleObjectProperty<>(FXCollections.observableArrayList());

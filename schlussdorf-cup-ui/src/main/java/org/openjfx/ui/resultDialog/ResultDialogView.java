@@ -9,8 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
+/**
+ * The view for the result dialog.
+ */
 @MVCView("/fxml/result.fxml")
-public class ResultDialogView extends AbstractDialogView implements ResultDialogActions {
+public class ResultDialogView extends AbstractDialogView {
 
     @Inject
     private ResultDialogController controller;
@@ -42,17 +45,23 @@ public class ResultDialogView extends AbstractDialogView implements ResultDialog
     @FXML
     Label imageErrorLabel;
 
-    @Override
+    /**
+     * Opens a default file chooser and sets the selected image as result image.
+     */
     public void chooseImage() {
         controller.chooseImage();
     }
 
-    @Override
+    /**
+     * If the input is valid the a new result is created/edited and added to the table.
+     */
     public void apply() {
         controller.apply();
     }
 
-    @Override
+    /**
+     * Closes the dialog without any changes.
+     */
     public void cancel() {
         controller.cancel();
     }

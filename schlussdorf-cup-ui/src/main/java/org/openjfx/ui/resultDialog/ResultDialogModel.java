@@ -11,6 +11,9 @@ import com.javafxMvc.annotations.MVCModel;
 import java.io.File;
 import java.util.UUID;
 
+/**
+ * The model for the result dialog.
+ */
 @MVCModel
 public class ResultDialogModel {
 
