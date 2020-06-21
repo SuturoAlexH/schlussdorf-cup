@@ -114,6 +114,8 @@ public class ResultDialogController {
         LOGGER.info("opens result dialog with result: {}", result);
 
         model.setData(result);
+        
+        view.fireDepartmentTextField.requestFocus();
         view.show();
     }
 }
