@@ -1,13 +1,13 @@
 package org.openjfx.ui.table;
 
 import com.google.common.io.Files;
+import com.javafxMvc.annotations.*;
+import com.javafxMvc.l10n.L10n;
 import factory.ResultBuilder;
+import javafx.scene.control.ButtonType;
 import model.Result;
-import com.javafxMvc.annotations.Bind;
-import com.javafxMvc.annotations.Inject;
-import com.javafxMvc.annotations.MVCController;
-import com.javafxMvc.annotations.PostConstruct;
 import org.apache.commons.io.FileUtils;
+import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
 import org.slf4j.Logger;
@@ -35,9 +35,14 @@ public class ResultTableController {
     @Inject
     private ResultTableView view;
 
+    @InjectL10n
+    private L10n l10n;
+
     private LoadService loadService = new LoadService();
 
     private SaveService saveService = new SaveService();
+
+    private YesOrNoDialog deleteDialog = new YesOrNoDialog();
 
     @Bind
     private void bindModelAndView() {
@@ -126,29 +131,38 @@ public class ResultTableController {
         view.table.scrollTo(result);
     }
 
+    /**
+     * Opens a yes or no dialog and asks the user if the current selected result should really be deleted.
+     * If the user clicks yes the result will be deleted and if the user clicks no nothing happen.
+     */
     public void deleteResult() {
-        LOGGER.info("delete result: {}", model.getSelectedResult());
+        String deleteDialogText = l10n.get("toolbar.delete_fire_department", model.getSelectedResult().getFireDepartment());
+        ButtonType deleteResult = deleteDialog.show(deleteDialogText);
 
-        //remove result image
-        model.getSelectedResult().getImage().delete();
+        if (deleteResult == ButtonType.YES) {
+            LOGGER.info("delete result: {}", model.getSelectedResult());
 
-        //remove result form model
-        List<Result> filteredResultList = model.getResultList().stream().filter(r -> !r.equals(model.getSelectedResult())).collect(Collectors.toList());
+            //remove result image
+            model.getSelectedResult().getImage().delete();
 
-        //update place
-        filteredResultList.forEach(currentResult -> currentResult.setPlace(filteredResultList.indexOf(currentResult) + 1));
-        model.resultListProperty().get().removeAll(model.getResultList());
-        model.resultListProperty().get().addAll(filteredResultList);
+            //remove result form model
+            List<Result> filteredResultList = model.getResultList().stream().filter(r -> !r.equals(model.getSelectedResult())).collect(Collectors.toList());
 
-        //save to csv
-        try {
-            saveService.save(model.getResultList(), FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE);
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            //update place
+            filteredResultList.forEach(currentResult -> currentResult.setPlace(filteredResultList.indexOf(currentResult) + 1));
+            model.resultListProperty().get().removeAll(model.getResultList());
+            model.resultListProperty().get().addAll(filteredResultList);
+
+            //save to csv
+            try {
+                saveService.save(model.getResultList(), FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE);
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage());
+            }
+
+            //remove selected result from model
+            model.selectedResultProperty().set(null);
+            view.table.refresh();
         }
-
-        //remove selected result from model
-        model.selectedResultProperty().set(null);
-        view.table.refresh();
     }
 }

@@ -1,8 +1,11 @@
 package org.openjfx.ui.table;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Result;
 import com.javafxMvc.annotations.Inject;
@@ -39,6 +42,8 @@ public class ResultTableView{
     public void initialize() {
         initializeCellFactories();
         initializeSelectionListener();
+
+        addKeyListener();
     }
 
     private void initializeCellFactories(){
@@ -61,6 +66,15 @@ public class ResultTableView{
             });
 
             return row;
+        });
+    }
+
+    private void addKeyListener(){
+        table.setOnKeyPressed(keyEvent -> {
+            final Result selectedResult = table.getSelectionModel().getSelectedItem();
+            if (selectedResult != null && keyEvent.getCode() == KeyCode.DELETE) {
+                controller.deleteResult();
+            }
         });
     }
 }

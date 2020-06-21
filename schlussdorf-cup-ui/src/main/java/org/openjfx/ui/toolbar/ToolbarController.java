@@ -66,7 +66,6 @@ public class ToolbarController {
 
     private ProgressDialogView progressDialog = new ProgressDialogView("Urkunden erzeugen");
 
-    private YesOrNoDialog deleteDialog = new YesOrNoDialog();
 
     @Bind
     public void bindModelAndView() {
@@ -87,12 +86,7 @@ public class ToolbarController {
 
     void deleteResult(){
         LOGGER.info("tries to delete result: {}", resultTableModel.getSelectedResult());
-
-        String deleteDialogText = l10n.get("toolbar.delete_fire_department", resultTableModel.getSelectedResult().getFireDepartment());
-        ButtonType deleteResult = deleteDialog.show(deleteDialogText);
-        if (deleteResult == ButtonType.YES) {
-            resultTableController.deleteResult();
-        }
+        resultTableController.deleteResult();
     }
 
     void showImage(){
