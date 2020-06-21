@@ -14,14 +14,14 @@ public class RetentionFileChooser {
 
     private FileChooser fileChooser = new FileChooser();
 
-    private SimpleObjectProperty<File> lastKnownDirectoryProperty = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<File> lastChosenFolderProperty = new SimpleObjectProperty<>();
 
     /**
      * Default constructor.
      */
     //TODO: hard coded filter
     public RetentionFileChooser(){
-        fileChooser.initialDirectoryProperty().bindBidirectional(lastKnownDirectoryProperty);
+        fileChooser.initialDirectoryProperty().bindBidirectional(lastChosenFolderProperty);
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files (*.jpg) (*.png) (*.jpeg)", "*.jpg", "*.png", "*jpeg");
         fileChooser.getExtensionFilters().setAll(imageFilter);
     }
@@ -33,9 +33,14 @@ public class RetentionFileChooser {
      * @return if no file is selected null and the file otherwise
      */
     public File showOpenDialog(Window ownerWindow){
+        File lastChosenFolder = lastChosenFolderProperty.get();
+        if(lastChosenFolder != null && !lastChosenFolder.exists()){
+            lastChosenFolderProperty.set(null);
+        }
+
         File chosenFile = fileChooser.showOpenDialog(ownerWindow);
         if(chosenFile != null){
-            lastKnownDirectoryProperty.setValue(chosenFile.getParentFile());
+            lastChosenFolderProperty.setValue(chosenFile.getParentFile());
         }
 
         return chosenFile;
