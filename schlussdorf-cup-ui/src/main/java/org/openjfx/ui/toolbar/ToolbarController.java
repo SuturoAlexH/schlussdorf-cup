@@ -56,13 +56,13 @@ public class ToolbarController {
     @InjectL10n
     private L10n l10n;
 
-    private CertificateService certificateService = new CertificateService();
+    private final CertificateService certificateService = new CertificateService();
 
-    private CertificateSummaryService certificateSummaryService = new CertificateSummaryService();
+    private final CertificateSummaryService certificateSummaryService = new CertificateSummaryService();
 
-    private ImageDialog imageDialog = new ImageDialog();
+    private final ImageDialog imageDialog = new ImageDialog();
 
-    private ProgressDialogView progressDialog = new ProgressDialogView("Urkunden erzeugen");
+    private final ProgressDialogView progressDialog = new ProgressDialogView("Urkunden erzeugen");
 
 
     @Bind
@@ -104,8 +104,10 @@ public class ToolbarController {
         DirectoryChooser chooser = new DirectoryChooser();
         File folder = chooser.showDialog(view.root.getScene().getWindow());
 
-        Task certificateTask = createCertificatesTask(folder);
-        progressDialog.show(certificateTask);
+        if(folder != null){
+            Task certificateTask = createCertificatesTask(folder);
+            progressDialog.show(certificateTask);
+        }
     }
 
     private Task createCertificatesTask(final File folder){

@@ -11,7 +11,6 @@ import javafx.stage.Window;
 import model.Result;
 import org.apache.commons.text.CaseUtils;
 import org.testfx.framework.junit.ApplicationTest;
-import resultDialog.ResultDialogAddTest;
 import util.TestUtil;
 
 import java.io.File;
@@ -24,7 +23,7 @@ import static org.awaitility.Awaitility.await;
 public abstract class BaseApplicationTest extends ApplicationTest {
 
     public void selectImage(final String imageName) {
-        File testImage = new File(ResultDialogAddTest.class.getResource("/images/" + imageName).getFile());
+        File testImage = new File(BaseApplicationTest.class.getResource("/images/" + imageName).getFile());
         TestUtil.setClipBoardContent(testImage.getAbsolutePath());
 
         Button imageButton = lookup("#selectImageButton").query();
