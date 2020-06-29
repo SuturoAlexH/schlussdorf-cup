@@ -5,7 +5,6 @@ import com.javafxMvc.l10n.L10n;
 import com.javafxMvc.annotations.InjectL10n;
 import com.javafxMvc.dialog.ProgressDialogView;
 import javafx.concurrent.Task;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import com.javafxMvc.annotations.Bind;
 import com.javafxMvc.annotations.Inject;
@@ -16,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.openjfx.components.ImageDialog;
-import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
 import org.openjfx.ui.resultDialog.ResultDialogController;
@@ -71,7 +69,7 @@ public class ToolbarController {
     public void bindModelAndView() {
         view.editButton.disableProperty().bind(resultTableModel.selectedResultProperty().isNull());
         view.deleteButton.disableProperty().bind(resultTableModel.selectedResultProperty().isNull());
-        view.imageButton.disableProperty().bind(resultTableModel.selectedResultProperty().isNull());
+        view.showImageButton.disableProperty().bind(resultTableModel.selectedResultProperty().isNull());
     }
 
     void addNewResult(){

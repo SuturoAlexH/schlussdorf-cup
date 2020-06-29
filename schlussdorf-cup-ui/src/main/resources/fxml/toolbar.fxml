@@ -32,7 +32,7 @@
             </graphic>
         </Button>
 
-        <Button fx:id="imageButton" styleClass="primary" onAction="#showImage" text="%toolbar.show_image" >
+        <Button fx:id="showImageButton" styleClass="primary" onAction="#showImage" text="%toolbar.show_image" >
             <graphic>
                 <ImageView>
                     <Image url="@/icons/image.png" backgroundLoading="true"/>

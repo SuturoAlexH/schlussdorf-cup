@@ -24,8 +24,6 @@ public class App extends MVCApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-    private YesOrNoDialog closeAppDialog = new YesOrNoDialog();
-
     /**
      * The entry point method.
      *
@@ -63,14 +61,15 @@ public class App extends MVCApplication {
      */
     @Override
     public void onClose(WindowEvent e) {
-        ButtonType closeAppResult = closeAppDialog.show("Soll das Programm wirklich beendet werden?");
-
-        if (closeAppResult == ButtonType.YES) {
-            LOGGER.info("closed application");
-            System.exit(0);
-        }else{
-            e.consume();
-        }
+//        YesOrNoDialog closeAppDialog = new YesOrNoDialog();
+//        ButtonType closeAppResult = closeAppDialog.show("Soll das Programm wirklich beendet werden?");
+//
+//        if (closeAppResult == ButtonType.YES) {
+//            LOGGER.info("closed application");
+//            System.exit(0);
+//        }else{
+//            e.consume();
+//        }
     }
 
     /**

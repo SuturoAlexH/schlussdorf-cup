@@ -39,7 +39,7 @@
                             <ImageView fx:id="image" fitHeight="291.0" fitWidth="600.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
                      </Pane>
                      <Label fx:id="imageErrorLabel" text="%dialog.image_error" textFill="RED" visible="false" />
-                     <Button fx:id="customImageButton" onAction="#chooseImage" text="%dialog.select_image" />
+                     <Button fx:id="selectImageButton" onAction="#chooseImage" text="%dialog.select_image" />
               </VBox>
        </SplitPane>
    

@@ -75,7 +75,7 @@ public class ResultBuilder {
         return this;
     }
 
-    public ResultBuilder finalScore(final double finalScore){
+    public ResultBuilder finalScore(final Double finalScore){
         this.finalScore = finalScore;
 
         return this;

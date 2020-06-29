@@ -28,7 +28,7 @@ public class ToolbarView {
     Button deleteButton;
 
     @FXML
-    Button imageButton;
+    Button showImageButton;
 
     @FXML
     Button certificateButton;

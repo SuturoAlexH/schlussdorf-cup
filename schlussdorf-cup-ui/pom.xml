@@ -88,6 +88,9 @@
             <version>11.0.0</version>
         </dependency>
 
+
+
+
         <!-- testfx -->
         <dependency>
             <groupId>org.testfx</groupId>
@@ -115,6 +118,27 @@
             <artifactId>hamcrest-library</artifactId>
             <version>2.2</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- cucumber -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>6.1.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>6.1.1</version>
+        </dependency>
+
+        <!-- util -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
         </dependency>
     </dependencies>
 

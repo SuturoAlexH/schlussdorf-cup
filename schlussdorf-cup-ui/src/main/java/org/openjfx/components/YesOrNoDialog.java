@@ -25,10 +25,12 @@ public class YesOrNoDialog {
         alert.getDialogPane().getStylesheets().add(YesOrNoDialog.class.getResource("/css/bootstrap3.css").toExternalForm());
 
         Button yesButton = (Button)alert.getDialogPane().lookupButton(ButtonType.YES);
+        yesButton.setId("yesButton");
         yesButton.getStyleClass().add("success");
         yesButton.setGraphic(new ImageView(new Image(YesOrNoDialog.class.getResourceAsStream("/icons/check.png"))));
 
         Button noButton = (Button)alert.getDialogPane().lookupButton(ButtonType.NO);
+        noButton.setId("noButton");
         noButton.getStyleClass().add("danger");
         noButton.setGraphic(new ImageView(new Image(YesOrNoDialog.class.getResourceAsStream("/icons/cross.png"))));
     }
