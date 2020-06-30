@@ -22,7 +22,7 @@ echo 5. copy template folder
 > nul robocopy /E template build/template
 
 echo 6. build app.exe
-> nul call mvn clean install
+> nul call mvn clean install -DskipTests
 > nul cd target
 
 > nul copy app.exe "../build"
