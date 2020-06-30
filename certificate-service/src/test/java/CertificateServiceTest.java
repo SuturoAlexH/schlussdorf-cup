@@ -137,7 +137,7 @@ public class CertificateServiceTest {
 
     @Test
     public void createDocuments_normal_appearanceIsCorrect() throws IOException, URISyntaxException {
-        //createDocuments_normal_appearanceIsCorrect
+        //arrange
         URL resource = CertificateServiceTest.class.getResource("/referencePdfs/Feuerwehr_433.34_1.pdf");
         File referencePdfFile = Paths.get(resource.toURI()).toFile();
 

@@ -6,7 +6,6 @@ import com.javafxMvc.l10n.L10n;
 import factory.ResultBuilder;
 import javafx.scene.control.ButtonType;
 import model.Result;
-import org.apache.commons.io.FileUtils;
 import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
@@ -38,11 +37,11 @@ public class ResultTableController {
     @InjectL10n
     private L10n l10n;
 
-    private LoadService loadService = new LoadService();
+    private final LoadService loadService = new LoadService();
 
-    private SaveService saveService = new SaveService();
+    private final SaveService saveService = new SaveService();
 
-    private YesOrNoDialog deleteDialog = new YesOrNoDialog();
+    private final YesOrNoDialog deleteDialog = new YesOrNoDialog();
 
     @Bind
     private void bindModelAndView() {

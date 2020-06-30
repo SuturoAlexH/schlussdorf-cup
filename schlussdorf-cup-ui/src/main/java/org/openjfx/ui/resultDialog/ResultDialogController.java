@@ -4,7 +4,6 @@ import com.javafxMvc.annotations.*;
 import com.javafxMvc.validator.CombinedValidator;
 import javafx.scene.image.Image;
 import model.Result;
-import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.RetentionFileChooser;
 import org.openjfx.ui.table.ResultTableController;
 import org.slf4j.Logger;
@@ -32,9 +31,7 @@ public class ResultDialogController {
     @Inject
     private ResultTableController resultTableController;
 
-    private RetentionFileChooser retentionFileChooser = new RetentionFileChooser();
-
-    private ErrorDialog errorDialog = new ErrorDialog();
+    private final RetentionFileChooser retentionFileChooser = new RetentionFileChooser();
 
     @Bind
     private void bindModelAndView() {
@@ -59,7 +56,6 @@ public class ResultDialogController {
                     view.imageWrapper.setStyle("-fx-border-color:none");
                     } catch (IOException e) {
                         LOGGER.error(e.getMessage());
-                        errorDialog.show("Das Bild für die Ortsfeuerwehr " + model.getFireDepartment().valueProperty().get() + " konnte leider nicht geladen werden!");
                     }
                 }else{
                     view.image.setImage(null);

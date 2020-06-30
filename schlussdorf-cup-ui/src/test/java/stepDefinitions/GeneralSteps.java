@@ -24,8 +24,16 @@ public class GeneralSteps extends BaseApplicationTest{
 
     @After
     public void after() {
+        int currentWindowCount = listWindows().size();
         while(!listWindows().isEmpty()){
             closeCurrentWindow();
+
+            //window did not close
+            if(listWindows().size() >= currentWindowCount){
+                clickOnNode("yes button");
+            }
+
+            currentWindowCount = listWindows().size();
         }
     }
 

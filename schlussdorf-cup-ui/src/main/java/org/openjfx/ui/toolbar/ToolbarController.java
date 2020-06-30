@@ -14,6 +14,7 @@ import model.Result;
 import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.ImageDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
@@ -39,9 +40,6 @@ public class ToolbarController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ToolbarController.class);
 
     @Inject
-    private ToolbarModel model;
-
-    @Inject
     private ToolbarView view;
 
     @Inject
@@ -64,6 +62,8 @@ public class ToolbarController {
 
     private final ProgressDialogView progressDialog = new ProgressDialogView("Urkunden erzeugen");
 
+    private final ErrorDialog errorDialog = new ErrorDialog();
+
 
     @Bind
     public void bindModelAndView() {
@@ -79,7 +79,14 @@ public class ToolbarController {
 
     void editResult(){
         LOGGER.info("show result dialog for existing result: {}", resultTableModel.getSelectedResult());
-        resultDialogController.show(resultTableModel.getSelectedResult());
+
+        if(!resultTableModel.getSelectedResult().getImage().exists()){
+            LOGGER.info("cant't show result dialog for existing result: {}, because the image file doesn't exists", resultTableModel.getSelectedResult());
+            errorDialog.show(l10n.get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment()));
+        }else{
+            resultDialogController.show(resultTableModel.getSelectedResult());
+        }
+
     }
 
     void deleteResult(){
@@ -95,6 +102,7 @@ public class ToolbarController {
             imageDialog.show(image);
         } catch (IOException e) {
            LOGGER.error(e.getMessage());
+            errorDialog.show(l10n.get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment()));
         }
     }
 
@@ -105,6 +113,7 @@ public class ToolbarController {
         File folder = chooser.showDialog(view.root.getScene().getWindow());
 
         if(folder != null){
+            LOGGER.info("selected folder: {}", folder.getAbsolutePath());
             Task certificateTask = createCertificatesTask(folder);
             progressDialog.show(certificateTask);
         }
@@ -166,6 +175,7 @@ public class ToolbarController {
                     updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);
                 }catch (IOException | DocumentException e){
                     LOGGER.error(e.getMessage());
+                    //TODO: error dialog
                 }
 
                 return true;

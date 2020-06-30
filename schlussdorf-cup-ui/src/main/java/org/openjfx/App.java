@@ -24,6 +24,8 @@ public class App extends MVCApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
+    private Stage mainStage;
+
     /**
      * The entry point method.
      *
@@ -41,6 +43,9 @@ public class App extends MVCApplication {
     @Override
     public void initialize(Stage stage) {
         super.initialize(stage);
+
+        mainStage = stage;
+
         stage.getIcons().add(new Image(App.class.getResourceAsStream("/icons/logo.png")));
         stage.setTitle(ApplicationConstants.TITLE);
 
@@ -61,12 +66,13 @@ public class App extends MVCApplication {
      */
     @Override
     public void onClose(WindowEvent e) {
+        //TODO: use l10n
         YesOrNoDialog closeAppDialog = new YesOrNoDialog();
         ButtonType closeAppResult = closeAppDialog.show("Soll das Programm wirklich beendet werden?");
 
         if (closeAppResult == ButtonType.YES) {
             LOGGER.info("closed application");
-            System.exit(0);
+            mainStage.close();
         }else{
             e.consume();
         }
