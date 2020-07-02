@@ -2,7 +2,6 @@ package org.openjfx.ui.toolbar;
 
 import com.itextpdf.text.DocumentException;
 import com.javafxMvc.l10n.L10n;
-import com.javafxMvc.annotations.InjectL10n;
 import com.javafxMvc.dialog.ProgressDialogView;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
@@ -16,6 +15,7 @@ import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.ImageDialog;
+import org.openjfx.components.InformationDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
 import org.openjfx.ui.resultDialog.ResultDialogController;
@@ -51,19 +51,15 @@ public class ToolbarController {
     @Inject
     private ResultTableController resultTableController;
 
-    @InjectL10n
-    private L10n l10n;
-
     private final CertificateService certificateService = new CertificateService();
 
     private final CertificateSummaryService certificateSummaryService = new CertificateSummaryService();
 
     private final ImageDialog imageDialog = new ImageDialog();
 
-    private final ProgressDialogView progressDialog = new ProgressDialogView("Urkunden erzeugen");
+    private final ProgressDialogView progressDialog = new ProgressDialogView();
 
     private final ErrorDialog errorDialog = new ErrorDialog();
-
 
     @Bind
     public void bindModelAndView() {
@@ -82,7 +78,9 @@ public class ToolbarController {
 
         if(!resultTableModel.getSelectedResult().getImage().exists()){
             LOGGER.info("cant't show result dialog for existing result: {}, because the image file doesn't exists", resultTableModel.getSelectedResult());
-            errorDialog.show(l10n.get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment()));
+
+            String errorText = L10n.getInstance().get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment());
+            errorDialog.show(L10n.getInstance().get("error_occured"), errorText);
         }else{
             resultDialogController.show(resultTableModel.getSelectedResult());
         }
@@ -102,7 +100,9 @@ public class ToolbarController {
             imageDialog.show(image);
         } catch (IOException e) {
            LOGGER.error(e.getMessage());
-            errorDialog.show(l10n.get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment()));
+
+           String errorText = L10n.getInstance().get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment());
+           errorDialog.show(L10n.getInstance().get("error_occured"), errorText);
         }
     }
 
@@ -114,15 +114,19 @@ public class ToolbarController {
 
         if(folder != null){
             LOGGER.info("selected folder: {}", folder.getAbsolutePath());
-            Task certificateTask = createCertificatesTask(folder);
-            progressDialog.show(certificateTask);
+            Task<Boolean> certificateTask = createCertificatesTask(folder);
+            progressDialog.show(L10n.getInstance().get("progress.header"), certificateTask);
+
+            InformationDialog informationDialog = new InformationDialog();
+            String dialogText = L10n.getInstance().get("toolbar.certificates_success_text",folder.getAbsolutePath());
+            informationDialog.show(L10n.getInstance().get("toolbar.certificates_success_header"), dialogText);
         }
     }
 
-    private Task createCertificatesTask(final File folder){
-        return new Task() {
+    private Task<Boolean> createCertificatesTask(final File folder){
+        return new Task<>() {
             @Override
-            protected Object call() {
+            protected Boolean call() {
                 try {
                     //estimate max progress steps
                     final int maxProgressSteps = resultTableModel.getResultList().size() +2;
@@ -138,7 +142,7 @@ public class ToolbarController {
                         Result currentResult = resultTableModel.getResultList().get(i);
 
                         //update message
-                        updateMessage(l10n.get("progress.create_certificate_for", currentResult.getFireDepartment()));
+                        updateMessage(L10n.getInstance().get("progress.create_certificate_for", currentResult.getFireDepartment()));
 
                         //create result folder
                         String currentResultFolderPath = certificateFolderPath + currentResult.getPlace() + "_" + currentResult.getFireDepartment() + File.separator;
@@ -155,7 +159,7 @@ public class ToolbarController {
                     }
 
                     //create certificate PDF
-                    updateMessage(l10n.get("progress.create_certificate_pdf"));
+                    updateMessage(L10n.getInstance().get("progress.create_certificate_pdf"));
                     PDFMergerUtility pdfMerger = new PDFMergerUtility();
                     pdfMerger.setDestinationFileName(certificateFolderPath + "/" + FileConstants.CERTIFICATE_PDF);
                     certificatePdfFileList.forEach(certificatePdfFile -> {
@@ -169,7 +173,7 @@ public class ToolbarController {
                     updateProgress(resultTableModel.getResultList().size()+1, maxProgressSteps);
 
                     //create summary PDF
-                    updateMessage(l10n.get("progress.create_certificate_summary"));
+                    updateMessage(L10n.getInstance().get("progress.create_certificate_summary"));
                     String certificateSummaryFilePath = certificateFolderPath + "/" + FileConstants.CERTIFICATE_SUMMARY_PDF;
                     certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
                     updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);

@@ -1,9 +1,12 @@
 package org.openjfx.ui.resultDialog;
 
 import com.javafxMvc.annotations.*;
+import com.javafxMvc.l10n.L10n;
 import com.javafxMvc.validator.CombinedValidator;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import model.Result;
+import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.RetentionFileChooser;
 import org.openjfx.ui.table.ResultTableController;
 import org.slf4j.Logger;
@@ -31,7 +34,14 @@ public class ResultDialogController {
     @Inject
     private ResultTableController resultTableController;
 
-    private final RetentionFileChooser retentionFileChooser = new RetentionFileChooser();
+    private final RetentionFileChooser retentionFileChooser;
+
+    private final ErrorDialog errorDialog = new ErrorDialog();
+
+    public ResultDialogController(){
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files (*.jpg) (*.png) (*.jpeg)", "*.jpg", "*.png", "*jpeg");
+        retentionFileChooser = new RetentionFileChooser(imageFilter);
+    }
 
     @Bind
     private void bindModelAndView() {
@@ -47,12 +57,7 @@ public class ResultDialogController {
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             if(newImageFile != null) {
                 try(InputStream imageInputStream = new FileInputStream(newImageFile)){
-                    Image image = new Image(imageInputStream);
-                    if(image.isError()){
-                        LOGGER.error(image.getException().getMessage());
-                    }
-
-                    view.image.setImage(image);
+                    view.image.setImage(new Image(imageInputStream));
                     view.imageWrapper.setStyle("-fx-border-color:none");
                     } catch (IOException e) {
                         LOGGER.error(e.getMessage());
@@ -89,6 +94,7 @@ public class ResultDialogController {
                 model.clear();
             } catch (IOException e) {
                 LOGGER.error(e.getMessage());
+                //TODO: set error text
             }
         }
     }

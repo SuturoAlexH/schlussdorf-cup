@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import com.javafxMvc.application.MVCApplication;
+import com.javafxMvc.l10n.L10n;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -56,7 +57,7 @@ public class App extends MVCApplication {
         stage.setScene(scene);
         stage.show();
 
-        LOGGER.info("started application ######################################################");
+        LOGGER.info("started application #######");
     }
 
     /**
@@ -66,9 +67,8 @@ public class App extends MVCApplication {
      */
     @Override
     public void onClose(WindowEvent e) {
-        //TODO: use l10n
         YesOrNoDialog closeAppDialog = new YesOrNoDialog();
-        ButtonType closeAppResult = closeAppDialog.show("Soll das Programm wirklich beendet werden?");
+        ButtonType closeAppResult = closeAppDialog.show(L10n.getInstance().get("close_application"), L10n.getInstance().get("close_application_question"));
 
         if (closeAppResult == ButtonType.YES) {
             LOGGER.info("closed application");

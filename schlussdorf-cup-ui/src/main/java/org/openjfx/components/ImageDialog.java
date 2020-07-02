@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 /**
@@ -25,12 +26,12 @@ public class ImageDialog {
     }
 
     private void initialize(){
-        alert = new Alert(Alert.AlertType.NONE, "", ButtonType.CLOSE);
+        alert = new Alert(Alert.AlertType.NONE, null, ButtonType.CLOSE);
+        alert.initStyle(StageStyle.UTILITY);
         alert.getDialogPane().setMaxSize(300, 300);
 
         Button closeButton = (Button)alert.getDialogPane().lookupButton(ButtonType.CLOSE);
         closeButton.setId("closeButton");
-        closeButton.setGraphic(new ImageView(new Image(ImageDialog.class.getResourceAsStream("/icons/cross.png"))));
 
         imageView = new ImageView();
         imageView.setFitHeight(300);

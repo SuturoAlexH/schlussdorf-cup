@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -21,8 +22,10 @@ public class YesOrNoDialog {
     }
 
     private void initialize(){
-        alert = new Alert(Alert.AlertType.NONE, "", ButtonType.YES, ButtonType.NO);
+        alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
         alert.getDialogPane().getStylesheets().add(YesOrNoDialog.class.getResource("/css/bootstrap3.css").toExternalForm());
+        alert.setTitle(null);
+        alert.initStyle(StageStyle.UTILITY);
 
         Button yesButton = (Button)alert.getDialogPane().lookupButton(ButtonType.YES);
         yesButton.setId("yesButton");
@@ -37,11 +40,13 @@ public class YesOrNoDialog {
 
     /**
      *
-     * @param contentText
+     * @param header
+     * @param question
      * @return
      */
-    public ButtonType show(final String contentText){
-        alert.setContentText(contentText);
+    public ButtonType show(final String header, final String question){
+        alert.setHeaderText(header);
+        alert.setContentText(question);
         alert.showAndWait();
 
         return alert.getResult();

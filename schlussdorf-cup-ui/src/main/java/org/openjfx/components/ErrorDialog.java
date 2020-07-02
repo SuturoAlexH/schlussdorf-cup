@@ -1,26 +1,23 @@
 package org.openjfx.components;
 
+import com.javafxMvc.l10n.L10n;
 import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 /**
  * An error dialog that should inform the user that something went wrong.
  */
 public class ErrorDialog {
 
-    private Alert alert;
+    private final Alert alert;
 
     /**
      * Default constructor.
      */
     public ErrorDialog(){
-        initialize();
-    }
-
-    private void initialize(){
         alert = new Alert(Alert.AlertType.ERROR);
-
-        alert.setTitle("Error");
-        alert.setHeaderText("Es ist ein Fehler aufgetreten!");
+        alert.setTitle(null);
+        alert.initStyle(StageStyle.UTILITY);
     }
 
     /**
@@ -28,7 +25,8 @@ public class ErrorDialog {
      *
      * @param errorText the text that should be shown
      */
-    public void show(final String errorText){
+    public void show(final String header, final String errorText){
+        alert.setHeaderText(header);
         alert.setContentText(errorText);
         alert.showAndWait();
     }

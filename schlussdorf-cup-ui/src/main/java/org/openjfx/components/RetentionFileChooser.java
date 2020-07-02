@@ -1,6 +1,5 @@
 package org.openjfx.components;
 
-
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -12,18 +11,16 @@ import java.io.File;
  */
 public class RetentionFileChooser {
 
-    private FileChooser fileChooser = new FileChooser();
+    private final FileChooser fileChooser = new FileChooser();
 
-    private SimpleObjectProperty<File> lastChosenFolderProperty = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<File> lastChosenFolderProperty = new SimpleObjectProperty<>();
 
     /**
      * Default constructor.
      */
-    //TODO: hard coded filter
-    public RetentionFileChooser(){
+    public RetentionFileChooser(final FileChooser.ExtensionFilter extensionFilter){
         fileChooser.initialDirectoryProperty().bindBidirectional(lastChosenFolderProperty);
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files (*.jpg) (*.png) (*.jpeg)", "*.jpg", "*.png", "*jpeg");
-        fileChooser.getExtensionFilters().setAll(imageFilter);
+        fileChooser.getExtensionFilters().setAll(extensionFilter);
     }
 
     /**

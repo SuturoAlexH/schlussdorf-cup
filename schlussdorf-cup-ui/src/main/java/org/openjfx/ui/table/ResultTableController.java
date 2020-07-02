@@ -34,9 +34,6 @@ public class ResultTableController {
     @Inject
     private ResultTableView view;
 
-    @InjectL10n
-    private L10n l10n;
-
     private final LoadService loadService = new LoadService();
 
     private final SaveService saveService = new SaveService();
@@ -135,8 +132,8 @@ public class ResultTableController {
      * If the user clicks yes the result will be deleted and if the user clicks no nothing happen.
      */
     public void deleteResult() {
-        String deleteDialogText = l10n.get("toolbar.delete_fire_department", model.getSelectedResult().getFireDepartment());
-        ButtonType deleteResult = deleteDialog.show(deleteDialogText);
+        String deleteDialogText = L10n.getInstance().get("toolbar.delete_fire_department", model.getSelectedResult().getFireDepartment());
+        ButtonType deleteResult = deleteDialog.show(L10n.getInstance().get("toolbar.delete_header"), deleteDialogText);
 
         if (deleteResult == ButtonType.YES) {
             LOGGER.info("delete result: {}", model.getSelectedResult());
