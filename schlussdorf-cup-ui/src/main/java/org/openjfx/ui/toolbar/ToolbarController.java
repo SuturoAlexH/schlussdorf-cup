@@ -3,6 +3,7 @@ package org.openjfx.ui.toolbar;
 import com.itextpdf.text.DocumentException;
 import com.javafxMvc.l10n.L10n;
 import com.javafxMvc.dialog.ProgressDialogView;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
 import com.javafxMvc.annotations.Bind;
@@ -59,6 +60,8 @@ public class ToolbarController {
 
     private final ProgressDialogView progressDialog = new ProgressDialogView();
 
+    private final InformationDialog informationDialog = new InformationDialog();
+
     private final ErrorDialog errorDialog = new ErrorDialog();
 
     @Bind
@@ -114,75 +117,80 @@ public class ToolbarController {
 
         if(folder != null){
             LOGGER.info("selected folder: {}", folder.getAbsolutePath());
-            Task<Boolean> certificateTask = createCertificatesTask(folder);
-            progressDialog.show(L10n.getInstance().get("progress.header"), certificateTask);
+            Task<Result> certificateTask = createCertificatesTask(folder);
 
-            InformationDialog informationDialog = new InformationDialog();
-            String dialogText = L10n.getInstance().get("toolbar.certificates_success_text",folder.getAbsolutePath());
-            informationDialog.show(L10n.getInstance().get("toolbar.certificates_success_header"), dialogText);
+            certificateTask.setOnSucceeded(event -> Platform.runLater(() -> {
+                String dialogText = L10n.getInstance().get("toolbar.certificates_success_text",folder.getAbsolutePath());
+                informationDialog.show(L10n.getInstance().get("toolbar.certificates_success_header"), dialogText);
+            }));
+
+
+            certificateTask.setOnFailed(event -> Platform.runLater(() -> {
+                LOGGER.error(event.getSource().getException().getMessage());
+                Result result =  (Result) event.getSource().getValue();
+                errorDialog.show(L10n.getInstance().get("error_occured"), L10n.getInstance().get("progress.create_error", result.getFireDepartment()));
+            }));
+
+            progressDialog.show(L10n.getInstance().get("progress.header"), certificateTask);
         }
     }
 
-    private Task<Boolean> createCertificatesTask(final File folder){
+    private Task<Result> createCertificatesTask(final File folder){
         return new Task<>() {
             @Override
-            protected Boolean call() {
-                try {
-                    //estimate max progress steps
-                    final int maxProgressSteps = resultTableModel.getResultList().size() +2;
+            protected Result call() throws IOException, DocumentException {
+                //estimate max progress steps
+                final int maxProgressSteps = resultTableModel.getResultList().size() +2;
 
-                    List<File> certificatePdfFileList = new ArrayList<>();
+                List<File> certificatePdfFileList = new ArrayList<>();
 
-                    //create certificate folder
-                    String certificateFolderPath = folder.getAbsolutePath() + FolderConstants.CERTIFICATE_FOLDER;
-                    FileUtils.forceMkdir(new File(certificateFolderPath));
+                //create certificate folder
+                String certificateFolderPath = folder.getAbsolutePath() + FolderConstants.CERTIFICATE_FOLDER;
+                FileUtils.forceMkdir(new File(certificateFolderPath));
 
-                    updateProgress(1, maxProgressSteps);
-                    for (int i = 0; i < resultTableModel.getResultList().size(); i++) {
-                        Result currentResult = resultTableModel.getResultList().get(i);
+                updateProgress(1, maxProgressSteps);
+                for (int i = 0; i < resultTableModel.getResultList().size(); i++) {
+                    Result currentResult = resultTableModel.getResultList().get(i);
+                    updateValue(currentResult);
 
-                        //update message
-                        updateMessage(L10n.getInstance().get("progress.create_certificate_for", currentResult.getFireDepartment()));
+                    //update message
+                    updateMessage(L10n.getInstance().get("progress.create_certificate_for", currentResult.getFireDepartment()));
 
-                        //create result folder
-                        String currentResultFolderPath = certificateFolderPath + currentResult.getPlace() + "_" + currentResult.getFireDepartment() + File.separator;
-                        FileUtils.forceMkdir(new File(currentResultFolderPath));
+                    //create result folder
+                    String currentResultFolderPath = certificateFolderPath + currentResult.getPlace() + "_" + currentResult.getFireDepartment() + File.separator;
+                    FileUtils.forceMkdir(new File(currentResultFolderPath));
 
-                        //create documents
-                        File doxcFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".docx");
-                        File pdfFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".pdf");
-                        certificateService.createDocuments(currentResult, doxcFile, pdfFile, DateUtil.getCurrentDateAsString(), DateUtil.getCurrentYearAsString());
-                        certificatePdfFileList.add(pdfFile);
+                    //create documents
+                    File doxcFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".docx");
+                    File pdfFile = new File(currentResultFolderPath + currentResult.getFireDepartment() + ".pdf");
+                    certificateService.createDocuments(currentResult, doxcFile, pdfFile, DateUtil.getCurrentDateAsString(), DateUtil.getCurrentYearAsString());
+                    certificatePdfFileList.add(pdfFile);
 
-                        //update progress
-                        updateProgress(i + 2, maxProgressSteps);
-                    }
-
-                    //create certificate PDF
-                    updateMessage(L10n.getInstance().get("progress.create_certificate_pdf"));
-                    PDFMergerUtility pdfMerger = new PDFMergerUtility();
-                    pdfMerger.setDestinationFileName(certificateFolderPath + "/" + FileConstants.CERTIFICATE_PDF);
-                    certificatePdfFileList.forEach(certificatePdfFile -> {
-                        try {
-                            pdfMerger.addSource(certificatePdfFile);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    pdfMerger.mergeDocuments(MemoryUsageSetting.setupTempFileOnly());
-                    updateProgress(resultTableModel.getResultList().size()+1, maxProgressSteps);
-
-                    //create summary PDF
-                    updateMessage(L10n.getInstance().get("progress.create_certificate_summary"));
-                    String certificateSummaryFilePath = certificateFolderPath + "/" + FileConstants.CERTIFICATE_SUMMARY_PDF;
-                    certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
-                    updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);
-                }catch (IOException | DocumentException e){
-                    LOGGER.error(e.getMessage());
-                    //TODO: error dialog
+                    //update progress
+                    updateProgress(i + 2, maxProgressSteps);
                 }
 
-                return true;
+                //create certificate PDF
+                updateMessage(L10n.getInstance().get("progress.create_certificate_pdf"));
+                PDFMergerUtility pdfMerger = new PDFMergerUtility();
+                pdfMerger.setDestinationFileName(certificateFolderPath + "/" + FileConstants.CERTIFICATE_PDF);
+                certificatePdfFileList.forEach(certificatePdfFile -> {
+                    try {
+                        pdfMerger.addSource(certificatePdfFile);
+                    } catch (FileNotFoundException e) {
+                        LOGGER.error(e.getMessage());
+                    }
+                });
+                pdfMerger.mergeDocuments(MemoryUsageSetting.setupTempFileOnly());
+                updateProgress(resultTableModel.getResultList().size()+1, maxProgressSteps);
+
+                //create summary PDF
+                updateMessage(L10n.getInstance().get("progress.create_certificate_summary"));
+                String certificateSummaryFilePath = certificateFolderPath + "/" + FileConstants.CERTIFICATE_SUMMARY_PDF;
+                certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
+                updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);
+
+                return null;
             }
         };
     }
