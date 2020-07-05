@@ -120,13 +120,16 @@ public class ToolbarController {
             Task<Result> certificateTask = createCertificatesTask(folder);
 
             certificateTask.setOnSucceeded(event -> Platform.runLater(() -> {
+                LOGGER.info("certificates are successfully created at {}", folder.getAbsolutePath());
                 String dialogText = L10n.getInstance().get("toolbar.certificates_success_text",folder.getAbsolutePath());
                 informationDialog.show(L10n.getInstance().get("toolbar.certificates_success_header"), dialogText);
             }));
 
 
             certificateTask.setOnFailed(event -> Platform.runLater(() -> {
+                LOGGER.error("Cant create certificate for {}", event.getSource().getValue());
                 LOGGER.error(event.getSource().getException().getMessage());
+                
                 Result result =  (Result) event.getSource().getValue();
                 errorDialog.show(L10n.getInstance().get("error_occured"), L10n.getInstance().get("progress.create_error", result.getFireDepartment()));
             }));
