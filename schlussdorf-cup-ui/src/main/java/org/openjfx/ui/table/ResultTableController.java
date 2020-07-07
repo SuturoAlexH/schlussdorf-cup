@@ -3,9 +3,11 @@ package org.openjfx.ui.table;
 import com.google.common.io.Files;
 import com.javafxMvc.annotations.*;
 import com.javafxMvc.l10n.L10n;
+import exception.CsvFormatException;
 import factory.ResultBuilder;
 import javafx.scene.control.ButtonType;
 import model.Result;
+import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.YesOrNoDialog;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
@@ -38,8 +40,6 @@ public class ResultTableController {
 
     private final SaveService saveService = new SaveService();
 
-    private final YesOrNoDialog deleteDialog = new YesOrNoDialog();
-
     @Bind
     private void bindModelAndView() {
         view.table.itemsProperty().bindBidirectional(model.resultListProperty());
@@ -64,8 +64,11 @@ public class ResultTableController {
         try {
             List<Result> loadedResults = loadService.load(FolderConstants.SAVE_FOLDER + FileConstants.SAVE_FILE);
             model.getResultList().addAll(loadedResults);
-        }catch (IOException e) {
+        } catch (IOException|CsvFormatException e){
             LOGGER.error(e.getMessage());
+
+            ErrorDialog errorDialog = new ErrorDialog();
+            errorDialog.show(L10n.getInstance().get("error_occured"), L10n.getInstance().get("table.load_error"));
         }
     }
 
@@ -132,6 +135,7 @@ public class ResultTableController {
      * If the user clicks yes the result will be deleted and if the user clicks no nothing happen.
      */
     public void deleteResult() {
+        YesOrNoDialog deleteDialog = new YesOrNoDialog();
         String deleteDialogText = L10n.getInstance().get("toolbar.delete_fire_department", model.getSelectedResult().getFireDepartment());
         ButtonType deleteResult = deleteDialog.show(L10n.getInstance().get("toolbar.delete_header"), deleteDialogText);
 

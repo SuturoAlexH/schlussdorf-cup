@@ -14,4 +14,6 @@ public class CsvConstants {
     public static final String IMAGE_PATH = "image_path";
 
     public static final String[] HEADER = new String[]{UUID, PLACE, FIRE_DEPARTMENT, TIME, MISTAKE_POINTS, FINAL_SCORE, IMAGE_PATH};
+
+    public static final int ROW_SIZE = HEADER.length;
 }

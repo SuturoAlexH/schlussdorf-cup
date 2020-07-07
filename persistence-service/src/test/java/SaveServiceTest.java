@@ -1,3 +1,4 @@
+import exception.CsvFormatException;
 import factory.ResultBuilder;
 import model.Result;
 import org.assertj.core.util.Lists;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 public class SaveServiceTest {
 
-    private static final String SAVE_FILE_PATH = "./save.csv";
+    private static final String SAVE_FILE_PATH = "save/invalid_uuid.csv";
 
     private static final String INVALID_SAVE_FILE_PATH = "INVALID_SAVE_FILE_PATH";
 
@@ -73,7 +74,7 @@ public class SaveServiceTest {
     }
 
     @Test
-    public void save_resultListIsEmpty_loadedResultListIsEmpty() throws IOException {
+    public void save_resultListIsEmpty_loadedResultListIsEmpty() throws IOException, CsvFormatException {
         //arrange
 
         //act
@@ -85,7 +86,7 @@ public class SaveServiceTest {
     }
 
     @Test
-    public void save_resultListHasOneEntry_loadedResultListHasOneEntry() throws IOException {
+    public void save_resultListHasOneEntry_loadedResultListHasOneEntry() throws IOException, CsvFormatException {
         //arrange
         ResultBuilder resultBuilder1 = new ResultBuilder();
         Result result = resultBuilder1.fireDepartment("firedepartment1").time(10.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
@@ -102,7 +103,7 @@ public class SaveServiceTest {
     }
 
     @Test
-    public void save_resultListHasTwoEntry_loadedResultListHasTwoEntry() throws IOException {
+    public void save_resultListHasTwoEntry_loadedResultListHasTwoEntry() throws IOException, CsvFormatException {
         //arrange
         ResultBuilder resultBuilder1 = new ResultBuilder();
         Result result1 = resultBuilder1.fireDepartment("firedepartment1").time(10.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
@@ -123,7 +124,7 @@ public class SaveServiceTest {
     }
 
     @Test
-    public void save_resultListHasEntryWithSpecialCharacters_loadedResultListHasProperEncoding() throws IOException {
+    public void save_resultListHasEntryWithSpecialCharacters_loadedResultListHasProperEncoding() throws IOException, CsvFormatException {
         //arrange
         ResultBuilder resultBuilder1 = new ResultBuilder();
         Result result = resultBuilder1.fireDepartment("äüöß§$%&/()=?``#*+").time(10.01).mistakePoints(5).image(new File(SaveServiceTest.class.getResource("/images/test_image.jpeg").getFile())).build();
