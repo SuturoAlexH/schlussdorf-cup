@@ -36,8 +36,6 @@ public class ResultDialogController {
 
     private final RetentionFileChooser retentionFileChooser;
 
-    private final ErrorDialog errorDialog = new ErrorDialog();
-
     public ResultDialogController(){
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image files (*.jpg) (*.png) (*.jpeg)", "*.jpg", "*.png", "*jpeg");
         retentionFileChooser = new RetentionFileChooser(imageFilter);
@@ -94,7 +92,10 @@ public class ResultDialogController {
                 model.clear();
             } catch (IOException e) {
                 LOGGER.error(e.getMessage());
-                //TODO: set error text
+
+                ErrorDialog errorDialog = new ErrorDialog();
+                String errorText = L10n.getInstance().get("table.add_or_edit_image_error", model.getImage().getValue().getAbsolutePath());
+                errorDialog.show(L10n.getInstance().get("error_occured"), errorText);
             }
         }
     }
