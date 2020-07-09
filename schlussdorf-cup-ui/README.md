@@ -1,6 +1,6 @@
 # schlussdorf-cup-ui
 
-###setups steps
+### setups steps
 
    1. Add these two lines to the vm options of the run configuration
    
@@ -13,6 +13,6 @@
       
    3. Copy the bin and lib folder from your java-jdk folder (C:\Program Files\Java\jdk-14.0.1) to "libs/jdk"
    
-###build
+### build
 
 Just run the build.bat file
