@@ -1,4 +1,4 @@
-@normal
+@launchBefore
 Feature: Show image of result in result table
 
   Background:

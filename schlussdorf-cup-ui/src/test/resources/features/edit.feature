@@ -1,4 +1,4 @@
-@normal
+@launchBefore
 Feature: Edit result in result table
 
   Background:

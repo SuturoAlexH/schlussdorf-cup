@@ -1,4 +1,4 @@
-@normal
+@launchBefore
 Feature: Create certificate documents
 
   Background:

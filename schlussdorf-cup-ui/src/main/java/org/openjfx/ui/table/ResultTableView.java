@@ -14,9 +14,6 @@ import com.javafxMvc.annotations.MVCView;
 @MVCView("/fxml/table.fxml")
 public class ResultTableView{
 
-    @Inject
-    private ResultTableController controller;
-
     @FXML
     TableView<Result> table;
 

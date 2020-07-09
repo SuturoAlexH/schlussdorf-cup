@@ -1,4 +1,4 @@
-@normal
+@launchBefore
 Feature: Delete result from result table
 
   Background:

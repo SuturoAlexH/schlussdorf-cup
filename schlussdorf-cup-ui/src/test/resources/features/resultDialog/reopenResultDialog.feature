@@ -1,4 +1,4 @@
-@normal
+@launchBefore
 Feature: The result dialog should be clear if its reopened
 
   Background:

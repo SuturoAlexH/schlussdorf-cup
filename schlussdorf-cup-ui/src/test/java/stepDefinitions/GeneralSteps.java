@@ -17,13 +17,13 @@ import static org.testfx.assertions.api.Assertions.assertThat;
 
 public class GeneralSteps extends BaseApplicationTest{
 
-    @Before("@normal")
+    @Before("@launchBefore")
     public void setUp() throws Exception {
         TestUtil.clearFolders();
         launchApplication();
     }
 
-    @Before("@launchAfter")
+    @Before("@launchOnRequest")
     public void setUp2() {
         TestUtil.clearFolders();
     }

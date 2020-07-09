@@ -39,8 +39,6 @@ public abstract class BaseApplicationTest extends ApplicationTest {
     }
 
     public void selectRow(final int rowIndex){
-        TableView<Result> resultTable = lookup("#table").query();
-
         await().atMost(60, TimeUnit.SECONDS).until(() -> Objects.nonNull(lookup(".table-row-cell")));
         TableRow<Result> row = lookup(".table-row-cell").nth(rowIndex-1).query();
         clickOn(row);
