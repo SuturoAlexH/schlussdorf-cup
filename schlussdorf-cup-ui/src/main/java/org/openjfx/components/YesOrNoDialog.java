@@ -17,12 +17,13 @@ public class YesOrNoDialog {
     /**
      * Default constructor.
      */
-    public YesOrNoDialog(){
-        initialize();
+    public YesOrNoDialog(final String id){
+        initialize(id);
     }
 
-    private void initialize(){
+    private void initialize(final String id){
         alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
+        alert.getDialogPane().setId(id);
         alert.getDialogPane().getStylesheets().add(YesOrNoDialog.class.getResource("/css/bootstrap3.css").toExternalForm());
         alert.setTitle(null);
         alert.initStyle(StageStyle.UTILITY);

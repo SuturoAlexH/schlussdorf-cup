@@ -56,14 +56,6 @@ public class ToolbarController {
 
     private final CertificateSummaryService certificateSummaryService = new CertificateSummaryService();
 
-    private final ImageDialog imageDialog = new ImageDialog();
-
-    private final ProgressDialogView progressDialog = new ProgressDialogView();
-
-    private final InformationDialog informationDialog = new InformationDialog();
-
-    private final ErrorDialog errorDialog = new ErrorDialog();
-
     @Bind
     public void bindModelAndView() {
         view.editButton.disableProperty().bind(resultTableModel.selectedResultProperty().isNull());
@@ -82,6 +74,7 @@ public class ToolbarController {
         if(!resultTableModel.getSelectedResult().getImage().exists()){
             LOGGER.info("cant't show result dialog for existing result: {}, because the image file doesn't exists", resultTableModel.getSelectedResult());
 
+            ErrorDialog errorDialog = new ErrorDialog("edit result error dialog");
             String errorText = L10n.getInstance().get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment());
             errorDialog.show(L10n.getInstance().get("error_occured"), errorText);
         }else{
@@ -99,11 +92,12 @@ public class ToolbarController {
         LOGGER.info("show image for result: {}", resultTableModel.getSelectedResult());
 
         try (InputStream imageInputStream = new FileInputStream(resultTableModel.getSelectedResult().getImage())){
-            Image image = new Image(imageInputStream);
-            imageDialog.show(image);
+            ImageDialog imageDialog = new ImageDialog("show image dialog");
+            imageDialog.show(new Image(imageInputStream));
         } catch (IOException e) {
            LOGGER.error(e.getMessage());
 
+           ErrorDialog errorDialog = new ErrorDialog("show image error dialog");
            String errorText = L10n.getInstance().get("dialog.image_error_dialog", resultTableModel.getSelectedResult().getFireDepartment());
            errorDialog.show(L10n.getInstance().get("error_occured"), errorText);
         }
@@ -122,6 +116,7 @@ public class ToolbarController {
             certificateTask.setOnSucceeded(event -> Platform.runLater(() -> {
                 LOGGER.info("certificates are successfully created at {}", folder.getAbsolutePath());
 
+                InformationDialog informationDialog = new InformationDialog("certificate success dialog");
                 String dialogText = L10n.getInstance().get("toolbar.certificates_success_text",folder.getAbsolutePath());
                 informationDialog.show(L10n.getInstance().get("toolbar.certificates_success_header"), dialogText);
             }));
@@ -131,11 +126,13 @@ public class ToolbarController {
                 LOGGER.error("Cant create certificate for {}", event.getSource().getValue());
                 LOGGER.error(event.getSource().getException().getMessage());
 
-                Result result =  (Result) event.getSource().getValue();
+                ErrorDialog errorDialog = new ErrorDialog("certificate fail dialog");
+                Result result = (Result)event.getSource().getValue();
                 errorDialog.show(L10n.getInstance().get("error_occured"), L10n.getInstance().get("progress.create_error", result.getFireDepartment()));
             }));
 
-            progressDialog.show(L10n.getInstance().get("progress.header"), certificateTask);
+            ProgressDialogView progressDialog = new ProgressDialogView();
+            progressDialog.show(L10n.getInstance().get("progress.header"), certificateTask, "certificate progress dialog");
         }
     }
 
@@ -172,7 +169,7 @@ public class ToolbarController {
                     certificatePdfFileList.add(pdfFile);
 
                     //update progress
-                    updateProgress(i + 2, maxProgressSteps);
+                    updateProgress(i + 2, maxProgressSteps);//TODO index constants
                 }
 
                 //create certificate PDF

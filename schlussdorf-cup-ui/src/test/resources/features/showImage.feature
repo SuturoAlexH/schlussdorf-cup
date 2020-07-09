@@ -1,3 +1,4 @@
+@normal
 Feature: Show image of result in result table
 
   Background:
@@ -22,3 +23,10 @@ Feature: Show image of result in result table
     Given the show image dialog is opened
     When click on "close button"
     Then the "show image dialog" is invisible
+
+  Scenario: Error dialog is visible if image does not exists
+    Given "Feuerwehr 1" has no image
+    And the 1. row of the result table is selected
+    When click on "show image button"
+    Then the "show image error dialog" is visible
+    And the dialog text is "Das Bild für die Ortsfeuerwehr Feuerwehr 1 konnte leider nicht geladen werden!"

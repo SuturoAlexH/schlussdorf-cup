@@ -8,6 +8,7 @@ import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DeleteSteps extends BaseApplicationTest {
 
@@ -23,15 +24,6 @@ public class DeleteSteps extends BaseApplicationTest {
 
         Button yesButton = lookup("#yesButton").query();
         clickOn(yesButton);
-    }
-
-    @Then("the dialog text is {string}")
-    public void theDialogTextIs(String text) {
-        Stage actualAlertDialog = getTopModalStage();
-        DialogPane dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
-        String contentText = dialogPane.getContentText();
-
-        assertEquals(text, contentText);
     }
 
     @When("try to delete the {int}. row")

@@ -1,3 +1,4 @@
+@normal
 Feature: Edit result in result table
 
   Background:
@@ -41,3 +42,10 @@ Feature: Edit result in result table
       | place | fire department | time| mistake points | final score|
       | 1     | Feuerwehr 2     | 60  | 20             | 420        |
       | 2     | Feuerwehr 1     | 100 | 10             | 390        |
+
+  Scenario: When the result has no image an error dialog is shown
+    Given "Feuerwehr 1" has no image
+    And the 1. row of the result table is selected
+    When click on "edit button"
+    Then the "edit result error dialog" is visible
+    And the dialog text is "Das Bild für die Ortsfeuerwehr Feuerwehr 1 konnte leider nicht geladen werden!"

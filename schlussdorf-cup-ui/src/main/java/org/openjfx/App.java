@@ -67,7 +67,7 @@ public class App extends MVCApplication {
      */
     @Override
     public void onClose(WindowEvent e) {
-        YesOrNoDialog closeAppDialog = new YesOrNoDialog();
+        YesOrNoDialog closeAppDialog = new YesOrNoDialog("close application dialog");
         ButtonType closeAppResult = closeAppDialog.show(L10n.getInstance().get("close_application"), L10n.getInstance().get("close_application_question"));
 
         if (closeAppResult == ButtonType.YES) {

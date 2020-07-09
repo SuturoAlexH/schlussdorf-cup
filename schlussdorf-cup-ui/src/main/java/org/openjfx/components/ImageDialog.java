@@ -5,9 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
 /**
  * A dialog with an image as content and a close button.
@@ -21,12 +19,13 @@ public class ImageDialog {
     /**
      * Default constructor.
      */
-    public ImageDialog(){
-        initialize();
+    public ImageDialog(final String id){
+        initialize(id);
     }
 
-    private void initialize(){
+    private void initialize(final String id){
         alert = new Alert(Alert.AlertType.NONE, null, ButtonType.CLOSE);
+        alert.getDialogPane().setId(id);
         alert.initStyle(StageStyle.UTILITY);
         alert.getDialogPane().setMaxSize(300, 300);
 

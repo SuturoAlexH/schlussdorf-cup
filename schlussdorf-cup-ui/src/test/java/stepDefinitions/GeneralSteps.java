@@ -6,9 +6,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import javafx.scene.Node;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.assertj.core.api.Assertions;
-import org.openjfx.App;
 import util.TestUtil;
 
 import static org.junit.Assert.*;
@@ -16,24 +17,30 @@ import static org.testfx.assertions.api.Assertions.assertThat;
 
 public class GeneralSteps extends BaseApplicationTest{
 
-    @Before
+    @Before("@normal")
     public void setUp() throws Exception {
         TestUtil.clearFolders();
-        launch(App.class);
+        launchApplication();
+    }
+
+    @Before("@launchAfter")
+    public void setUp2() {
+        TestUtil.clearFolders();
     }
 
     @After
     public void after() {
-        int currentWindowCount = listWindows().size();
         while(!listWindows().isEmpty()){
             closeCurrentWindow();
 
-            //window did not close
-            if(listWindows().size() >= currentWindowCount){
-                clickOnNode("yes button");
-            }
+            Stage topModalStage = getTopModalStage();
+            if(topModalStage != null && topModalStage.getScene().getRoot() instanceof DialogPane) {
+                DialogPane dialogPane = (DialogPane) topModalStage.getScene().getRoot();
 
-            currentWindowCount = listWindows().size();
+                if ("close application dialog".equals(dialogPane.getId())) {
+                    clickOnNode("yes button");
+                }
+            }
         }
     }
 
@@ -57,6 +64,11 @@ public class GeneralSteps extends BaseApplicationTest{
        clickOnNode(name);
     }
 
+    @When("application has started")
+    public void applicationHasStarted() throws Exception {
+        launchApplication();
+    }
+
     @Then("the {string} is enabled")
     public void theIsEnabled(final String name) {
         Node node = findNodeByName(name);
@@ -72,7 +84,10 @@ public class GeneralSteps extends BaseApplicationTest{
     @Then("the {string} is visible")
     public void isVisible(final String name) {
         if(name.endsWith("dialog")){
-            assertEquals(2, listWindows().size());
+            Stage actualAlertDialog = getTopModalStage();
+            Node node = actualAlertDialog.getScene().getRoot();
+
+            assertEquals(name, node.getId());
         }else{
             Node node = findNodeByName(name);
             assertThat(node).isVisible();
@@ -82,15 +97,36 @@ public class GeneralSteps extends BaseApplicationTest{
     @Then("the {string} is invisible")
     public void isInvisible(final String name) {
         if(name.endsWith("dialog")){
-            assertEquals(1,listWindows().size());
+            Stage actualAlertDialog = getTopModalStage();
+            Node node = actualAlertDialog.getScene().getRoot();
+
+            assertNotEquals(name, node.getId());
         }else{
             Node node = findNodeByName(name);
             assertThat(node).isInvisible();
         }
     }
 
+    @Then("the dialog text is {string}")
+    public void theDialogTextIs(String text) {
+        Stage actualAlertDialog = getTopModalStage();
+        DialogPane dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
+        String contentText = dialogPane.getContentText();
+
+        assertEquals(text, contentText);
+    }
+
+    @Then("the dialog text starts with {string}")
+    public void theDialogTextStartsWith(String text) {
+        Stage actualAlertDialog = getTopModalStage();
+        DialogPane dialogPane = (DialogPane) actualAlertDialog.getScene().getRoot();
+        String contentText = dialogPane.getContentText();
+
+        assertTrue(contentText.startsWith(text));
+    }
+
     @Then("the {string} is focused")
-    public void theFireDepartmentTextFieldIsFocused(final String textFieldName) {
+    public void textFieldIsFocused(final String textFieldName) {
         TextField textField = (TextField) findNodeByName(textFieldName);
         assertThat(textField).isFocused();
     }

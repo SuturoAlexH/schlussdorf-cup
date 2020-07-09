@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Result;
 import org.apache.commons.text.CaseUtils;
+import org.openjfx.App;
 import org.testfx.framework.junit.ApplicationTest;
 import util.TestUtil;
 
@@ -21,6 +22,10 @@ import java.util.concurrent.TimeUnit;
 import static org.awaitility.Awaitility.await;
 
 public abstract class BaseApplicationTest extends ApplicationTest {
+
+    public void launchApplication() throws Exception {
+        launch(App.class);
+    }
 
     public void selectImage(final String imageName) {
         File testImage = new File(BaseApplicationTest.class.getResource("/images/" + imageName).getFile());
@@ -56,16 +61,12 @@ public abstract class BaseApplicationTest extends ApplicationTest {
         return lookup("#" + id).query();
     }
 
-        public Stage getTopModalStage() {
-        final List<Window> allWindows = listWindows();
-        return (Stage) allWindows.get(1);
-//        Collections.reverse(allWindows);
-//
-//        return (Stage) allWindows
-//                .stream()
-//                .filter(window -> window instanceof Stage)
-//                .filter(window -> ((Stage) window).getModality() == Modality.APPLICATION_MODAL)
-//                .findFirst()
-//                .orElse(null);
+    public Stage getTopModalStage() {
+        final List<Window> windowList = listWindows();
+        if(windowList.isEmpty()){
+            return null;
+        }
+
+        return (Stage) windowList.get(windowList.size()-1);
     }
 }

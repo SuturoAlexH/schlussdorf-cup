@@ -14,8 +14,9 @@ public class ErrorDialog {
     /**
      * Default constructor.
      */
-    public ErrorDialog(){
+    public ErrorDialog(final String id){
         alert = new Alert(Alert.AlertType.ERROR);
+        alert.getDialogPane().setId(id);
         alert.setTitle(null);
         alert.initStyle(StageStyle.UTILITY);
     }

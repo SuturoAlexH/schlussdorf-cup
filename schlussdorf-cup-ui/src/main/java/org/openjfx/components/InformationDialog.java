@@ -10,10 +10,11 @@ public class InformationDialog {
     /**
      * Default constructor.
      */
-    public InformationDialog(){
+    public InformationDialog(final String id){
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(null);
         alert.initStyle(StageStyle.UTILITY);
+        alert.getDialogPane().setId(id);
     }
 
     /**

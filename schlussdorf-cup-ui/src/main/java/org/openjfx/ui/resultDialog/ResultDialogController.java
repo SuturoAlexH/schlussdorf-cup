@@ -93,7 +93,7 @@ public class ResultDialogController {
             } catch (IOException e) {
                 LOGGER.error(e.getMessage());
 
-                ErrorDialog errorDialog = new ErrorDialog();
+                ErrorDialog errorDialog = new ErrorDialog("apply result error dialog");
                 String errorText = L10n.getInstance().get("table.add_or_edit_image_error", model.getImage().getValue().getAbsolutePath());
                 errorDialog.show(L10n.getInstance().get("error_occured"), errorText);
             }

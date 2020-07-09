@@ -1,3 +1,4 @@
+@normal
 Feature: Delete result from result table
 
   Background:
@@ -13,7 +14,7 @@ Feature: Delete result from result table
   Scenario: If one result is selected and the delete button is clicked the delete dialog is visible
     Given the 1. row of the result table is selected
     When click on "delete button"
-    Then the "delete dialog" is visible
+    Then the "delete result dialog" is visible
 
   Scenario: The delete dialog should display the correct text
     Given try to delete the 1. row
@@ -24,7 +25,7 @@ Feature: Delete result from result table
     Then the result table should look like
       | place | fire department| time| mistake points |
       | 1     | Feuerwehr 2    | 60  | 20             |
-    And the "delete dialog" is invisible
+    And the "delete result dialog" is invisible
 
   Scenario: If the delete dialog is canceled the result table shouldn't changed and the dialog is invisible
     When try to delete the 1. row
@@ -33,7 +34,7 @@ Feature: Delete result from result table
       | place | fire department| time| mistake points |
       | 1     | Feuerwehr 1    | 50  | 10             |
       | 2     | Feuerwehr 2    | 60  | 20             |
-    And the "delete dialog" is invisible
+    And the "delete result dialog" is invisible
 
   Scenario: Delete two results one after another
     When delete the 1. result

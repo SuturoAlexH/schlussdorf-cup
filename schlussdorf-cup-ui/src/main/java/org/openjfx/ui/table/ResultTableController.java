@@ -67,7 +67,7 @@ public class ResultTableController {
         } catch (IOException|CsvFormatException e){
             LOGGER.error(e.getMessage());
 
-            ErrorDialog errorDialog = new ErrorDialog();
+            ErrorDialog errorDialog = new ErrorDialog("load save file error dialog");
             errorDialog.show(L10n.getInstance().get("error_occured"), L10n.getInstance().get("table.load_error"));
         }
     }
@@ -135,7 +135,7 @@ public class ResultTableController {
      * If the user clicks yes the result will be deleted and if the user clicks no nothing happen.
      */
     public void deleteResult() {
-        YesOrNoDialog deleteDialog = new YesOrNoDialog();
+        YesOrNoDialog deleteDialog = new YesOrNoDialog("delete result dialog");
         String deleteDialogText = L10n.getInstance().get("toolbar.delete_fire_department", model.getSelectedResult().getFireDepartment());
         ButtonType deleteResult = deleteDialog.show(L10n.getInstance().get("toolbar.delete_header"), deleteDialogText);
 

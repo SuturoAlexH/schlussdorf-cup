@@ -1,3 +1,4 @@
+@normal
 Feature: The initial appearance of the result dialog
 
   Background:

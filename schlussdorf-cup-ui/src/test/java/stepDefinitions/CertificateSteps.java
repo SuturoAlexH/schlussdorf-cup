@@ -1,41 +1,52 @@
 package stepDefinitions;
 
 import com.jPdfUnit.asserts.PdfAssert;
+import exception.CsvFormatException;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import model.Result;
-import org.testfx.framework.junit.ApplicationTest;
+import org.apache.commons.io.FileUtils;
+import org.openjfx.constants.FileConstants;
+import org.openjfx.constants.FolderConstants;
+import service.LoadService;
 import util.TestUtil;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import static org.awaitility.Awaitility.await;
 import static org.junit.Assert.assertTrue;
 
-public class CertificateSteps extends ApplicationTest {
+public class CertificateSteps extends BaseApplicationTest {
+
     private static final String CERTIFICATE_FOLDER = "./urkunden";
 
+    private LoadService loadService = new LoadService();
+
     @Before
-    public void setUp(){
+    public void setUp() throws IOException {
         File certificateFolder = new File(CERTIFICATE_FOLDER);
-        certificateFolder.delete();
+        FileUtils.deleteDirectory(certificateFolder);
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() throws IOException {
         File certificateFolder = new File(CERTIFICATE_FOLDER);
-        certificateFolder.delete();
+        FileUtils.deleteDirectory(certificateFolder);
     }
 
-    @Given("the certificate progress dialog has passed")
-    public void theCertificateProgressDialogHasPassed() {
+    @Given("the certificate progress dialog has passed (un)successfully")
+    public void theCertificateProgressDialogHasPassedSuccessfully() {
         File certificateFolder = new File(CERTIFICATE_FOLDER);
         certificateFolder.mkdir();
 
@@ -47,7 +58,12 @@ public class CertificateSteps extends ApplicationTest {
                 .press(KeyCode.ENTER).release(KeyCode.ENTER)
                 .press(KeyCode.ENTER);
 
-        await().atMost(60, TimeUnit.SECONDS).until(() -> listWindows().size() == 1);
+        await().atMost(60, TimeUnit.SECONDS).until(() -> {
+            Stage certificateProgressDialog = getTopModalStage();
+            Node node = certificateProgressDialog.getScene().getRoot();
+
+            return !"certificate progress dialog".equals(node.getId());
+        });
 
     }
 

@@ -1,3 +1,4 @@
+@normal
 Feature: Add result to result table
 
   Background:
