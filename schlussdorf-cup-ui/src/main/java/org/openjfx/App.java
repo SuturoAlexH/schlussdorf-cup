@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 /**
  * This class is the entry point of this application.
@@ -56,6 +57,10 @@ public class App extends MVCApplication {
 
         stage.setScene(scene);
         stage.show();
+
+        // call randomUUID, because the initial call is very slow
+        Thread uuidThread = new Thread(UUID::randomUUID);
+        uuidThread.start();
 
         LOGGER.info("started application #######");
     }

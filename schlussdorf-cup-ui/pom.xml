@@ -15,7 +15,7 @@
 
     <properties>
         <javafx.version>15-ea+6</javafx.version>
-        <java.jre>./libs/</java.jre>
+        <java.jre>./libs/jre-14.0.1</java.jre>
     </properties>
 
     <dependencies>
