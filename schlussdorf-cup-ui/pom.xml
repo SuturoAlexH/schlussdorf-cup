@@ -15,7 +15,7 @@
 
     <properties>
         <javafx.version>15-ea+6</javafx.version>
-        <java.jre>./libs/jre-14.0.1</java.jre>
+        <java.jre>./libs/jdk</java.jre>
     </properties>
 
     <dependencies>
@@ -190,7 +190,7 @@
                             <jre>
                                 <path>${java.jre}</path>
                                 <opts>
-                                    <opt>--module-path libs/javafx-sdk-15/lib</opt>
+                                    <opt>--module-path libs/javafx-sdk/lib</opt>
                                     <opt>--add-modules=javafx.controls,javafx.fxml,javafx.graphics,javafx.base</opt>
                                 </opts>
                             </jre>
