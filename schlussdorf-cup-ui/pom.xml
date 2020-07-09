@@ -15,7 +15,7 @@
 
     <properties>
         <javafx.version>15-ea+6</javafx.version>
-        <java.home>C:\Program Files\Java\jdk-14.0.1</java.home>
+        <java.jre>./libs/</java.jre>
     </properties>
 
     <dependencies>
@@ -186,9 +186,9 @@
                             <classPath>
                                 <mainClass>org.openjfx.App</mainClass>
                             </classPath>
-                            <!--  <icon>src/main/resources/icons/exeIcon.ico</icon> -->
+                            <icon>src/main/resources/icons/logo.ico</icon>
                             <jre>
-                                <path>${java.home}</path> <!-- SEE THIS -->
+                                <path>${java.jre}</path>
                                 <opts>
                                     <opt>--module-path libs/javafx-sdk-15/lib</opt>
                                     <opt>--add-modules=javafx.controls,javafx.fxml,javafx.graphics,javafx.base</opt>
