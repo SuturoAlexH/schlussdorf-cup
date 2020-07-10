@@ -17,6 +17,7 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.openjfx.components.ErrorDialog;
 import org.openjfx.components.ImageDialog;
 import org.openjfx.components.InformationDialog;
+import org.openjfx.constants.CertificateProgressDialogConstants;
 import org.openjfx.constants.FileConstants;
 import org.openjfx.constants.FolderConstants;
 import org.openjfx.ui.resultDialog.ResultDialogController;
@@ -149,7 +150,7 @@ public class ToolbarController {
                 String certificateFolderPath = folder.getAbsolutePath() + FolderConstants.CERTIFICATE_FOLDER;
                 FileUtils.forceMkdir(new File(certificateFolderPath));
 
-                updateProgress(1, maxProgressSteps);
+                updateProgress(CertificateProgressDialogConstants.INITIAL_STEP, maxProgressSteps);
                 for (int i = 0; i < resultTableModel.getResultList().size(); i++) {
                     Result currentResult = resultTableModel.getResultList().get(i);
                     updateValue(currentResult);
@@ -169,7 +170,7 @@ public class ToolbarController {
                     certificatePdfFileList.add(pdfFile);
 
                     //update progress
-                    updateProgress(i + 2, maxProgressSteps);//TODO index constants
+                    updateProgress(i + 1 + CertificateProgressDialogConstants.OFF_SET, maxProgressSteps);
                 }
 
                 //create certificate PDF
@@ -184,13 +185,13 @@ public class ToolbarController {
                     }
                 });
                 pdfMerger.mergeDocuments(MemoryUsageSetting.setupTempFileOnly());
-                updateProgress(resultTableModel.getResultList().size()+1, maxProgressSteps);
+                updateProgress(resultTableModel.getResultList().size() + CertificateProgressDialogConstants.CERTIFICATE_PDF_OFF_SET, maxProgressSteps);
 
                 //create summary PDF
                 updateMessage(L10n.getInstance().get("progress.create_certificate_summary"));
                 String certificateSummaryFilePath = certificateFolderPath + "/" + FileConstants.CERTIFICATE_SUMMARY_PDF;
                 certificateSummaryService.createDocument(resultTableModel.getResultList(), certificateSummaryFilePath, DateUtil.getCurrentYearAsString());
-                updateProgress(resultTableModel.getResultList().size()+2, maxProgressSteps);
+                updateProgress(resultTableModel.getResultList().size() + CertificateProgressDialogConstants.CERTIFICATE_SUMMARY_OFF_SET, maxProgressSteps);
 
                 return null;
             }
