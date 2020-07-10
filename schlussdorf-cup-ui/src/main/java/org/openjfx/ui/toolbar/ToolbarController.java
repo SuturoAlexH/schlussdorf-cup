@@ -150,7 +150,7 @@ public class ToolbarController {
                 String certificateFolderPath = folder.getAbsolutePath() + FolderConstants.CERTIFICATE_FOLDER;
                 FileUtils.forceMkdir(new File(certificateFolderPath));
 
-                updateProgress(CertificateProgressDialogConstants.INITIAL_STEP, maxProgressSteps);
+                updateProgress(CertificateProgressDialogConstants.OFF_SET, maxProgressSteps);
                 for (int i = 0; i < resultTableModel.getResultList().size(); i++) {
                     Result currentResult = resultTableModel.getResultList().get(i);
                     updateValue(currentResult);
