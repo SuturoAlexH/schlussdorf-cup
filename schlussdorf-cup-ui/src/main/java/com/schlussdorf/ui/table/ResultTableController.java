@@ -4,7 +4,7 @@ import com.google.common.io.Files;
 import com.javafxMvc.annotations.*;
 import com.javafxMvc.l10n.L10n;
 import com.schlussdorf.exception.CsvFormatException;
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import javafx.scene.control.ButtonType;
 import com.schlussdorf.model.Result;
 import com.schlussdorf.components.ErrorDialog;

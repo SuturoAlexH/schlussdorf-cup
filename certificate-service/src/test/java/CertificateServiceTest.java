@@ -1,5 +1,5 @@
 import com.jPdfUnit.asserts.PdfAssert;
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import com.schlussdorf.model.Result;
 import org.junit.After;
 import org.junit.Before;
@@ -136,8 +136,7 @@ public class CertificateServiceTest {
     @Test
     public void createDocuments_normal_appearanceIsCorrect() throws IOException, URISyntaxException {
         //arrange
-        URL resource = CertificateServiceTest.class.getResource("/referencePdfs/Feuerwehr_433.34_1.pdf");
-        File referencePdfFile = Paths.get(resource.toURI()).toFile();
+        File referencePdfFile = new File(CertificateServiceTest.class.getResource("/referencePdfs/Feuerwehr_433.34_1.pdf").getFile());
 
         ResultBuilder resultBuilder = new ResultBuilder();
         Result result = resultBuilder

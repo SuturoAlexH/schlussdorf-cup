@@ -1,5 +1,5 @@
 import com.schlussdorf.constants.PlaceHolderConstants;
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import com.schlussdorf.mapper.CertificateReplacementMapper;
 import com.schlussdorf.model.Result;
 import org.junit.Before;

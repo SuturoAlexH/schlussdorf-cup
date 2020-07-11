@@ -1,5 +1,5 @@
 import com.schlussdorf.exception.CsvFormatException;
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import com.schlussdorf.model.Result;
 import org.assertj.core.util.Lists;
 import org.junit.After;

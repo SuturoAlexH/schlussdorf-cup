@@ -1,4 +1,4 @@
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import com.schlussdorf.mapper.ResultMapper;
 import com.schlussdorf.model.Result;
 import org.junit.Before;

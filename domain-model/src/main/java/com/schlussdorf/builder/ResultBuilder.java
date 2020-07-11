@@ -1,4 +1,4 @@
-package com.schlussdorf.factory;
+package com.schlussdorf.builder;
 
 import com.schlussdorf.model.Result;
 import com.schlussdorf.service.FinalScoreCalculatorService;
@@ -22,7 +22,11 @@ public class ResultBuilder {
 
     private Double finalScore;
 
-    private FinalScoreCalculatorService finalScoreCalculatorService = new FinalScoreCalculatorService();
+    private final FinalScoreCalculatorService finalScoreCalculatorService;
+
+    public ResultBuilder(){
+        finalScoreCalculatorService = new FinalScoreCalculatorService();
+    }
 
     public ResultBuilder uuid(final UUID uuid){
         this.uuid = uuid;
@@ -50,9 +54,9 @@ public class ResultBuilder {
 
     public ResultBuilder time(final String time){
         if(time.contains(",")){
-            this.time = Double.valueOf(time.replace(",", "."));
+            this.time = Double.parseDouble(time.replace(",", "."));
         }else{
-            this.time = Double.valueOf(time);
+            this.time = Double.parseDouble(time);
         }
 
         return this;
@@ -65,10 +69,10 @@ public class ResultBuilder {
     }
 
     public ResultBuilder mistakePoints(final String mistakePoints){
-        if(mistakePoints == null || mistakePoints.isEmpty()){
+        if(mistakePoints == null || mistakePoints.trim().isEmpty()){
             this.mistakePoints = 0;
         }else{
-            this.mistakePoints = Integer.valueOf(mistakePoints);
+            this.mistakePoints = Integer.parseInt(mistakePoints);
         }
 
         return this;

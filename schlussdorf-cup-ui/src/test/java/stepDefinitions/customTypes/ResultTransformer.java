@@ -1,7 +1,7 @@
 package stepDefinitions.customTypes;
 
 import com.google.common.io.Files;
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import io.cucumber.java.DataTableType;
 import com.schlussdorf.model.Result;
 import com.schlussdorf.constants.FolderConstants;

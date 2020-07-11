@@ -1,6 +1,6 @@
 import com.itextpdf.text.DocumentException;
 import com.jPdfUnit.asserts.PdfAssert;
-import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.builder.ResultBuilder;
 import com.schlussdorf.model.Result;
 import org.junit.After;
 import org.junit.Before;
