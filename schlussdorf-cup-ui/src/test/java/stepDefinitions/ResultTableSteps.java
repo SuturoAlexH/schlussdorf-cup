@@ -1,18 +1,17 @@
 package stepDefinitions;
 
 import com.google.common.io.Files;
-import exception.CsvFormatException;
+import com.schlussdorf.exception.CsvFormatException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import model.Result;
-import org.apache.commons.io.FileUtils;
-import org.openjfx.constants.FileConstants;
-import org.openjfx.constants.FolderConstants;
-import service.LoadService;
-import service.SaveService;
-import util.TestUtil;
+import com.schlussdorf.model.Result;
+import com.schlussdorf.constants.FileConstants;
+import com.schlussdorf.constants.FolderConstants;
+import com.schlussdorf.service.LoadService;
+import com.schlussdorf.service.SaveService;
+import com.schlussdorf.util.TestUtil;
 
 import java.io.File;
 import java.io.IOException;

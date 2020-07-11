@@ -3,15 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.ff-worpswede</groupId>
+        <groupId>com.schlussdorf</groupId>
         <artifactId>schlussdorf-cup-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.openjfx</groupId>
+    <groupId>de.schlussdorf</groupId>
     <artifactId>schlussdorf-cup-ui</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-</version>
 
     <properties>
         <javafx.version>15-ea+6</javafx.version>
@@ -20,27 +20,27 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.ff-worpswede</groupId>
+            <groupId>com.schlussdorf</groupId>
             <artifactId>domain-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>de.ff-worpswede</groupId>
+            <groupId>com.schlussdorf</groupId>
             <artifactId>persistence-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>de.ff-worpswede</groupId>
+            <groupId>com.schlussdorf</groupId>
             <artifactId>certificate-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
-            <groupId>de.ff-worpswede</groupId>
+            <groupId>com.schlussdorf</groupId>
             <artifactId>certificate-summary-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
@@ -123,7 +123,7 @@
             <version>6.1.1</version>
         </dependency>
 
-        <!-- util -->
+        <!-- com.schlussdorf.util -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
@@ -133,14 +133,14 @@
 
     <build>
         <plugins>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -161,7 +161,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.openjfx.App</mainClass>
+                            <mainClass>com.schlussdorf.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -184,7 +184,7 @@
                             <jar>target/${artifactId}-${version}.jar</jar>
                             <errTitle>ui.App Err</errTitle>
                             <classPath>
-                                <mainClass>org.openjfx.App</mainClass>
+                                <mainClass>com.schlussdorf.App</mainClass>
                             </classPath>
                             <icon>src/main/resources/icons/logo.ico</icon>
                             <jre>

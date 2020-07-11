@@ -1,7 +1,6 @@
 package stepDefinitions;
 
 import com.jPdfUnit.asserts.PdfAssert;
-import exception.CsvFormatException;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -11,16 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import model.Result;
+import com.schlussdorf.model.Result;
 import org.apache.commons.io.FileUtils;
-import org.openjfx.constants.FileConstants;
-import org.openjfx.constants.FolderConstants;
-import service.LoadService;
-import util.TestUtil;
+import com.schlussdorf.service.LoadService;
+import com.schlussdorf.util.TestUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 

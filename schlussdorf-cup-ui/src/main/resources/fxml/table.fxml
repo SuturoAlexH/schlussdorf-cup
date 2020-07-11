@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="org.openjfx.ui.table.ResultTableView"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minWidth="850">
+<VBox fx:controller="com.schlussdorf.ui.table.ResultTableView" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" minWidth="850">
 <TableView fx:id="table" prefHeight="365.0" style="-fx-max-width:720px; -fx-focus-color: transparent; -fx-border-color:black; -fx-selection-bar-non-focused: -fx-selection-bar;" stylesheets="@../css/bootstrap3.css"  >
     <columns>
         <TableColumn fx:id="placeColumn" style="-fx-alignment: CENTER" prefWidth="75.0" text="%table.place" sortable="false"/>

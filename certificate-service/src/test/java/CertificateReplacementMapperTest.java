@@ -1,7 +1,7 @@
-import constants.PlaceHolderConstants;
-import factory.ResultBuilder;
-import mapper.CertificateReplacementMapper;
-import model.Result;
+import com.schlussdorf.constants.PlaceHolderConstants;
+import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.mapper.CertificateReplacementMapper;
+import com.schlussdorf.model.Result;
 import org.junit.Before;
 import org.junit.Test;
 

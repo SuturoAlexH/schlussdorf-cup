@@ -1,11 +1,11 @@
 import com.itextpdf.text.DocumentException;
 import com.jPdfUnit.asserts.PdfAssert;
-import factory.ResultBuilder;
-import model.Result;
+import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.model.Result;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import service.CertificateSummaryService;
+import com.schlussdorf.service.CertificateSummaryService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 public class CertificateSummaryServiceTest {
 

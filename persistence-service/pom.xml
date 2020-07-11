@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.ff-worpswede</groupId>
+        <groupId>com.schlussdorf</groupId>
         <artifactId>schlussdorf-cup-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>persistence-service</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <dependencies>
         <dependency>
-            <groupId>de.ff-worpswede</groupId>
+            <groupId>com.schlussdorf</groupId>
             <artifactId>domain-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <!-- csv -->

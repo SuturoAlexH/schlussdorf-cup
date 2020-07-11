@@ -1,10 +1,10 @@
 package stepDefinitions.customTypes;
 
 import com.google.common.io.Files;
-import factory.ResultBuilder;
+import com.schlussdorf.factory.ResultBuilder;
 import io.cucumber.java.DataTableType;
-import model.Result;
-import org.openjfx.constants.FolderConstants;
+import com.schlussdorf.model.Result;
+import com.schlussdorf.constants.FolderConstants;
 
 import java.io.File;
 import java.io.IOException;

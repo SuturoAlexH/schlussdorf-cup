@@ -1,6 +1,6 @@
-import factory.ResultBuilder;
-import mapper.ResultMapper;
-import model.Result;
+import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.mapper.ResultMapper;
+import com.schlussdorf.model.Result;
 import org.junit.Before;
 import org.junit.Test;
 

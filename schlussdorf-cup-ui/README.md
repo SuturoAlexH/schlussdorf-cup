@@ -14,5 +14,4 @@
    3. Copy the bin and lib folder from your java-jdk folder (C:\Program Files\Java\jdk-14.0.1) to "libs/jdk"
    
 ### build
-
-Just run the build.bat file
+mvn clean install -DskipTests the 4 modules javafx-mvc, jPdfTester, util and schlussdorf-cup. Afterwards just run the build.bat file

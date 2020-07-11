@@ -10,7 +10,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.assertj.core.api.Assertions;
-import util.TestUtil;
+import com.schlussdorf.util.TestUtil;
 
 import static org.junit.Assert.*;
 import static org.testfx.assertions.api.Assertions.assertThat;

@@ -1,18 +1,16 @@
 import com.jPdfUnit.asserts.PdfAssert;
-import factory.ResultBuilder;
-import model.Result;
+import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.model.Result;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import service.CertificateService;
+import com.schlussdorf.service.CertificateService;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 public class CertificateServiceTest {
 

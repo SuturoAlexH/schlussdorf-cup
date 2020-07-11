@@ -1,7 +1,5 @@
 import org.junit.Test;
-import service.FinalScoreCalculatorService;
-
-import java.math.BigDecimal;
+import com.schlussdorf.service.FinalScoreCalculatorService;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,11 +1,11 @@
-import exception.CsvFormatException;
-import factory.ResultBuilder;
-import model.Result;
+import com.schlussdorf.exception.CsvFormatException;
+import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.model.Result;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import service.LoadService;
-import service.SaveService;
+import com.schlussdorf.service.LoadService;
+import com.schlussdorf.service.SaveService;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             assertEquals("Header at position 2 is wrong! Expected fire_department, but actual invalid", e.getMessage());
@@ -86,7 +86,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             assertEquals("Header size is wrong! Expected 7, but actual 6", e.getMessage());
@@ -101,7 +101,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             assertEquals("Invalid row count in row 1! Expected 7, but actual 6", e.getMessage());
@@ -116,7 +116,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             assertEquals("Invalid uuid in row 1 because: Invalid UUID string: aa", e.getMessage());
@@ -131,7 +131,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             assertEquals("Invalid place in row 1 because: For input string: \"aa\"", e.getMessage());
@@ -146,7 +146,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             System.out.println(e.getMessage());
@@ -162,7 +162,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             System.out.println(e.getMessage());
@@ -178,7 +178,7 @@ public class LoadServiceTest {
         //act
         try {
             classUnderTest.load(saveFile.getAbsolutePath());
-            fail("csv format exception not thrown");
+            fail("csv format com.schlussdorf.exception not thrown");
         }catch(CsvFormatException e){
             //assert
             System.out.println(e.getMessage());

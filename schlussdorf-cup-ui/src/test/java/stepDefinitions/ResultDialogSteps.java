@@ -4,7 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import javafx.scene.image.ImageView;
-import model.Result;
+import com.schlussdorf.model.Result;
 import org.assertj.core.api.Assertions;
 
 import java.util.List;

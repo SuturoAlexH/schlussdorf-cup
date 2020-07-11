@@ -1,12 +1,12 @@
-import exception.CsvFormatException;
-import factory.ResultBuilder;
-import model.Result;
+import com.schlussdorf.exception.CsvFormatException;
+import com.schlussdorf.factory.ResultBuilder;
+import com.schlussdorf.model.Result;
 import org.assertj.core.util.Lists;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import service.LoadService;
-import service.SaveService;
+import com.schlussdorf.service.LoadService;
+import com.schlussdorf.service.SaveService;
 
 import java.io.File;
 import java.io.IOException;
