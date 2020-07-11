@@ -28,21 +28,22 @@
                             <Label fx:id="mistakePointsErrorLabel" text="%dialog.number_error" textFill="RED" visible="false" />
                      </VBox>
               </VBox>
-      
+
               <!-- right -->
               <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8">
                   <padding>
                       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
                      <Label text="%dialog.image" />
-                     <Pane fx:id="imageWrapper" maxHeight="378.0" maxWidth="890.0" prefHeight="292.0" prefWidth="890.0" style="-fx-border-color: black; -fx-max-height: 300px; -fx-max-width: 500px;">
-                            <ImageView fx:id="image" fitHeight="291.0" fitWidth="600.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+                     <Pane fx:id="imageWrapper" prefHeight="290.0" prefWidth="600.0" style="-fx-border-color: black; -fx-max-height: 300px; -fx-max-width: 500px;">
+                            <ImageView fx:id="image" fitHeight="290.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+                            <ProgressIndicator fx:id="imageProgressIndicator" visible="false" layoutX="240.0" layoutY="130.0" prefHeight="32" prefWidth="32"/>
                      </Pane>
                      <Label fx:id="imageErrorLabel" text="%dialog.image_error" textFill="RED" visible="false" />
                      <Button fx:id="selectImageButton" onAction="#chooseImage" text="%dialog.select_image" />
               </VBox>
        </SplitPane>
-   
+
        <!-- buttons -->
        <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="600.0">
            <padding>

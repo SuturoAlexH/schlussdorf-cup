@@ -1,6 +1,7 @@
 package com.schlussdorf.ui.resultDialog;
 
 import com.javafxMvc.dialog.AbstractDialogView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Pane;
 import com.javafxMvc.annotations.Inject;
 import com.javafxMvc.annotations.MVCView;
@@ -42,6 +43,8 @@ public class ResultDialogView extends AbstractDialogView {
     @FXML
     ImageView image;
 
+    @FXML
+    ProgressIndicator imageProgressIndicator;
     @FXML
     Label imageErrorLabel;
 

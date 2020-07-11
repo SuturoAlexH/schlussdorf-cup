@@ -54,18 +54,21 @@ public class ResultDialogController {
 
         model.getImage().valueProperty().addListener((observableValue, oldImageFile, newImageFile) -> {
             if(newImageFile != null) {
+                view.imageProgressIndicator.setVisible(true);
+
                 try(InputStream imageInputStream = new FileInputStream(newImageFile)){
                     view.image.setImage(new Image(imageInputStream));
                     view.imageWrapper.setStyle("-fx-border-color:none");
-                    } catch (IOException e) {
-                        LOGGER.error(e.getMessage());
-                    }
-                }else{
-                    view.image.setImage(null);
-                    System.gc();
-                    view.imageWrapper.setStyle("-fx-border-color:black");
+                } catch (IOException e) {
+                    LOGGER.error(e.getMessage());
                 }
 
+                view.imageProgressIndicator.setVisible(false);
+            }else{
+                view.image.setImage(null);
+                System.gc();
+                view.imageWrapper.setStyle("-fx-border-color:black");
+            }
         });
         view.imageErrorLabel.visibleProperty().bindBidirectional(model.getImage().isVisibleProperty());
 
