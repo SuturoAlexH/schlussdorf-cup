@@ -11,14 +11,17 @@ import java.io.File;
  */
 public class RetentionFileChooser {
 
-    private final FileChooser fileChooser = new FileChooser();
+    private final FileChooser fileChooser;
 
-    private final SimpleObjectProperty<File> lastChosenFolderProperty = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<File> lastChosenFolderProperty;
 
     /**
      * Default constructor.
      */
     public RetentionFileChooser(final FileChooser.ExtensionFilter extensionFilter){
+        fileChooser = new FileChooser();
+        lastChosenFolderProperty = new SimpleObjectProperty<>();
+
         fileChooser.initialDirectoryProperty().bindBidirectional(lastChosenFolderProperty);
         fileChooser.getExtensionFilters().setAll(extensionFilter);
     }

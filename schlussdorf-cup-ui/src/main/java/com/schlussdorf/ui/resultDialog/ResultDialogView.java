@@ -44,8 +44,6 @@ public class ResultDialogView extends AbstractDialogView {
     ImageView image;
 
     @FXML
-    ProgressIndicator imageProgressIndicator;
-    @FXML
     Label imageErrorLabel;
 
     /**

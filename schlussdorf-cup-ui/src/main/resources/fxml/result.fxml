@@ -37,7 +37,6 @@
                      <Label text="%dialog.image" />
                      <Pane fx:id="imageWrapper" prefHeight="290.0" prefWidth="600.0" style="-fx-border-color: black; -fx-max-height: 300px; -fx-max-width: 500px;">
                             <ImageView fx:id="image" fitHeight="290.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-                            <ProgressIndicator fx:id="imageProgressIndicator" visible="false" layoutX="240.0" layoutY="130.0" prefHeight="32" prefWidth="32"/>
                      </Pane>
                      <Label fx:id="imageErrorLabel" text="%dialog.image_error" textFill="RED" visible="false" />
                      <Button fx:id="selectImageButton" onAction="#chooseImage" text="%dialog.select_image" />
